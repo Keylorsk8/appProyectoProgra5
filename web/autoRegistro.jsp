@@ -13,6 +13,7 @@
         <script src="Templates/vendor/jquery/jquery.min.js"></script>
         <script src="Templates/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <%@include file="Templates/componentes/head.html" %>
+        
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     </head>
     <body>

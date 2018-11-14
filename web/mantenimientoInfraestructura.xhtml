@@ -1,18 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"         
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">  
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
            <script src="Templates/vendor/jquery/jquery.min.js"></script>
            <script src="Templates/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"></link>          
-        <title>Mantenimiento Programa</title>
+        <title>Mantenimiento Infraestructura</title>
     </h:head>
-    <h:body>    
-        <h:form>          
+    <h:body>
+          <h:form>          
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top" style="margin-bottom: 10%">
     <div class="container">       
         <a class="navbar-brand" href="menuPrincipal.jsp" ><i class="fa fa-tree"></i>DEAS UTN</a>
@@ -77,26 +76,45 @@
                 <tBody>
                     <tr>
                         <td>
-                            <h:outputText value="Codigo del Programa: "></h:outputText>
+                            <h:outputText value="Tipo de Infraestructura: "></h:outputText>
+                        </td>
+                        <td>
+                       <h:selectOneMenu value="Menu">
+                            <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>
+                            <f:selectItem itemValue="Todos" itemLabel="Todos"></f:selectItem>
+                       </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Codigo de Infraestructura: "></h:outputText>
                         </td>
                         <td>
                            <h:inputText value="Codigo"></h:inputText>
                         </td>
-                    </tr> 
-                    <tr>
-                        <td>
-                            <h:outputText value="Nombre del Curso: "></h:outputText>
-                        </td>
-                        <td>
-                           <h:inputText value="Nombre del Curso"></h:inputText>
-                        </td>
-                    </tr>
+                    </tr>                  
                     <tr>
                         <td>
                             <h:outputText value="Descripcion: "></h:outputText>
                         </td>
                         <td>
                            <h:inputText value="Descripcion"></h:inputText>
+                        </td>
+                    </tr>                                       
+                        <tr>
+                        <td>
+                            <h:outputText value="Capacidad: "></h:outputText>
+                        </td>
+                        <td>
+                           <h:inputText value="Capacidad"></h:inputText>
+                        </td>
+                    </tr>
+                        <tr>
+                        <td>
+                            <h:outputText value="Ubicacion: "></h:outputText>
+                        </td>
+                        <td>
+                           <h:inputText value="Ubicacion"></h:inputText>
                         </td>
                     </tr>
                      <tr>
@@ -115,22 +133,34 @@
                 <h:dataTable value="Lista del Bean" var="dep">
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Codigo del Programa"></h:outputText>
+                        <h:outputText value="Tipo de Infraestructura"></h:outputText>
                     </f:facet>
-                    <h:outputText value="Codigo"></h:outputText>
-                </h:column>
-                <h:column>
+                    <h:outputText value="tipo"></h:outputText>
+                </h:column> 
+                    <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Nombre del Curso"></h:outputText>
+                        <h:outputText value="Codigo de Infraestructura"></h:outputText>
                     </f:facet>
-                    <h:outputText value="Nombre del Curso"></h:outputText>
+                    <h:outputText value="Codigo de Infraestructura"></h:outputText>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Descripcion"></h:outputText>
                     </f:facet>
                     <h:outputText value="descripcion"></h:outputText>
-                </h:column>             
+                </h:column>   
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Capacidad"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="capacidad"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Ubicacion"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="ubicacion"></h:outputText>
+                </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Editar"></h:outputText>
@@ -139,10 +169,10 @@
                 </h:column>
                 </h:dataTable>
             </div>
-              <br></br>
-              <br></br>
-              <br></br>
             </center>
+              <br></br>
+              <br></br>
+              <br></br>
         </h:form>
     </h:body>
 </html>
