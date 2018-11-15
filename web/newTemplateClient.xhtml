@@ -11,14 +11,16 @@
                 <title>Hola mundo</title>
             </ui:define>
 
-            <ui:define name="Header">
-                <h:form>
-                    <div style="width: 100%;height: 50px;text-align: center;background-color: blueviolet;color: white">
-                        <h4>UTN</h4>
-                    </div>
-                </h:form>
+            <ui:define name="NavBarLinks">
+                <li class="nav-item">
+                    <a class="nav-link" href="resources/Main/mainTemplate.xhtml">Hola</a>
+                </li>
             </ui:define>
 
+            <ui:define name="Titulo">
+                HOLA MUNDO
+            </ui:define>
+                
             <ui:define name="Content">
                 <h:form>
                     <div class="container">
@@ -30,10 +32,8 @@
                 </h:form>
             </ui:define>
 
-            <ui:define name="Footer">
-                <div style="width: 100%;height: 50px;text-align: center;background-color: black;color: white">
-                    <h4>UTN</h4>
-                </div>
+            <ui:define name="FooterLinks">
+                
             </ui:define>
 
         </ui:composition>

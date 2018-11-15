@@ -7,19 +7,41 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"></link>
         <ui:insert name="Head"></ui:insert>
     </h:head>
 
     <h:body>
         <div class="row">
             <div class="col-md-12">
-                <ui:insert name="Header">
-                    <h1>Header</h1>
-                </ui:insert>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="background-color: #0d2d6d !important">
+                    <a class="navbar-brand" href="#"><i class="fa fa-tree" style="margin-right: 2px"></i>IDEAS</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarColor01">
+                        <ul class="navbar-nav mr-auto">
+                            <ui:insert name="NavBarLinks">
+                                Navbar Links
+                            </ui:insert>
+                        </ul>
+                    </div>
+                </nav>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
+                <div style="background-color: #eee">
+                    <div style="padding: 10px;color: black;font-family: fantasy">
+                        <h3>
+                            <ui:insert name="Titulo">
+                                Titulo de la Página
+                            </ui:insert>    
+                        </h3>
+                    </div>
+                </div>
+                <div style="background-color: #0d2d6d;height: 10px;width: 100%"></div>
                 <ui:insert name="Content">
                     <h1>Content</h1>
                 </ui:insert>
@@ -27,9 +49,23 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <ui:insert name="Footer">
-                    <h1>Footer</h1>
-                </ui:insert>
+                <footer class="footer">
+                    <div class="region region-footer">
+                        <div id="block-block-2" class="block block-block" style="background-color: #eee;margin-top: 30px; margin-bottom: 30px;padding: 10px;text-align: center">
+                            <div class="content">
+                                <div>
+                                    <ui:insert name="FooterLinks">
+                                        <h1>Footer Links</h1>
+                                    </ui:insert>
+                                </div>
+                                <div class="footer-about">&nbsp;</div>
+                                <div class="footer-about">
+                                    © 2018 UTN Todos los Derechos Reservados&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
 
