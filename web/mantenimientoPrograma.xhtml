@@ -4,146 +4,105 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"         
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">  
-    <h:head>
-           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-           <script src="Templates/vendor/jquery/jquery.min.js"></script>
-           <script src="Templates/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
-           <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"></link>          
-        <title>Mantenimiento Programa</title>
-    </h:head>
     <h:body>    
-        <h:form>          
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top" style="margin-bottom: 10%">
-    <div class="container">       
-        <a class="navbar-brand" href="menuPrincipal.jsp" ><i class="fa fa-tree"></i>DEAS UTN</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+        <ui:composition template="./resources/Main/mainTemplate.xhtml">
+            <ui:define name="Head">
+                <title>Mantenimiento de Programas</title>
+            </ui:define>
+            <ui:define name="NavBarLinks">
                 <li class="nav-item">
-                    <a class="nav-link" href="menuPrincipal.jsp">Inicio</a>
+                    <a class="nav-link" href="resources/Main/mainTemplate.xhtml">Hola</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tramites
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Solicitar Reservacion</a>
-                        <a class="dropdown-item" href="#">Consultar Reserciones</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Mantenimientos
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="mantenimientoPrograma.xhtml">Mantenimiento Programas</a>
-                        <a class="dropdown-item" href="mantenimientoCursos.xhtml">Mantenimiento Cursos</a>
-                        <a class="dropdown-item" href="mantenimientoInfraestructura.xhtml">Mantenimiento Infraestructura</a>
-                        <a class="dropdown-item" href="#">Mantenimiento de Personal</a>
-                        <a class="dropdown-item" href="#">Mantenimiento de Jornadas Academicas</a>                       
-                    </div>    
-                </li>
-                <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Solicitudes
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Aprobacion de Solicitudes</a>  
-                        <a class="dropdown-item" href="#">Consultar Solicitudes</a> 
-                    </div>    
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">Historial</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user-circle" style="margin-right: 2px"></i>Cuenta
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#"><i class="fa fa-sliders-h" style="margin-right: 2px"></i>Configuraciones</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><i class="fa fa-sign-out-alt" style="margin-right: 2px"></i>Salir</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-            <center>
-            <div>
-            <table>
-                <tBody>
-                    <tr>
-                        <td>
-                            <h:outputText value="Codigo del Programa: "></h:outputText>
-                        </td>
-                        <td>
-                           <h:inputText value="Codigo"></h:inputText>
-                        </td>
-                    </tr> 
-                    <tr>
-                        <td>
-                            <h:outputText value="Nombre del Curso: "></h:outputText>
-                        </td>
-                        <td>
-                           <h:inputText value="Nombre del Curso"></h:inputText>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h:outputText value="Descripcion: "></h:outputText>
-                        </td>
-                        <td>
-                           <h:inputText value="Descripcion"></h:inputText>
-                        </td>
-                    </tr>
-                     <tr>
-                        <td>
-                           <h:commandButton  value="Continuar" ></h:commandButton>
-                           <h:commandButton  value="Cancelar" ></h:commandButton>
-                        </td>
-                    </tr>
-                </tBody>               
-            </table>
-            </div>
-                <br></br>
-                <br></br>
-                <br></br>             
-              <div class="datagrid">
-                <h:dataTable value="Lista del Bean" var="dep">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Codigo del Programa"></h:outputText>
-                    </f:facet>
-                    <h:outputText value="Codigo"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Nombre del Curso"></h:outputText>
-                    </f:facet>
-                    <h:outputText value="Nombre del Curso"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Descripcion"></h:outputText>
-                    </f:facet>
-                    <h:outputText value="descripcion"></h:outputText>
-                </h:column>             
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Editar"></h:outputText>
-                    </f:facet>
-                    <h:commandLink value="Editar" ></h:commandLink>
-                </h:column>
-                </h:dataTable>
-            </div>
-              <br></br>
-              <br></br>
-              <br></br>
-            </center>
-        </h:form>
+            </ui:define>
+
+            <ui:define name="Titulo">
+                Mantenimiento de Programas
+            </ui:define>    
+            <ui:define name="Content">
+                <h:form>
+                    <center>
+                        <div class="container">
+                            <div style="width: 100%;height: 200px;background-color: lightblue;padding: 2%">              
+                                <table>
+                                    <tBody>
+                                        <tr>
+                                            <td>
+                                                <h:outputText value="Codigo del Programa: "></h:outputText>
+                                            </td>
+                                            <td>
+                                                <h:inputText value="#{beanMantPrograma.codigo}"></h:inputText>
+                                            </td>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantPrograma.mensajeCodigo}"></h:outputText>
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>
+                                                <h:outputText value="Nombre del Curso: "></h:outputText>
+                                            </td>
+                                            <td>
+                                                <h:inputText value="#{beanMantPrograma.nombreCurso}"></h:inputText>
+                                            </td>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantPrograma.mensajeNombreCurso}"></h:outputText>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h:outputText value="Descripcion: "></h:outputText>
+                                            </td>
+                                            <td>
+                                                <h:inputText value="#{beanMantPrograma.descripcion}"></h:inputText>
+                                            </td>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantPrograma.mensajeDescripcion}"></h:outputText>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h:commandButton  value="Continuar" actionListener="#{beanMantPrograma.validacion()}" ></h:commandButton>
+                                                <h:commandButton  value="Cancelar" actionListener="#{beanMantPrograma.cancelar()}"></h:commandButton>
+                                            </td>
+                                        </tr>
+                                    </tBody>               
+                                </table>
+                            </div>          
+                            <div class="datagrid">
+                                <h:dataTable value="Lista del Bean" var="dep">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Codigo del Programa"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="Codigo"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Nombre del Curso"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="Nombre del Curso"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Descripcion"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="descripcion"></h:outputText>
+                                    </h:column>             
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Editar"></h:outputText>
+                                        </f:facet>
+                                        <h:commandLink value="Editar" ></h:commandLink>
+                                    </h:column>
+                                </h:dataTable>
+                            </div>
+                        </div>
+                    </center>
+                        </h:form>    
+            </ui:define>
+            <ui:define name="FooterLinks">           
+            </ui:define>
+          
+        </ui:composition>
     </h:body>
 </html>
 
