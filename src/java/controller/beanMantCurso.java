@@ -102,7 +102,7 @@ public class beanMantCurso implements Serializable {
                 this.mensajeDescripcion = " ";
             }            
             
-            if (this.codigoPrograma > 1) {
+            if (this.codigoPrograma >= 1) {
                 this.mensajePrograma = "";
             }
             

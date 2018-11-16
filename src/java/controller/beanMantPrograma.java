@@ -68,7 +68,7 @@ public class beanMantPrograma implements Serializable {
                 this.mensajeNombreCurso = "Nombre del Curso Requerido";
             }
             
-             if (this.codigo>1) {
+             if (this.codigo >= 1) {
                 this.mensajeCodigo = " ";
             }            
             if (!this.descripcion.equals(" ")) {

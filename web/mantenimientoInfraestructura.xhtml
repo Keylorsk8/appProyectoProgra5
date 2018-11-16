@@ -29,48 +29,63 @@
                                             <h:outputText value="Tipo de Infraestructura: "></h:outputText>
                                         </td>
                                         <td>
-                                            <h:selectOneMenu value="Menu">
+                                            <h:selectOneMenu value="#{beanMantInfraestructura.tipoInfraestructura}">
                                                 <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>
                                                 <f:selectItem itemValue="Todos" itemLabel="Todos"></f:selectItem>
                                             </h:selectOneMenu>
                                         </td>
+                                        <td>
+                                            <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeTipo}"></h:outputText>
+                                            </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <h:outputText value="Codigo de Infraestructura: "></h:outputText>
                                         </td>
                                         <td>
-                                            <h:inputText value="Codigo"></h:inputText>
+                                            <h:inputText value="#{beanMantInfraestructura.codigo}"></h:inputText>
                                         </td>
+                                        <td>
+                                            <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeCodigo}"></h:outputText>
+                                            </td>
                                     </tr>                  
                                     <tr>
                                         <td>
                                             <h:outputText value="Descripcion: "></h:outputText>
                                         </td>
                                         <td>
-                                            <h:inputText value="Descripcion"></h:inputText>
+                                            <h:inputText value="#{beanMantInfraestructura.descripcion}"></h:inputText>
                                         </td>
+                                        <td>
+                                            <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeDescripcion}"></h:outputText>
+                                            </td>
                                     </tr>                                       
                                     <tr>
                                         <td>
                                             <h:outputText value="Capacidad: "></h:outputText>
                                         </td>
                                         <td>
-                                            <h:inputText value="Capacidad"></h:inputText>
+                                            <h:inputText value="#{beanMantInfraestructura.capacidad}"></h:inputText>
                                         </td>
+                                        <td>
+                                            <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeCapacidad}"></h:outputText>
+                                            </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <h:outputText value="Ubicacion: "></h:outputText>
                                         </td>
                                         <td>
-                                            <h:inputText value="Ubicacion"></h:inputText>
+                                            <h:inputText value="#{beanMantInfraestructura.ubicacion}"></h:inputText>
                                         </td>
+                                        <td>
+                                            <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeUbicacion}"></h:outputText>
+                                            </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h:commandButton class="btn btn-success" value="Continuar" ></h:commandButton>
-                                            <h:commandButton class="btn btn-success" value="Cancelar" ></h:commandButton>
+                                            <h:commandButton class="btn btn-success" value="Continuar" actionListener="#{beanMantInfraestructura.validacion()}" ></h:commandButton>
+                                            <h:commandButton class="btn btn-success" value="Cancelar" actionListener="#{beanMantInfraestructura.cancelar()}" ></h:commandButton>
                                         </td>
                                     </tr>
                                 </tBody>               
