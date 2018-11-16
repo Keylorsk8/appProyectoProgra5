@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -21,7 +22,7 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarColor01">
-                        <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav flex-row w-100">
                             <ui:insert name="NavBarLinks">
                                 Navbar Links
                             </ui:insert>
@@ -33,7 +34,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div style="background-color: #eee">
-                    <div style="padding: 10px;color: black;font-family: fantasy">
+                    <div style="padding: 5px;color: black;font-family: fantasy">
                         <h3>
                             <ui:insert name="Titulo">
                                 Titulo de la Página
@@ -41,33 +42,32 @@
                         </h3>
                     </div>
                 </div>
-                <div style="background-color: #0d2d6d;height: 10px;width: 100%"></div>
+                <div style="background-color: #0d2d6d;height: 20px;width: 100%"></div>
                 <ui:insert name="Content">
                     <h1>Content</h1>
                 </ui:insert>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <footer class="footer">
-                    <div class="region region-footer">
-                        <div id="block-block-2" class="block block-block" style="background-color: #eee;margin-top: 30px; margin-bottom: 30px;padding: 10px;text-align: center">
-                            <div class="content">
-                                <div>
-                                    <ui:insert name="FooterLinks">
-                                        <h1>Footer Links</h1>
-                                    </ui:insert>
-                                </div>
-                                <div class="footer-about">&nbsp;</div>
-                                <div class="footer-about">
-                                    © 2018 UTN Todos los Derechos Reservados&nbsp;
-                                </div>
-                            </div>
+
+
+        <footer class="footer" style="position: absolute;bottom: 0;width: 100%;margin-bottom: 0">
+            <div class="region region-footer">
+                <div id="block-block-2" class="block block-block" style="background-color: #eee;margin-top: 30px;padding: 10px;text-align: center">
+                    <div class="content">
+                        <div>
+                            <ui:insert name="FooterLinks">
+                                <h1>Footer Links</h1>
+                            </ui:insert>
+                        </div>
+                        <div class="footer-about">&nbsp;</div>
+                        <div class="footer-about">
+                            © 2018 UTN Todos los Derechos Reservados&nbsp;
                         </div>
                     </div>
-                </footer>
+                </div>
             </div>
-        </div>
+        </footer>
+
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

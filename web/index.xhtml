@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./resources/Main/mainTemplate.xhtml">
+
+            <ui:define name="Head">
+                <title>DEAS - Inicio de Sesión</title>
+            </ui:define>
+
+            <ui:define name="NavBarLinks">
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="#">Registrarse</a>
+                </li>
+            </ui:define>
+
+            <ui:define name="Titulo">
+                <img src="resources/Images/logo.png" style="height: 75px"></img>
+                Inicio de Sesión
+            </ui:define>
+
+            <ui:define name="Content">
+                <div class="container" style="height: 25vh">
+                    <table class="table" style="margin-top: 15vh;margin-right: auto;margin-left: auto">
+                        <tr>
+                            <td>
+                                <label>Usuario: </label>
+                            </td>
+                            <td>
+                                <p:inputText class="form-control"></p:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Contraseña: </label>
+                            </td>
+                            <td>
+                                <p:password class="form-control"></p:password>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center"> 
+                                <h:commandButton class="btn btn-primary" value="Iniciar Sesión"></h:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </ui:define>
+
+            <ui:define name="FooterLinks">
+                FooterLinks
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
