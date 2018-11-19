@@ -22,15 +22,15 @@
                 <h:form>
                     <center>
                         <div class="container">
-                            <div style="width: 100%;height: 200px;background-color: lightblue;padding: 2%">              
-                                <table>
+                            <div style="width: auto;height: auto;padding: 2%">              
+                                <table class="table">
                                     <tBody>
                                         <tr>
                                             <td>
                                                 <h:outputText value="Codigo del Programa: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantPrograma.codigo}"></h:inputText>
+                                                <h:inputText class="form-control" value="#{beanMantPrograma.codigo}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantPrograma.mensajeCodigo}"></h:outputText>
@@ -41,7 +41,7 @@
                                                 <h:outputText value="Nombre del Curso: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantPrograma.nombreCurso}"></h:inputText>
+                                                <h:inputText class="form-control" value="#{beanMantPrograma.nombreCurso}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantPrograma.mensajeNombreCurso}"></h:outputText>
@@ -52,56 +52,53 @@
                                                 <h:outputText value="Descripcion: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantPrograma.descripcion}"></h:inputText>
+                                                <h:inputText class="form-control" value="#{beanMantPrograma.descripcion}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantPrograma.mensajeDescripcion}"></h:outputText>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <h:commandButton  value="Continuar" actionListener="#{beanMantPrograma.validacion()}" ></h:commandButton>
-                                                <h:commandButton  value="Cancelar" actionListener="#{beanMantPrograma.cancelar()}"></h:commandButton>
+                                        <tr style="text-align: center">
+                                            <td colspan="2">
+                                                <h:commandButton  value="Añadir" class="btn btn-success btn-block" style="margin-left: 25%;width: 50%" actionListener="#{beanMantPrograma.validacion()}" ></h:commandButton>
+                                                <h:commandButton  value="Cancelar" class="btn btn-danger btn-block" style="margin-left: 25%;width: 50%" actionListener="#{beanMantPrograma.cancelar()}"></h:commandButton>
                                             </td>
                                         </tr>
                                     </tBody>               
-                                </table>
-                            </div>          
-                            <div class="datagrid">
-                                <h:dataTable value="Lista del Bean" var="dep">
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Codigo del Programa"></h:outputText>
-                                        </f:facet>
-                                        <h:outputText value="Codigo"></h:outputText>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Nombre del Curso"></h:outputText>
-                                        </f:facet>
-                                        <h:outputText value="Nombre del Curso"></h:outputText>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Descripcion"></h:outputText>
-                                        </f:facet>
-                                        <h:outputText value="descripcion"></h:outputText>
-                                    </h:column>             
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Editar"></h:outputText>
-                                        </f:facet>
-                                        <h:commandLink value="Editar" ></h:commandLink>
-                                    </h:column>
-                                </h:dataTable>
+                                </table>        
+                                <div class="table table-striped table-hover table-dark">
+                                    <h:dataTable value="Lista del Bean" var="dep">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Codigo del Programa"></h:outputText>
+                                            </f:facet>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nombre del Curso"></h:outputText>
+                                            </f:facet>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Descripcion"></h:outputText>
+                                            </f:facet>
+                                        </h:column>             
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Editar"></h:outputText>
+                                            </f:facet>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
                             </div>
+                            <h:outputText value="No hay Programas Disponibles!"></h:outputText>
                         </div>
                     </center>
-                        </h:form>    
+                </h:form>    
             </ui:define>
             <ui:define name="FooterLinks">           
             </ui:define>
-          
+
         </ui:composition>
     </h:body>
 </html>

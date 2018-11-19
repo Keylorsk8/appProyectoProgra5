@@ -29,8 +29,8 @@ public class beanMantOferta implements Serializable {
     String curso=" ";
     Date fechaInicio=null;
     Date fechaFinal=null;
-    int horaInicio=0;
-    int horaFinal=0;
+    int horaInicio;
+    int horaFinal;
     
     String mensajeInfra;
     String mensajePersonal;

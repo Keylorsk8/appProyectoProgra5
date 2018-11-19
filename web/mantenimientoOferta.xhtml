@@ -3,9 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Mantenimiento de Oferta</title>
     </h:head>
     <h:body>
         <ui:composition template="./resources/Main/mainTemplate.xhtml">
@@ -25,58 +26,58 @@
                 <h:form>   
                     <center>
                         <div class="container">
-                            <div style="width: 100%;height: 200px;background-color: lightblue;padding: 2%">
-                                <table>
+                            <div style="width: auto;height: auto;padding: 2%">
+                                <table class="table">
                                     <tBody>
                                         <tr>
-                                        <td>
-                                            <h:outputText value="Tipo de Infraestructura: "></h:outputText>
-                                        </td>
-                                        <td>
-                                            <h:selectOneMenu value="#{beanMantOferta.infraestructura}">
-                                                <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>                               
-                                            </h:selectOneMenu>
-                                        </td>
-                                        <td>
-                                            <h:outputText style="color: red" value="#{beanMantOferta.mensajeInfra}"></h:outputText>
+                                            <td>
+                                                <h:outputText value="Tipo de Infraestructura: "></h:outputText>
                                             </td>
-                                    </tr>
-                                         <tr>
-                                        <td>
-                                            <h:outputText value="Personal: "></h:outputText>
-                                        </td>
-                                        <td>
-                                            <h:selectOneMenu value="#{beanMantOferta.personal}">
-                                                <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>                               
-                                            </h:selectOneMenu>
-                                        </td>
-                                        <td>
-                                            <h:outputText style="color: red" value="#{beanMantOferta.mensajePersonal}"></h:outputText>
+                                            <td>
+                                                <h:selectOneMenu class="form-control" value="#{beanMantOferta.infraestructura}">
+                                                    <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>                               
+                                                </h:selectOneMenu>
                                             </td>
-                                    </tr>
-                                         <tr>
-                                        <td>
-                                            <h:outputText value="Cursos: "></h:outputText>
-                                        </td>
-                                        <td>
-                                            <h:selectOneMenu value="#{beanMantOferta.curso}">
-                                                <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>                               
-                                            </h:selectOneMenu>
-                                        </td>
-                                        <td>
-                                            <h:outputText style="color: red" value="#{beanMantOferta.mensajeCurso}"></h:outputText>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantOferta.mensajeInfra}"></h:outputText>
                                             </td>
-                                    </tr>
-                                        
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h:outputText value="Personal: "></h:outputText>
+                                            </td>
+                                            <td>
+                                                <h:selectOneMenu class="form-control" value="#{beanMantOferta.personal}">
+                                                    <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>                               
+                                                </h:selectOneMenu>
+                                            </td>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantOferta.mensajePersonal}"></h:outputText>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h:outputText value="Cursos: "></h:outputText>
+                                            </td>
+                                            <td>
+                                                <h:selectOneMenu class="form-control" value="#{beanMantOferta.curso}">
+                                                    <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>                               
+                                                </h:selectOneMenu>
+                                            </td>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantOferta.mensajeCurso}"></h:outputText>
+                                            </td>
+                                        </tr>
+
                                         <tr>
                                             <td>
                                                 <h:outputText value="Fecha de Inicio: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantOferta.fechaInicio}"></h:inputText>
+                                                <p:inputText type="date" class="form-control" value="#{beanMantOferta.fechaInicio}"></p:inputText>
                                             </td>
-                                             <td>
-                                                 <h:outputText style="color: red" value="#{beanMantOferta.mensajefechaIncio}"></h:outputText>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantOferta.mensajefechaIncio}"></h:outputText>
                                             </td>
                                         </tr>                  
                                         <tr>
@@ -84,99 +85,89 @@
                                                 <h:outputText value="Fecha final: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantOferta.fechaFinal}"></h:inputText>
+                                                <p:inputText type="date" class="form-control" value="#{beanMantOferta.fechaFinal}"></p:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantOferta.mensajefechaFinal}"></h:outputText>
                                             </td>
-                                         
+
                                         </tr>   
                                         <tr>
                                             <td>
                                                 <h:outputText value="Hora inicio: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantOferta.horaInicio}"></h:inputText>
+                                                <h:inputText class="form-control" value="#{beanMantOferta.horaInicio}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantOferta.mensajehoraInicio}"></h:outputText>
                                             </td>
-                                         
                                         </tr> 
                                         <tr>
                                             <td>
                                                 <h:outputText value="Hora Final: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantOferta.horaFinal}"></h:inputText>
+                                                <h:inputText class="form-control" value="#{beanMantOferta.horaFinal}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantOferta.horaInicio}"></h:outputText>
                                             </td>
-                                         
                                         </tr>  
-                                     
-                                        <tr>
-                                            <td>
-                                                <h:commandButton class="btn btn-success"  value="Continuar" actionListener="#{beanMantOferta.validacion()}" ></h:commandButton>
-                                                <h:commandButton  value="Cancelar" actionListener="#{beanMantOferta.cancelar()}" ></h:commandButton>
+                                        <tr style="text-align: center">
+                                            <td colspan="2">
+                                                <h:commandButton class="btn btn-success btn-block" style="width: 50%;margin-left: 25%"  value="Añadir" actionListener="#{beanMantOferta.validacion()}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-danger btn-block" style="width: 50%;margin-left: 25%" value="Cancelar" actionListener="#{beanMantOferta.cancelar()}" ></h:commandButton>
                                             </td>
                                         </tr>
                                     </tBody>               
                                 </table>
                             </div>
-                        </div>          
-                        <div class="datagrid">
-                            <h:dataTable value="Lista del Bean" var="dep">
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Tipo de Infraestructura"></h:outputText>
-                                    </f:facet>
-                                    <h:outputText value="Codigo"></h:outputText>
-                                </h:column>           
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Personal"></h:outputText>
-                                    </f:facet>
-                                    <h:outputText value="descripcion"></h:outputText>
-                                </h:column>   
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Cursos"></h:outputText>
-                                    </f:facet>
-                                    <h:outputText value="codigo"></h:outputText>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Fecha inicio"></h:outputText>
-                                    </f:facet>
-                                    <h:outputText value="codigo"></h:outputText>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Fecha final"></h:outputText>
-                                    </f:facet>
-                                    <h:outputText value="codigo"></h:outputText>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Hora inicio"></h:outputText>
-                                    </f:facet>
-                                    <h:outputText value="codigo"></h:outputText>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Hora final"></h:outputText>
-                                    </f:facet>
-                                    <h:outputText value="codigo"></h:outputText>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Editar"></h:outputText>
-                                    </f:facet>
-                                    <h:commandLink value="Editar" ></h:commandLink>
-                                </h:column>
-                            </h:dataTable>
+                            <div class="datagrid">
+                                <h:dataTable class="table table-striped table-hover table-dark" value="Lista del Bean" var="dep">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Tipo de Infraestructura"></h:outputText>
+                                        </f:facet>
+                                    </h:column>           
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Personal"></h:outputText>
+                                        </f:facet>
+                                    </h:column>   
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Cursos"></h:outputText>
+                                        </f:facet>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Fecha inicio"></h:outputText>
+                                        </f:facet>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Fecha final"></h:outputText>
+                                        </f:facet>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Hora inicio"></h:outputText>
+                                        </f:facet>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Hora final"></h:outputText>
+                                        </f:facet>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Editar"></h:outputText>
+                                        </f:facet>
+                                    </h:column>
+                                </h:dataTable>
+                            </div>
+                            <h:outputText value="No hay Ofertas Disponibles!"></h:outputText>
                         </div>
                     </center>
                 </h:form>
@@ -186,4 +177,3 @@
         </ui:composition>
     </h:body>
 </html>
-
