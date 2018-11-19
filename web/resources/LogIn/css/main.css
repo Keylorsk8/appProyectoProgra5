@@ -184,7 +184,7 @@ iframe {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 177px 130px 33px 95px;
+    padding: 20px 80px 20px 80px;
 }
 
 /*------------------------------------------------------------------
@@ -457,13 +457,9 @@ iframe {
     }
 }
 
-.ui-widget .ui-widget {
-    display: none
-}
-
 .ui-selectmanycheckbox label, .ui-selectoneradio label{
     color: #0074D9;
-    padding: 5px 15px 5px 38px;
+    padding: 5px 15px 5px 5px;
     display: inline-block;
     position: relative;
     font-size: 1em;
@@ -471,26 +467,3 @@ iframe {
     cursor: pointer;
 }
 
-.ui-selectmanycheckbox label, .ui-selectoneradio label:hover{
-    background: rgba(0,116,217,0.1)
-}
-
-.ui-selectmanycheckbox label, .ui-selectoneradio label:before{
-    content: "";
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    background: none;
-    border: 3px solid #0074D9;
-    border-radius: 50%;
-    position: absolute;
-    left: 15px;
-    margin-top: 0.4vh;
-}
-
-.ui-selectmanycheckbox:checked + .ui-selectmanycheckbox label{
-    padding: 15px;
-    background-color: #0074D9;
-    border-radius: 2px;
-    color:white;
-}

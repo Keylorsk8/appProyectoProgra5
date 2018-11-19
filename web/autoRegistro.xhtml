@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Auto Registro - DEAS</title>
+        <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>	
+        <link rel="icon" type="image/png" href="resources/LogIn/images/icons/favicon.ico"/>
+        <link rel="stylesheet" type="text/css" href="resources/LogIn/vendor/bootstrap/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"></link>
+        <link rel="stylesheet" type="text/css" href="resources/LogIn/vendor/animate/animate.css"></link>	
+        <link rel="stylesheet" type="text/css" href="resources/LogIn/vendor/css-hamburgers/hamburgers.min.css"></link>
+        <link rel="stylesheet" type="text/css" href="resources/LogIn/vendor/select2/select2.min.css"></link>
+        <link rel="stylesheet" type="text/css" href="resources/LogIn/css/util.css"></link>
+        <link rel="stylesheet" type="text/css" href="resources/LogIn/css/main.css"></link>
+    </h:head>
+    <h:body>
+        <div class="limiter">
+            <div class="container-login100" style="height: auto !important">
+                <div class="wrap-login100" style="margin-left: auto;margin-right: auto;height: auto;max-height: 1000px">
+                    <form class="login100-form validate-form" style="width: 75%;margin-left: auto;margin-right: auto !important">
+                        <span class="login100-form-title">
+                            Auto Registro DEAS
+                        </span>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="wrap-input100 validate-input" data-validate = "El número de Cédula es Requerido">
+                                    <p:inputText class="input100" placeholder="Número de Identificación"></p:inputText>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-address-card" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Un nombre es requerido">
+                                    <p:inputText type="text" class="input100" placeholder="Nombre"></p:inputText>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Apellido Requerido">
+                                    <p:inputText type="text" class="input100" placeholder="Primer Apellido"></p:inputText>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Apellido Requerido">
+                                    <p:inputText type="text" class="input100" placeholder="Segundo Apellido"></p:inputText>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "La Contraseña es Requerida">
+                                    <p:password class="input100" placeholder="Contraseña"></p:password>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "La Contraseña es Requerida">
+                                    <p:password class="input100" placeholder="Repetir Contraseña"></p:password>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="wrap-input100 validate-input" data-validate = "Un Email válido es Requerido">
+                                    <p:inputText type="Email" class="input100" placeholder="Email"></p:inputText>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-at" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Provincia Requerida">
+                                    <h:selectOneMenu class="input100">
+                                        <f:selectItem itemLabel="--Provincia--"></f:selectItem>
+                                    </h:selectOneMenu>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-globe-americas" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Cantón Requerido">
+                                    <h:selectOneMenu class="input100">
+                                        <f:selectItem itemLabel="--Cantón--"></f:selectItem>
+                                    </h:selectOneMenu>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-globe-americas" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Distrito Requerido">
+                                    <h:selectOneMenu class="input100">
+                                        <f:selectItem itemLabel="--Distrito--"></f:selectItem>
+                                    </h:selectOneMenu>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-globe-americas" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Otras Señas son requeridas">
+                                    <p:inputText type="text" class="input100" placeholder="Otras Señas"></p:inputText>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-globe-americas" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Fecha de Naciemiento Requerida">
+                                    <p:inputText type="date" class="input100"></p:inputText>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-globe-americas" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-login100-form-btn">
+                            <h:commandButton class="login100-form-btn" value="Solicitar Cuenta"></h:commandButton>
+                        </div>
+                        <div class="text-center p-t-136" >
+                            <p>Ya tienes cuenta?</p>
+                            <a class="txt2" href="#">
+                                Iniciar Sesión
+                                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="resources/LogIn/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="resources/LogIn/vendor/bootstrap/js/popper.js"></script>
+        <script src="resources/LogIn/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="resources/LogIn/vendor/select2/select2.min.js"></script>
+        <script src="resources/LogIn/vendor/tilt/tilt.jquery.min.js"></script>
+        <script >
+            $('.js-tilt').tilt({
+                scale: 1.1
+            });
+        </script>
+        <script src="js/main.js"></script>
+    </h:body>
+</html>
+
