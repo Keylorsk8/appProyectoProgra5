@@ -53,16 +53,39 @@ public class beanMantOferta implements Serializable {
         }
         if(this.fechaFinal == null){
             this.setMensajefechaFinal("Debe se seleccionar la fecha final");
-        }
-        
+        }       
         if(this.fechaInicio == null){
-            this.setMensajefechaFinal("Debe se seleccionar la fecha inicio");
+            this.setMensajefechaIncio("Debe se seleccionar la fecha inicio");
         }
         if(this.horaInicio == 0){
             this.setMensajehoraInicio("Debe de seleccionar la hora inicio");
         }
         if(this.horaFinal==0){
             this.setMensajehoraFinal("Debe de seleccionar la hora final ");
+        }
+        
+        
+           if(!this.infraestructura.equals("--Seleccione--")){
+            this.setMensajeInfra(" ");
+        }
+        if(!this.personal.equals("--Seleccione--")){
+            this.setMensajePersonal(" ");
+        }
+        if(!this.curso.equals("--Seleccione--")){
+            this.setMensajeCurso(" ");
+        }
+        if(this.fechaFinal != null){
+            this.setMensajefechaFinal(" ");
+        }
+        
+        if(this.fechaInicio != null){
+            this.setMensajefechaIncio(" ");
+        }
+        if(this.horaInicio >= 1){
+            this.setMensajehoraInicio(" ");
+        }
+        if(this.horaFinal>= 1){
+            this.setMensajehoraFinal(" ");
         }
         
         
