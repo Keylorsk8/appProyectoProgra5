@@ -11,9 +11,52 @@
                 <title>Mantenimiento de Cursos</title>
             </ui:define>
             <ui:define name="NavBarLinks">
-                <li class="nav-item">
-                    <a class="nav-link" href="resources/Main/mainTemplate.xhtml">Hola</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Solicitar
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="">Reservación</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Cancelación de Reservación</a>
+                    </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Mantenimientos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="mantenimientoCursos.xhtml">Cursos</a>
+                        <a class="dropdown-item" href="mantenimientoInfraestructura.xhtml">Infraestructura</a>
+                        <a class="dropdown-item" href="mantenimientoOferta.xhtml">Oferta</a>
+                        <a class="dropdown-item" href="mantenimientoPeriodo.xhtml">Periodo</a>
+                        <a class="dropdown-item" href="mantenimientoPrograma.xhtml">Programa</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Solicitudes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="mantenimientoCoordinacionSolicitudes.xhtml">Reservación</a>
+                        <a class="dropdown-item" href="mantenimientoCoordinacionNuevosUsuarios.xhtml">Cuentas</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Historial</a>
+                </li>
+                <ul class="navbar-nav ml-auto" style="margin-right: 4%">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle" style="margin-right: 2px"></i>Cuenta
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="ConfiguracionPerfil.xhtml"><i class="fa fa-cog" style="margin-right: 2px"></i>Configuración</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i class="fa fa-power-off" style="margin-right: 2px"></i>Salir</a>
+                        </div>
+                    </li>
+                </ul>
             </ui:define>
             <ui:define name="Titulo">
                 Mantenimiento de Cursos
