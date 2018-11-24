@@ -13,7 +13,7 @@
     </h:head>
 
     <h:body>
-        <div class="row">
+        <div class="container-fluid" style="margin-bottom: 100px;">
             <div class="col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" style="background-color: #0d2d6d !important">
                     <a class="navbar-brand" href="MenuPrincipal.xhtml" style="margin-left: 20px"><i class="fa fa-tree" style="margin-right: 2px"></i>DEAS</a>
@@ -21,7 +21,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarColor01">
-                        <ul class="navbar-nav flex-row w-100">
+                        <ul class="navbar-nav flex-row w-100" style="color: white !important">
                             <ui:insert name="NavBarLinks">
                                 Navbar Links
                             </ui:insert>
@@ -30,44 +30,21 @@
                 </nav>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div style="background-color: #eee;margin-top: 55px">
-                    <div style="padding: 2px;color: black;">
-                        <h3 style="margin-left: 20px">
-                            <ui:insert name="Titulo">
-                                Titulo de la Página
-                            </ui:insert>    
-                        </h3>
-                    </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <ui:insert name="Content">
+                        <h1>Content</h1>
+                    </ui:insert>
+                    <div style="margin-bottom: 100px"></div>
                 </div>
-                <div style="background-color: #0d2d6d;height: 20px;width: 100%"></div>
-                <ui:insert name="Content">
-                    <h1>Content</h1>
-                </ui:insert>
-                <div style="margin-bottom: 100px"></div>
             </div>
         </div>
-
-
-        <footer class="footer" style="bottom: 0;width: 100%;margin-bottom: 0;position: fixed">
-            <div class="region region-footer">
-                <div id="block-block-2" class="block block-block" style="color:white;background-color: lightslategrey;margin-top: 30px;padding: 10px;text-align: center">
-                    <div class="content">
-                        <div>
-                            <ui:insert name="FooterLinks">
-                                
-                            </ui:insert>
-                        </div>
-                        <div class="footer-about">&nbsp;</div>
-                        <div class="footer-about">
-                            <h4>© 2018 UTN Todos los Derechos Reservados</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <footer class="footer fixed-bottom" style="width: 100%;margin-bottom: 0;height: 35px;text-align: center">
+            <nav class="navbar" style="background-color: rgba(94,94,94,0.4) !important;">
+                <h5 style="color: white;margin-left: 45%">DEAS UTN, 2018</h5>
+            </nav>
         </footer>
-
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

@@ -65,10 +65,9 @@
                 Mantenimiento de Oferta
             </ui:define>
             <ui:define name="Content">
-
-                <h:form>   
-                    <center>
-                        <div class="container">
+                <h:form>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div style="width: auto;height: auto;padding: 2%">
                                 <table class="table">
                                     <tBody>
@@ -166,6 +165,8 @@
                                     </tBody>               
                                 </table>
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="datagrid">
                                 <h:dataTable class="table table-striped table-hover table-dark" value="Lista del Bean" var="dep">
                                     <h:column>
@@ -212,9 +213,10 @@
                             </div>
                             <h:outputText value="No hay Ofertas Disponibles!"></h:outputText>
                         </div>
-                    </center>
+                    </div>
                 </h:form>
             </ui:define>
+
             <ui:define name="FooterLinks">
             </ui:define>
         </ui:composition>
