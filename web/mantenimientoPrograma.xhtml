@@ -63,9 +63,9 @@
             </ui:define>    
             <ui:define name="Content">
                 <h:form>
-                    <center>
-                        <div class="container">
-                            <div style="width: auto;height: auto;padding: 2%">              
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div style="width: auto;height: auto;padding: 2%">            
                                 <table class="table">
                                     <tBody>
                                         <tr>
@@ -108,9 +108,13 @@
                                             </td>
                                         </tr>
                                     </tBody>               
-                                </table>        
-                                <div class="table table-striped table-hover table-dark">
-                                    <h:dataTable value="Lista del Bean" var="dep">
+                                </table>  
+                                   </div>
+                        </div>
+                                <div class="col-md-6">
+                            <div class="datagrid">
+                                
+                                    <h:dataTable class="table table-striped table-hover table-dark" value="Lista del Bean" var="dep">
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Codigo del Programa"></h:outputText>
@@ -133,10 +137,11 @@
                                         </h:column>
                                     </h:dataTable>
                                 </div>
-                            </div>
+                           
                             <h:outputText value="No hay Programas Disponibles!"></h:outputText>
+                             </div>
                         </div>
-                    </center>
+                    
                 </h:form>    
             </ui:define>
             <ui:define name="FooterLinks">           
