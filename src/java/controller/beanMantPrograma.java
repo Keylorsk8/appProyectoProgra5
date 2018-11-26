@@ -5,9 +5,18 @@
  */
 package controller;
 
+import DAO.AccesoDatos;
+import DAO.SNMPExceptions;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import javax.naming.NamingException;
+import model.curso;
+import model.programa;
+import model.programaDB;
 
 /**
  *
@@ -22,18 +31,119 @@ public class beanMantPrograma implements Serializable {
      */
     public beanMantPrograma() {
     }
-    int codigo=0;
+    String codigo=" ";
     String nombreCurso=" ";
     String descripcion=" ";
      String mensajeCodigo = " ";
     String mensajeDescripcion = " ";
     String mensajeNombreCurso = " ";
+    String mensajeAlerta=" ";
+    
+    
+    LinkedList<programa> listaTablaPrograma = new LinkedList<programa>();
 
-    public int getCodigo() {
+    public LinkedList<programa> getListaTablaPrograma() throws SNMPExceptions, SQLException {
+        return listaTablaPrograma;
+    }
+
+    public void setListaTablaPrograma(LinkedList<programa> listaTablaPrograma) {
+        this.listaTablaPrograma = listaTablaPrograma;
+    }
+    
+     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+        programaDB cDB = new programaDB();
+        programa cur = new programa();
+        
+        cur.setNombreCurso(this.getNombreCurso());
+        cur.setDescripcion(this.getDescripcion());
+        cur.setCodigoPrograma(this.getCodigo());
+        
+        cDB.actualizarPrograma(cur);
+       
+        this.FiltroTabla();
+    }
+     
+     public void FiltroTabla() throws SNMPExceptions, SQLException{
+        LinkedList<programa> listaD = new LinkedList<programa>();
+        programaDB dDB = new programaDB();
+
+            
+        listaD = dDB.consultarPrograma();
+        if(listaD.size() > 0){
+           this.setListaTablaPrograma(listaD); 
+        }
+        else{
+            if(listaD.size() == 0){
+                this.setMensajeAlerta("No existe informacion de curso");
+            }
+        
+        }
+    }
+      public void ingresarRegistro()throws 
+     SNMPExceptions, SQLException, NamingException, ClassNotFoundException{    
+        programaDB dDB = new programaDB();
+        programa depUTN = new programa();
+        
+        try{
+          if (this.codigo.equals(" ")) {
+                this.mensajeCodigo = "Codigo Requerido ";
+            }            
+            if (this.descripcion.equals(" ")) {
+                this.mensajeDescripcion = "Descripcion Requerido ";
+            }            
+            
+            if (this.nombreCurso.equals(" ")) {
+                this.mensajeNombreCurso = "Nombre del Curso Requerido";
+            }
+            
+             if (!this.codigo.equals(" ")) {
+                this.mensajeCodigo = " ";
+            }            
+            if (!this.descripcion.equals(" ")) {
+                this.mensajeDescripcion = " ";
+            }            
+            
+            if (!this.nombreCurso.equals(" ")) {
+                this.mensajeNombreCurso = " ";
+            }
+            
+          
+          depUTN.setNombreCurso(nombreCurso);
+          depUTN.setCodigoPrograma(codigo);
+          depUTN.setDescripcion(descripcion);
+          
+          dDB.mvRegitroPrograma(depUTN);
+      mensajeAlerta="Realizado con exito";
+        }
+        catch(Exception e){            
+        }
+        
+    }
+    
+    public void asignaDatos(programa dep){       
+        this.setNombreCurso(dep.getNombreCurso());
+        this.setDescripcion(dep.getDescripcion());
+        this.setCodigo(dep.getCodigoPrograma());
+    }
+    
+  
+     
+
+    public String getMensajeAlerta() {
+        return mensajeAlerta;
+    }
+
+    public void setMensajeAlerta(String mensajeAlerta) {
+        this.mensajeAlerta = mensajeAlerta;
+    }
+    
+    
+
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -57,7 +167,7 @@ public class beanMantPrograma implements Serializable {
      public void validacion() {
         
         try {
-            if (this.codigo==0) {
+            if (this.codigo.equals(" ")) {
                 this.mensajeCodigo = "Codigo Requerido ";
             }            
             if (this.descripcion.equals(" ")) {
@@ -68,7 +178,7 @@ public class beanMantPrograma implements Serializable {
                 this.mensajeNombreCurso = "Nombre del Curso Requerido";
             }
             
-             if (this.codigo >= 1) {
+             if (!this.codigo.equals(" ")) {
                 this.mensajeCodigo = " ";
             }            
             if (!this.descripcion.equals(" ")) {
@@ -89,7 +199,7 @@ public class beanMantPrograma implements Serializable {
     }
     
     public void cancelar() {
-        this.setCodigo(0);
+        this.setCodigo(" ");
         this.setDescripcion(" ");
         this.setNombreCurso(" ");
        this.setMensajeCodigo(" ");

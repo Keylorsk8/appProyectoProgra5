@@ -97,7 +97,9 @@
                                                 <h:outputText value="Codigo de Programa: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText class="form-control" value="#{beanMantCurso.codigoPrograma}"></h:inputText>
+                                                <h:selectOneMenu class="form-control" value="#{beanMantCurso.codigoPrograma}">                                          
+                                                    <f:selectItems value="#{beanMantCurso.listaCand}"></f:selectItems>
+                                                </h:selectOneMenu>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantCurso.mensajePrograma}"></h:outputText>
@@ -107,6 +109,7 @@
                                             <td colspan="2" style="text-align: center">
                                                 <h:commandButton class="btn btn-success btn-block" style="width: 50%;margin-left:25%" value="Añadir" actionListener="#{beanMantCurso.ingresarRegistro()}" ></h:commandButton>
                                                 <h:commandButton class="btn btn-danger btn-block" style="width: 50%;margin-left: 25%" value="Cancelar" actionListener="#{beanMantCurso.cancelar()}" ></h:commandButton>
+                                                <h:commandButton  value="Consultar" class="btn btn-success btn-block" style="margin-left: 25%;width: 50%" actionListener="#{beanMantCurso.FiltroTabla}" ></h:commandButton>
                                             </td>
                                         </tr>
                                     </tBody>               
@@ -132,7 +135,7 @@
                                         <f:facet name="header">
                                             <h:outputText value="Codigo del Programa"></h:outputText>
                                         </f:facet>
-                                        <h:outputText value="#{dep.descripcion}"></h:outputText>
+                                        <h:outputText value="#{dep.codigoPrograma}"></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
@@ -142,7 +145,7 @@
                                     </h:column>
                                 </h:dataTable>
                             </div>
-                                <h:outputText value="No hay Cursos Disponibles!"></h:outputText>                            
+                                                        
                             </div>
                         </div>
                    

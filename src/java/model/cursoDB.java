@@ -113,4 +113,6 @@ public class cursoDB {
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }
+    
+    
 }

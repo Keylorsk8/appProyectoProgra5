@@ -10,10 +10,14 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedList;
+import javax.faces.model.SelectItem;
 import javax.naming.NamingException;
 import model.curso;
 import model.cursoDB;
+import model.programa;
+import model.programaDB;
 
 /**
  *
@@ -37,8 +41,16 @@ public class beanMantCurso implements Serializable {
     String mensajesetMensajeAct=" ";
     String mensajeAlerta=" ";
     
+    private LinkedList<SelectItem> listaCandCmb= new LinkedList(); 
     
-    
+     public LinkedList<SelectItem> getListaCandCmb()
+            throws SNMPExceptions, SQLException {
+        return listaCandCmb;
+    }
+
+    public void setListaCandCmb(LinkedList<SelectItem> listaCandCmb) {
+        this.listaCandCmb = listaCandCmb;
+    }
     
     LinkedList<curso> listaTablaCurso = new LinkedList<curso>();
 
@@ -131,6 +143,33 @@ public class beanMantCurso implements Serializable {
         this.setDescripcion(dep.getDescripcion());
         this.setCodigoPrograma(dep.getDescripcion());
     }
+    
+     public LinkedList<SelectItem> getListaCand() throws SNMPExceptions, SQLException {
+        String idPrograma="";
+        String nombreCurso=" "; 
+        LinkedList<programa> lista= new LinkedList<programa>();
+        programaDB cDB= new programaDB();
+        lista=cDB.moTodo();
+        LinkedList resultList= new LinkedList();
+        resultList.add(new SelectItem(0,"Seleccione Programa"));
+        for(Iterator iter= lista.iterator();
+                iter.hasNext();){
+            
+            programa cand= (programa)iter.next();
+            idPrograma=cand.getCodigoPrograma();
+            nombreCurso=cand.getNombreCurso();
+            resultList.add(new SelectItem(idPrograma,nombreCurso));
+            
+        }
+        return resultList;
+    }
+
+    public void setListaCand(LinkedList<SelectItem> listaCand) {
+        this.listaCandCmb = listaCand;
+    }
+    
+    
+    
 
     public String getMensajesetMensajeAct() {
         return mensajesetMensajeAct;

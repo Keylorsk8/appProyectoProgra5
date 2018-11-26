@@ -103,8 +103,9 @@
                                         </tr>
                                         <tr style="text-align: center">
                                             <td colspan="2">
-                                                <h:commandButton  value="Añadir" class="btn btn-success btn-block" style="margin-left: 25%;width: 50%" actionListener="#{beanMantPrograma.validacion()}" ></h:commandButton>
+                                                <h:commandButton  value="Añadir" class="btn btn-success btn-block" style="margin-left: 25%;width: 50%" actionListener="#{beanMantPrograma.ingresarRegistro()}" ></h:commandButton>
                                                 <h:commandButton  value="Cancelar" class="btn btn-danger btn-block" style="margin-left: 25%;width: 50%" actionListener="#{beanMantPrograma.cancelar()}"></h:commandButton>
+                                                <h:commandButton  value="Consultar" class="btn btn-success btn-block" style="margin-left: 25%;width: 50%" actionListener="#{beanMantPrograma.FiltroTabla}" ></h:commandButton>
                                             </td>
                                         </tr>
                                     </tBody>               
@@ -114,31 +115,33 @@
                                 <div class="col-md-6">
                             <div class="datagrid">
                                 
-                                    <h:dataTable class="table table-striped table-hover table-dark" value="Lista del Bean" var="dep">
+                                <h:dataTable class="table table-striped table-hover table-dark" value="#{beanMantPrograma.listaTablaPrograma}" var="dep">
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Codigo del Programa"></h:outputText>
                                             </f:facet>
+                                            <h:outputText value="#{dep.codigoPrograma}"></h:outputText>
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Nombre del Curso"></h:outputText>
                                             </f:facet>
+                                            <h:outputText value="#{dep.nombreCurso}"></h:outputText>
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Descripcion"></h:outputText>
                                             </f:facet>
+                                            <h:outputText value="#{dep.descripcion}"></h:outputText>
                                         </h:column>             
                                         <h:column>
                                             <f:facet name="header">
                                                 <h:outputText value="Editar"></h:outputText>
                                             </f:facet>
+                                            <h:commandLink value="Editar" actionListener="#{beanMantPrograma.asignaDatos(dep)}"></h:commandLink>
                                         </h:column>
                                     </h:dataTable>
-                                </div>
-                           
-                            <h:outputText value="No hay Programas Disponibles!"></h:outputText>
+                                </div>                        
                              </div>
                         </div>
                     
