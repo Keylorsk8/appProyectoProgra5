@@ -97,9 +97,7 @@
                                                 <h:outputText value="Codigo de Programa: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:selectOneMenu class="form-control" value="#{beanMantCurso.codigoPrograma}">
-                                                    <f:selectItem itemLabel="--Seleccionar--"></f:selectItem>
-                                                </h:selectOneMenu>
+                                                <h:inputText class="form-control" value="#{beanMantCurso.codigoPrograma}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantCurso.mensajePrograma}"></h:outputText>
@@ -107,7 +105,7 @@
                                         </tr>
                                         <tr style="text-align: center">
                                             <td colspan="2" style="text-align: center">
-                                                <h:commandButton class="btn btn-success btn-block" style="width: 50%;margin-left:25%" value="Añadir" actionListener="#{beanMantCurso.validacion()}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-success btn-block" style="width: 50%;margin-left:25%" value="Añadir" actionListener="#{beanMantCurso.ingresarRegistro()}" ></h:commandButton>
                                                 <h:commandButton class="btn btn-danger btn-block" style="width: 50%;margin-left: 25%" value="Cancelar" actionListener="#{beanMantCurso.cancelar()}" ></h:commandButton>
                                             </td>
                                         </tr>
@@ -117,26 +115,30 @@
                         </div>
                             <div class="col-md-6">
                             <div class="datagrid">
-                                <h:dataTable class="table table-hover table-striped table-dark" value="Lista del Bean" var="dep" >
+                                <h:dataTable class="table table-hover table-striped table-dark" value="#{beanMantCurso.listaTablaCurso}" var="dep" >
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Codigo del Curso"></h:outputText>
                                         </f:facet>
+                                        <h:outputText value="#{dep.codigoCurso}"></h:outputText>
                                     </h:column>           
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Descripcion"></h:outputText>
                                         </f:facet>
+                                        <h:outputText value="#{dep.descripcion}"></h:outputText>
                                     </h:column>   
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Codigo del Programa"></h:outputText>
                                         </f:facet>
+                                        <h:outputText value="#{dep.descripcion}"></h:outputText>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Editar"></h:outputText>
                                         </f:facet>
+                                        <h:commandLink value="Editar" actionListener="#{beanMantCurso.asignaDatos(dep)}"></h:commandLink>
                                     </h:column>
                                 </h:dataTable>
                             </div>

@@ -10,27 +10,27 @@ package model;
  * @author Pablo
  */
 public class curso {
-    private int codigoCurso;
+    private String codigoCurso;
     private String descripcion;
-    private int codigoPrograma;
+    private String codigoPrograma;
     
     public curso(){
-     this.codigoCurso=0;
+     this.codigoCurso=" ";
      this.descripcion=" ";
-     this.codigoPrograma=0;
+     this.codigoPrograma=" ";
     }
     
-    public curso(int codigoCursop,String descripcionp,int codigoProgramap){
+    public curso(String codigoCursop,String descripcionp,String codigoProgramap){
         this.codigoCurso=codigoCursop;
         this.descripcion=descripcionp;
         this.codigoPrograma=codigoProgramap;
     }
 
-    public int getCodigoCurso() {
+    public String getCodigoCurso() {
         return codigoCurso;
     }
 
-    public void setCodigoCurso(int codigoCurso) {
+    public void setCodigoCurso(String codigoCurso) {
         this.codigoCurso = codigoCurso;
     }
 
@@ -42,11 +42,11 @@ public class curso {
         this.descripcion = descripcion;
     }
 
-    public int getCodigoPrograma() {
+    public String getCodigoPrograma() {
         return codigoPrograma;
     }
 
-    public void setCodigoPrograma(int codigoPrograma) {
+    public void setCodigoPrograma(String codigoPrograma) {
         this.codigoPrograma = codigoPrograma;
     }
     
