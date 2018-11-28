@@ -28,69 +28,64 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="wrap-input100 validate-input" data-validate = "El número de Cédula es Requerido">
-                                    <p:inputText class="input100" placeholder="Número de Identificación"></p:inputText>
+                                    <p:inputText class="input100" value="#{beanAutoRegistro.identificacion}" placeholder="Número de Identificación"></p:inputText>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-address-card" aria-hidden="true"></i>
                                     </span>
                                 </div>
                                 <div class="wrap-input100 validate-input" data-validate = "Un nombre es requerido">
-                                    <p:inputText type="text" class="input100" placeholder="Nombre"></p:inputText>
+                                    <p:inputText type="text" value="#{beanAutoRegistro.nombre}" class="input100" placeholder="Nombre"></p:inputText>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
                                 </div>
                                 <div class="wrap-input100 validate-input" data-validate = "Apellido Requerido">
-                                    <p:inputText type="text" class="input100" placeholder="Primer Apellido"></p:inputText>
+                                    <p:inputText type="text" value="#{beanAutoRegistro.apellido1}" class="input100" placeholder="Primer Apellido"></p:inputText>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
                                 </div>
                                 <div class="wrap-input100 validate-input" data-validate = "Apellido Requerido">
-                                    <p:inputText type="text" class="input100" placeholder="Segundo Apellido"></p:inputText>
+                                    <p:inputText type="text" value="#{beanAutoRegistro.apellido2}" class="input100" placeholder="Segundo Apellido"></p:inputText>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <div class="wrap-input100 validate-input" data-validate = "La Contraseña es Requerida">
-                                    <p:password class="input100" placeholder="Contraseña"></p:password>
+                                <div class="wrap-input100 validate-input" data-validate = "Fecha de Naciemiento Requerida">
+                                    <p:inputText value="#{beanAutoRegistro.fechaNaciemiento}" type="date" class="input100"></p:inputText>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
-                                        <i class="fa fa-lock" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <div class="wrap-input100 validate-input" data-validate = "La Contraseña es Requerida">
-                                    <p:password class="input100" placeholder="Repetir Contraseña"></p:password>
-                                    <span class="focus-input100"></span>
-                                    <span class="symbol-input100">
-                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                        <i class="fa fa-globe-americas" aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="wrap-input100 validate-input" data-validate = "Un Email válido es Requerido">
-                                    <p:inputText type="Email" class="input100" placeholder="Email"></p:inputText>
+                                    <p:inputText type="Email" value="#{beanAutoRegistro.email}" class="input100" placeholder="Email"></p:inputText>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-at" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <div class="wrap-input100 validate-input" data-validate = "Provincia Requerida">
-                                    <h:selectOneMenu class="input100">
-                                        <f:selectItem itemLabel="--Provincia--"></f:selectItem>
+                                <div id="cmbProvincias" class="wrap-input100 validate-input" data-validate = "Provincia Requerida">
+                                    <h:selectOneMenu class="input100" value="#{beanAutoRegistro.provincia}">
+                                        <f:selectItems value="#{beanAutoRegistro.provincias}"></f:selectItems>
+                                        <f:ajax execute="cmbProvincias" render="cmbCantones" listener="#{beanAutoRegistro.actualizar}"></f:ajax>
                                     </h:selectOneMenu>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-globe-americas" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <div class="wrap-input100 validate-input" data-validate = "Cantón Requerido">
-                                    <h:selectOneMenu class="input100">
-                                        <f:selectItem itemLabel="--Cantón--"></f:selectItem>
+                                <div  class="wrap-input100 validate-input" data-validate = "Cantón Requerido">
+                                    <h:selectOneMenu id="cmbCantones" class="input100" value="#{beanAutoRegistro.canton}">
+                                        <f:selectItems value="#{beanAutoRegistro.cantones}"></f:selectItems>
+                                        <f:ajax execute="cmbCantones" render="cmbProvincias"></f:ajax>
                                     </h:selectOneMenu>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
@@ -98,8 +93,8 @@
                                     </span>
                                 </div>
                                 <div class="wrap-input100 validate-input" data-validate = "Distrito Requerido">
-                                    <h:selectOneMenu class="input100">
-                                        <f:selectItem itemLabel="--Distrito--"></f:selectItem>
+                                    <h:selectOneMenu class="input100" value="#{beanAutoRegistro.distrito}">
+                                        <f:selectItems value="#{beanAutoRegistro.distritos}"></f:selectItems>
                                     </h:selectOneMenu>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
@@ -107,14 +102,7 @@
                                     </span>
                                 </div>
                                 <div class="wrap-input100 validate-input" data-validate = "Otras Señas son requeridas">
-                                    <p:inputText type="text" class="input100" placeholder="Otras Señas"></p:inputText>
-                                    <span class="focus-input100"></span>
-                                    <span class="symbol-input100">
-                                        <i class="fa fa-globe-americas" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                                <div class="wrap-input100 validate-input" data-validate = "Fecha de Naciemiento Requerida">
-                                    <p:inputText type="date" class="input100"></p:inputText>
+                                    <p:inputText type="text" value="#{beanAutoRegistro.otrasSenias}" class="input100" placeholder="Otras Señas"></p:inputText>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-globe-americas" aria-hidden="true"></i>
@@ -126,9 +114,9 @@
                         <div class="container-login100-form-btn">
                             <h:commandButton class="login100-form-btn" value="Solicitar Cuenta"></h:commandButton>
                         </div>
-                        <div class="text-center p-t-136" >
+                        <div class="text-center" >
                             <p>Ya tienes cuenta?</p>
-                            <a class="txt2" href="index.xhtml">
+                            <a href="index.xhtml">
                                 Iniciar Sesión
                                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                             </a>

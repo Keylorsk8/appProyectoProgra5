@@ -138,8 +138,5 @@ public class beanMantPeriodo implements Serializable {
 
     public void setMensajedescripcion(String mensajedescripcion) {
         this.mensajedescripcion = mensajedescripcion;
-    }
-    
-    
-        
+    } 
 }

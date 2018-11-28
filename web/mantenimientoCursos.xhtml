@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> 
 
     <h:body>    
         <ui:composition template="./resources/Main/mainTemplate.xhtml">
@@ -58,13 +59,9 @@
                     </li>
                 </ul>
             </ui:define>
-            <ui:define name="Titulo">
-                Mantenimiento de Cursos
-            </ui:define>
             <ui:define name="Content">
                 <h:form>   
-                    
-                        <div class="row">
+                    <div class="row">
                         <div class="col-md-6">
                             <div style="width: auto;height: auto;padding: 2%">
                                 <table class="table">
@@ -74,7 +71,7 @@
                                                 <h:outputText value="Codigo del Curso: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText class="form-control" value="#{beanMantCurso.codigo}"></h:inputText>
+                                                <h:inputText value="#{beanMantCurso.codigo}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantCurso.mensajeCodigo}"></h:outputText>
@@ -85,7 +82,7 @@
                                                 <h:outputText value="Descripcion: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText class="form-control" value="#{beanMantCurso.descripcion}"></h:inputText>
+                                                <h:inputText value="#{beanMantCurso.descripcion}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantCurso.mensajeDescripcion}"></h:outputText>
@@ -97,7 +94,7 @@
                                                 <h:outputText value="Codigo de Programa: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:selectOneMenu class="form-control" value="#{beanMantCurso.codigoPrograma}">                                          
+                                                <h:selectOneMenu value="#{beanMantCurso.codigoPrograma}">                                          
                                                     <f:selectItems value="#{beanMantCurso.listaCand}"></f:selectItems>
                                                 </h:selectOneMenu>
                                             </td>
@@ -107,48 +104,31 @@
                                         </tr>
                                         <tr style="text-align: center">
                                             <td colspan="2" style="text-align: center">
-                                                <h:commandButton class="btn btn-success btn-block" style="width: 50%;margin-left:25%" value="Añadir" actionListener="#{beanMantCurso.ingresarRegistro()}" ></h:commandButton>
-                                                <h:commandButton class="btn btn-danger btn-block" style="width: 50%;margin-left: 25%" value="Cancelar" actionListener="#{beanMantCurso.cancelar()}" ></h:commandButton>
-                                                <h:commandButton  value="Consultar" class="btn btn-success btn-block" style="margin-left: 25%;width: 50%" actionListener="#{beanMantCurso.FiltroTabla}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Añadir" actionListener="#{beanMantCurso.ingresarRegistro()}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Cancelar" actionListener="#{beanMantCurso.cancelar()}" ></h:commandButton>
                                             </td>
                                         </tr>
                                     </tBody>               
                                 </table>
                             </div>
                         </div>
-                            <div class="col-md-6">
-                            <div class="datagrid">
-                                <h:dataTable class="table table-hover table-striped table-dark" value="#{beanMantCurso.listaTablaCurso}" var="dep" >
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Codigo del Curso"></h:outputText>
-                                        </f:facet>
-                                        <h:outputText value="#{dep.codigoCurso}"></h:outputText>
-                                    </h:column>           
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Descripcion"></h:outputText>
-                                        </f:facet>
-                                        <h:outputText value="#{dep.descripcion}"></h:outputText>
-                                    </h:column>   
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Codigo del Programa"></h:outputText>
-                                        </f:facet>
-                                        <h:outputText value="#{dep.codigoPrograma}"></h:outputText>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Editar"></h:outputText>
-                                        </f:facet>
-                                        <h:commandLink value="Editar" actionListener="#{beanMantCurso.asignaDatos(dep)}"></h:commandLink>
-                                    </h:column>
-                                </h:dataTable>
-                            </div>
-                                                        
-                            </div>
+                        <div class="col-md-6">
+                            <p:dataTable value="#{beanMantCurso.listaTablaCurso}" var="dep" >
+                                <p:column headerText="Código Curso">
+                                    <h:outputText value="#{dep.codigoCurso}"></h:outputText>
+                                </p:column>           
+                                <p:column headerText="Descripción">
+                                    <h:outputText value="#{dep.descripcion}"></h:outputText>
+                                </p:column>   
+                                <p:column headerText="Código Programa">
+                                    <h:outputText value="#{dep.codigoPrograma}"></h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <h:commandLink value="Editar" actionListener="#{beanMantCurso.asignaDatos(dep)}"></h:commandLink>
+                                </p:column>
+                            </p:dataTable>
                         </div>
-                   
+                    </div>
                 </h:form>
             </ui:define>
             <ui:define name="FooterLinks">
