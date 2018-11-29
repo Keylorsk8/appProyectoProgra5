@@ -16,35 +16,37 @@ import javax.naming.NamingException;
  *
  * @author KeylorSk8
  */
-public class CantonDB {
-    
-    public LinkedList<Canton> seleccionarCantones(int idProvincia) throws SNMPExceptions{
+public class BarrioDB {
+    public LinkedList<Barrio> seleccionarBarrios(int IdCanton,int IdProvincia,int IdDistrito) throws SNMPExceptions{
         String select = "";
-        LinkedList<Canton> listaCantones = new LinkedList<>();
+        LinkedList<Barrio> listaBarrio = new LinkedList<>();
         try {
             //Se instancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();
 
             //Se crea la sentencia de búsqueda
-            select = "SELECT * FROM Canton where IdProvincia =";
-            select += idProvincia;
+            select = "SELECT * FROM Barrio where IdProvincia=";
+            select += IdProvincia + " and IdCanton =" + IdCanton + " and IdDistrito =" + IdDistrito;
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los proyectos   
             while (rsPA.next()) {
                 int id = rsPA.getInt("Id");
-                String nombre = rsPA.getString("nombre");       
-                Canton can = new Canton(id,idProvincia,nombre);
-                listaCantones.add(can);
+                String nombre = rsPA.getString("Descripcion");
+               
+                Barrio ba = new Barrio(id, IdCanton, IdDistrito, IdDistrito, nombre);
+                listaBarrio.add(ba);
             }
             rsPA.close();
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
         } catch (SNMPExceptions | ClassNotFoundException | NamingException e) {
+            System.out.println(e.getMessage());
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
         } finally {
         }
-        return listaCantones;
+        return listaBarrio;
     }
 }
