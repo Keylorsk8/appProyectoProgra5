@@ -38,7 +38,7 @@ public class beanMantPrograma implements Serializable {
     private String fechaIngreso;
     private String codFunEdito;
     private String fechaEdito;
-    private String estadoValidador;
+     String estadoValidador;
     
     String mensajeId = " ";
     String mensajeNombre=" ";
@@ -68,11 +68,9 @@ public class beanMantPrograma implements Serializable {
         
         cur.setNombre(this.getNombre());
         cur.setId(this.getId());
-        cur.setCodFunEdito(this.getCodFunEdito());
+
         cur.setEstado(this.isEstado());
-        cur.setCodFunIngreso(this.getCodFunIngreso());
-        cur.setFechaEdito(this.getFechaEdito());
-        cur.setFechaIngreso(this.getFechaIngreso());
+
         
         cDB.actualizarPrograma(cur);
     }
@@ -89,21 +87,11 @@ public class beanMantPrograma implements Serializable {
             if(this.nombre.equals(" ")){
                 this.mensajeNombre= "Nombre es Requerido";
             }
-            if(this.codFunIngreso.equals(" ")){
-                this.mensajeCodFunIngreso= "CodFunIngreso es Requerido";
-            }
-            if(this.fechaEdito == null){
-                this.mensajeFechaEdito= "FechaEdito es Requerido";
-            }
-            if(this.fechaIngreso == null){
-                this.mensajefechaIngreso= "FechaIngreso es Requerido";
-            }
-            if(this.codFunEdito.equals(" ")){
-                this.mensajeCodFunEdito= "ConFunEdito es Requerido";
-            }
-            if(this.estadoValidador.equals("--Seleccione--")){
+             if(this.estadoValidador.equals("--Seleccione--")){
                 this.mensajeEstado = "Estado Requerdido";
             }
+           
+           
             
             if(this.id>1){
                 this.mensajeId = " "; 
@@ -111,18 +99,7 @@ public class beanMantPrograma implements Serializable {
             if(!this.nombre.equals(" ")){
                 this.mensajeNombre= " ";
             }
-            if(!this.codFunIngreso.equals(" ")){
-                this.mensajeCodFunIngreso= " ";
-            }
-            if(this.fechaEdito != null){
-                this.mensajeFechaEdito= " ";
-            }
-            if(this.fechaIngreso != null){
-                this.mensajefechaIngreso= " ";
-            }
-            if(!this.codFunEdito.equals(" ")){
-                this.mensajeCodFunEdito= " ";
-            }
+           
             if(!this.estadoValidador.equals("--Seleccione--")){
                 this.mensajeEstado = " ";
                 if(this.estadoValidador.equals("Inactivo")){
@@ -133,15 +110,11 @@ public class beanMantPrograma implements Serializable {
                 }
             }
             depUTN.setId(id);
-            depUTN.setCodFunEdito(codFunEdito);
-            depUTN.setCodFunIngreso(codFunIngreso);
             depUTN.setEstado(estado);
-            depUTN.setFechaEdito(fechaEdito);
-            depUTN.setFechaIngreso(fechaIngreso);
             depUTN.setNombre(nombre);
 
             dDB.mvRegitroPrograma(depUTN);
-            
+            actualizaDatos();
             mensajeAlerta = "Realizado con exito";
         } catch (Exception e) {
         }
@@ -150,11 +123,9 @@ public class beanMantPrograma implements Serializable {
 
     public void asignaDatos(programa dep) {
            setId(dep.getId());
-            setCodFunEdito(dep.getCodFunEdito());
-            setCodFunIngreso(dep.getCodFunIngreso());
+
            setEstado(dep.isEstado());
-            setFechaEdito(dep.getFechaEdito());
-            setFechaIngreso(dep.getFechaIngreso());
+
             setNombre(dep.getNombre());
     }
 

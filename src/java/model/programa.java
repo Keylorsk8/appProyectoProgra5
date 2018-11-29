@@ -31,14 +31,11 @@ public class programa {
        this.fechaEdito=null;  
     }
     
-    public programa(int idp,String nombrep,boolean estadop,String codFunIngresop,String fechaIngresop,String codFunEditop,String fechaEditop){
+    public programa(int idp,String nombrep,boolean estadop){
        this.id=idp;
        this.nombre=nombrep;
        this.estado=estadop;
-       this.codFunIngreso=codFunIngresop;
-       this.fechaIngreso=fechaIngresop;
-       this.codFunEdito=codFunEditop;
-       this.fechaEdito=fechaEditop;
+
     }
 
     public int getId() {

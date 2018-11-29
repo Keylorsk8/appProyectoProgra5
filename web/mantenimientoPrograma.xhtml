@@ -92,7 +92,7 @@
                                                 <h:outputText value="Estado: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:selectOneMenu class="form-control" value="#{beanMantPrograma.estado}">
+                                                <h:selectOneMenu class="form-control" value="#{beanMantPrograma.estadoValidador}">
                                                     <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>
                                                     <f:selectItem itemValue="Inactivo" itemLabel="Inactivo"></f:selectItem>
                                                     <f:selectItem itemValue="Activo" itemLabel="Activo"></f:selectItem>
@@ -102,50 +102,7 @@
                                                 <h:outputText style="color: red" value="#{beanMantPrograma.mensajeEstado}"></h:outputText>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <h:outputText value="CodFunIngreso: "></h:outputText>
-                                            </td>
-                                            <td>
-                                                <h:inputText value="#{beanMantPrograma.codFunIngreso}"></h:inputText>
-                                            </td>
-                                            <td>
-                                                <h:outputText style="color: red" value="#{beanMantPrograma.mensajeCodFunIngreso}"></h:outputText>
-                                            </td>
-                                        </tr>   
-                                        <tr>
-                                            <td>
-                                                <h:outputText value="FechaIngreso: "></h:outputText>
-                                            </td>
-                                            <td>
-                                                <p:inputText type="date" value="#{beanMantPrograma.fechaIngreso}"></p:inputText>
-                                            </td>
-                                            <td>
-                                                <h:outputText style="color: red" value="#{beanMantPrograma.mensajefechaIngreso}"></h:outputText>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h:outputText value="CodFunEdito: "></h:outputText>
-                                            </td>
-                                            <td>
-                                                <h:inputText value="#{beanMantPrograma.codFunEdito}"></h:inputText>
-                                            </td>
-                                            <td>
-                                                <h:outputText style="color: red" value="#{beanMantPrograma.mensajeCodFunEdito}"></h:outputText>
-                                            </td>
-                                        </tr>   
-                                        <tr>
-                                            <td>
-                                                <h:outputText value="FechaEdito: "></h:outputText>
-                                            </td>
-                                            <td>
-                                                <p:inputText type="date" value="#{beanMantPrograma.fechaEdito}"></p:inputText>
-                                            </td>
-                                            <td>
-                                                <h:outputText style="color: red" value="#{beanMantPrograma.mensajeFechaEdito}"></h:outputText>
-                                            </td>
-                                        </tr>
+                                       
                                         <tr style="text-align: center">
                                             <td colspan="2">
                                                 <h:commandButton  value="Añadir" class="btn btn-outline-dark" style="margin:2px;width: 25%" actionListener="#{beanMantPrograma.ingresarRegistro()}" ></h:commandButton>
@@ -166,19 +123,7 @@
                                 </p:column>
                                 <p:column headerText="Estado">
                                     <h:outputText value="#{dep.estado}"></h:outputText>
-                                </p:column>  
-                                <p:column headerText="CodFunIngreso">
-                                    <h:outputText value="#{dep.codFunIngreso}"></h:outputText>
-                                </p:column>
-                                <p:column headerText="FechaIngreso">
-                                    <h:outputText value="#{dep.fechaIngreso}"></h:outputText>
-                                </p:column>
-                                <p:column headerText="CodFunEdito">
-                                    <h:outputText value="#{dep.codFunEdito}"></h:outputText>
-                                </p:column>
-                                <p:column headerText="FechaEdito">
-                                    <h:outputText value="#{dep.fechaEdito}"></h:outputText>
-                                </p:column>
+                                </p:column>                                
                                 <p:column>
                                     <h:commandLink value="Editar" actionListener="#{beanMantPrograma.asignaDatos(dep)}"></h:commandLink>
                                 </p:column>

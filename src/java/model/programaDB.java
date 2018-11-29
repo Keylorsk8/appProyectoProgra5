@@ -45,7 +45,7 @@ public class programaDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Nombre,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito from Programa";
+                    = "SELECT Id,Nombre,Estado from Programa";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -54,12 +54,9 @@ public class programaDB {
                 int id= rsPA.getInt("Id");
                 String nombre = rsPA.getString("Nombre");
                 boolean estado = rsPA.getBoolean("Estado");
-                String codFunIngreso = rsPA.getString("CodFunIngreso");
-                String fechaIngreso = rsPA.getString("FechaIngreso");
-                String codFunEdito = rsPA.getString("CodFunEdito");
-                String fechaEdito = rsPA.getString("FechaEdito");
+
                 
-                programa dep = new programa(id,nombre,estado,codFunIngreso,fechaIngreso,codFunEdito,fechaEdito);
+                programa dep = new programa(id,nombre,estado);
                 listaPrograma.add(dep);
             }
             rsPA.close();
@@ -84,14 +81,14 @@ public class programaDB {
             programa cur = new programa();
             cur = pvoPrograma;
             strSQL
-                    = "INSERT  INTO Programa(Id,Nombre,Estado,CodFunIngreso,FechaIngreso= getDate(),CodFunEdito,FechaEdito=getdate()) VALUES('"
+                    = "INSERT  INTO Programa(Id,Nombre,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito) VALUES("
                     + cur.getId()+ ",'"
                     + cur.getNombre()+ "',"
                     + cur.isEstado()+ ",'"
-                    + cur.getCodFunIngreso()+ "','"
-                    + cur.getFechaIngreso() + "','"
-                    + cur.getCodFunEdito() + "','"
-                    + cur.getFechaEdito()+ "')";
+                    + "1"+ "',"
+                    + "GetDate()" + ",'"
+                    + "1" + "',"
+                    + "GetDate()"+ ")";
 //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL/*, sqlBitacora*/);
         } catch (SQLException e) {
@@ -137,7 +134,7 @@ public class programaDB {
             
             //Se crea la sentencia de Busqueda
             select=
-                    "Select Id,Nombre,Estado,CodFunIngreso,FechaIngreso = getDate(),CodFunEdito,FechaEdito=getDate() from Programa";
+                    "Select Id,Nombre,Estado from Programa";
             //se ejecuta la sentencia sql
             ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
             //se llama el array con los proyectos
@@ -146,14 +143,11 @@ public class programaDB {
                 int id= rsPA.getInt("Id");
                 String nombre = rsPA.getString("Nombre");
                 boolean estado = rsPA.getBoolean("Estado");
-                String codFunIngreso = rsPA.getString("CodFunIngreso");
-                String fechaIngreso = rsPA.getString("FechaIngreso");
-                String codFunEdito = rsPA.getString("CodFunEdito");
-                String fechaEdito = rsPA.getString("FechaEdito");
+
                
                 
                 //se construye el objeto.
-                programa perCandidato= new programa(id,nombre,estado,codFunIngreso,fechaIngreso,codFunEdito,fechaEdito);
+                programa perCandidato= new programa(id,nombre,estado);
                 
                 listaCand.add(perCandidato);
             }
