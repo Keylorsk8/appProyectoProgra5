@@ -84,7 +84,7 @@ public class programaDB {
                     = "INSERT  INTO Programa(Id,Nombre,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito) VALUES("
                     + cur.getId()+ ",'"
                     + cur.getNombre()+ "',"
-                    + cur.isEstado()+ ",'"
+                    + cur.isEstado()?1:0 + ",'"
                     + "1"+ "',"
                     + "GetDate()" + ",'"
                     + "1" + "',"
