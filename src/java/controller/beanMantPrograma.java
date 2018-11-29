@@ -10,6 +10,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.naming.NamingException;
@@ -36,6 +38,7 @@ public class beanMantPrograma implements Serializable {
     private Date fechaIngreso;
     private String codFunEdito;
     private Date fechaEdito;
+    private String estadoValidador;
     
     String mensajeId = " ";
     String mensajeNombre=" ";
@@ -45,6 +48,8 @@ public class beanMantPrograma implements Serializable {
     String mensajeCodFunEdito=" ";
     String mensajeFechaEdito=" ";
     String mensajeAlerta = " ";
+    
+    DateFormat dateFormat= new SimpleDateFormat("dd/MM/yyyy");
 
     LinkedList<programa> listaTablaPrograma = new LinkedList<>();
 
@@ -65,9 +70,9 @@ public class beanMantPrograma implements Serializable {
         cur.setId(this.getId());
         cur.setCodFunEdito(this.getCodFunEdito());
         cur.setEstado(this.isEstado());
-        cur.setCodFunIngreso(this.codFunIngreso);
-        cur.setFechaEdito(this.fechaEdito);
-        cur.setFechaIngreso(this.fechaIngreso);
+        cur.setCodFunIngreso(this.getCodFunIngreso());
+        cur.setFechaEdito(this.getFechaEdito());
+        cur.setFechaIngreso(this.getFechaIngreso());
         
         cDB.actualizarPrograma(cur);
     }
@@ -96,7 +101,7 @@ public class beanMantPrograma implements Serializable {
             if(this.codFunEdito.equals(" ")){
                 this.mensajeCodFunEdito= "ConFunEdito es Requerido";
             }
-            if(this.estado==false){
+            if(this.estadoValidador.equals("--Seleccione--")){
                 this.mensajeEstado = "Estado Requerdido";
             }
             
@@ -118,11 +123,15 @@ public class beanMantPrograma implements Serializable {
             if(!this.codFunEdito.equals(" ")){
                 this.mensajeCodFunEdito= " ";
             }
-            if(this.estado==true){
+            if(!this.estadoValidador.equals("--Seleccione--")){
                 this.mensajeEstado = " ";
+                if(this.estadoValidador.equals("Inactivo")){
+                    this.estado=false;
+                }
+                else{
+                    this.estado=true;
+                }
             }
-            
-
             depUTN.setId(id);
             depUTN.setCodFunEdito(codFunEdito);
             depUTN.setCodFunIngreso(codFunIngreso);
@@ -132,6 +141,7 @@ public class beanMantPrograma implements Serializable {
             depUTN.setNombre(nombre);
 
             dDB.mvRegitroPrograma(depUTN);
+            
             mensajeAlerta = "Realizado con exito";
         } catch (Exception e) {
         }
@@ -146,7 +156,6 @@ public class beanMantPrograma implements Serializable {
             setFechaEdito(dep.getFechaEdito());
             setFechaIngreso(dep.getFechaIngreso());
             setNombre(dep.getNombre());
-
     }
 
     public String getMensajeAlerta() {
@@ -289,6 +298,16 @@ public class beanMantPrograma implements Serializable {
     public void setMensajeFechaEdito(String mensajeFechaEdito) {
         this.mensajeFechaEdito = mensajeFechaEdito;
     }
+
+    public String getEstadoValidador() {
+        return estadoValidador;
+    }
+
+    public void setEstadoValidador(String estadoValidador) {
+        this.estadoValidador = estadoValidador;
+    }
+
+ 
 
     
     

@@ -124,23 +124,64 @@ public class beanMantCurso implements Serializable {
          if(this.id==0){
              this.mensajeId="Id es Requerido";
          }
-         if(this.codFunEdito.equals(" ")){
-             this.mensajeCodFunEdito="CodFunEdito es Requerido";
-         }
-         if(this.codFunIngreso.equals(" ")){
-             this.mensajeCodFunIngreso="CodFunIngreso es Requerido";
-         }
          if(this.descripcion.equals(" ")){
              this.mensajeDescripcion="Descripcion es Requerido";
          }
          if(this.estado==false){
-             
+             this.mensajeEstado="Estado es Requerido";
          }
+          if(this.codFunIngreso.equals(" ")){
+             this.mensajeCodFunIngreso="CodFunIngreso es Requerido";
+         }
+          if(this.fechaIngreso==null){
+              this.mensajeFechaIngreso="FechaIngreso es Requerido";
+          }
+         if(this.codFunEdito.equals(" ")){
+             this.mensajeCodFunEdito="CodFunEdito es Requerido";
+         }
+         if(this.fechaEdito==null){
+             this.mensajeFechaEdito="FechaEdito es Requerido";
+         }
+         if(this.idPrograma==0){
+             this.mensajeIdPrograma="IdPrograma es Requerido";
+         }
+         
+         if(this.id>1){
+             this.mensajeId=" ";
+         }
+         if(!this.descripcion.equals(" ")){
+             this.mensajeDescripcion=" ";
+         }
+         if(this.estado!=false){
+             this.mensajeEstado=" ";
+         }
+          if(!this.codFunIngreso.equals(" ")){
+             this.mensajeCodFunIngreso=" ";
+         }
+          if(this.fechaIngreso!=null){
+              this.mensajeFechaIngreso=" ";
+          }
+         if(!this.codFunEdito.equals(" ")){
+             this.mensajeCodFunEdito=" ";
+         }
+         if(this.fechaEdito!=null){
+             this.mensajeFechaEdito=" ";
+         }
+         if(this.idPrograma!=0){
+             this.mensajeIdPrograma=" ";
+         }
+         
+         
             
           
-          depUTN.setCodigoCurso(codigo);
-          depUTN.setCodigoPrograma(codigoPrograma);
+          depUTN.setId(id);
           depUTN.setDescripcion(descripcion);
+          depUTN.setEstado(estado);
+          depUTN.setCodFunIngreso(codFunIngreso);
+          depUTN.setFechaIngreso(fechaIngreso);
+          depUTN.setCodFunEdito(codFunEdito);
+          depUTN.setFechaEdito(fechaEdito);
+          depUTN.setIdPrograma(idPrograma);
           
           dDB.mvRegitroCurso(depUTN);
       mensajeAlerta="Realizado con exito";
@@ -151,13 +192,18 @@ public class beanMantCurso implements Serializable {
     }
     
     public void asignaDatos(curso dep){       
-        this.setCodigo(dep.getCodigoCurso());
-        this.setDescripcion(dep.getDescripcion());
-        this.setCodigoPrograma(dep.getDescripcion());
+          this.setId(dep.getId());
+          setDescripcion(dep.getDescripcion());
+          setEstado(dep.isEstado());
+          setCodFunIngreso(dep.getCodFunIngreso());
+          setFechaIngreso(dep.getFechaIngreso());
+          setCodFunEdito(dep.getCodFunEdito());
+          setFechaEdito(dep.getFechaEdito());
+          setIdPrograma(dep.getIdPrograma());
     }
     
      public LinkedList<SelectItem> getListaCand() throws SNMPExceptions, SQLException {
-        String idPrograma="";
+        int idPrograma=0;
         String nombreCurso=" "; 
         LinkedList<programa> lista= new LinkedList<programa>();
         programaDB cDB= new programaDB();
@@ -168,8 +214,8 @@ public class beanMantCurso implements Serializable {
                 iter.hasNext();){
             
             programa cand= (programa)iter.next();
-            idPrograma=cand.getCodigoPrograma();
-            nombreCurso=cand.getNombreCurso();
+            idPrograma=cand.getId();
+            nombreCurso=cand.getNombre();
             resultList.add(new SelectItem(idPrograma,nombreCurso));
             
         }
@@ -203,12 +249,154 @@ public class beanMantCurso implements Serializable {
    
     
     public void cancelar() {
-        this.setCodigo(" ");
-        this.setCodigoPrograma(" ");
+        this.setCodFunEdito(" ");
+        this.setCodFunIngreso(" ");
         this.setDescripcion(" ");
-        this.setMensajeCodigo(" ");
+        this.setEstado(false);
+        this.setFechaEdito(null);
+        this.setFechaIngreso(null);
+        this.setId(0);
+        this.setIdPrograma(0);
+        this.setMensajeAlerta(" ");
+        this.setMensajeCodFunEdito(" ");
+        this.setMensajeCodFunIngreso(" ");
         this.setMensajeDescripcion(" ");
-        this.setMensajePrograma(" ");
+        this.setMensajeEstado(" ");
+        this.setMensajeFechaEdito(" ");
+        this.setMensajeFechaIngreso(" ");
+        this.setMensajeId(" ");
+        this.setMensajeIdPrograma(" ");
+        this.setMensajesetMensajeAct(" "); 
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public String getCodFunIngreso() {
+        return codFunIngreso;
+    }
+
+    public void setCodFunIngreso(String codFunIngreso) {
+        this.codFunIngreso = codFunIngreso;
+    }
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public String getCodFunEdito() {
+        return codFunEdito;
+    }
+
+    public void setCodFunEdito(String codFunEdito) {
+        this.codFunEdito = codFunEdito;
+    }
+
+    public Date getFechaEdito() {
+        return fechaEdito;
+    }
+
+    public void setFechaEdito(Date fechaEdito) {
+        this.fechaEdito = fechaEdito;
+    }
+
+    public int getIdPrograma() {
+        return idPrograma;
+    }
+
+    public void setIdPrograma(int idPrograma) {
+        this.idPrograma = idPrograma;
+    }
+
+    public String getMensajeId() {
+        return mensajeId;
+    }
+
+    public void setMensajeId(String mensajeId) {
+        this.mensajeId = mensajeId;
+    }
+
+    public String getMensajeDescripcion() {
+        return mensajeDescripcion;
+    }
+
+    public void setMensajeDescripcion(String mensajeDescripcion) {
+        this.mensajeDescripcion = mensajeDescripcion;
+    }
+
+    public String getMensajeEstado() {
+        return mensajeEstado;
+    }
+
+    public void setMensajeEstado(String mensajeEstado) {
+        this.mensajeEstado = mensajeEstado;
+    }
+
+    public String getMensajeCodFunEdito() {
+        return mensajeCodFunEdito;
+    }
+
+    public void setMensajeCodFunEdito(String mensajeCodFunEdito) {
+        this.mensajeCodFunEdito = mensajeCodFunEdito;
+    }
+
+    public String getMensajeCodFunIngreso() {
+        return mensajeCodFunIngreso;
+    }
+
+    public void setMensajeCodFunIngreso(String mensajeCodFunIngreso) {
+        this.mensajeCodFunIngreso = mensajeCodFunIngreso;
+    }
+
+    public String getMensajeFechaIngreso() {
+        return mensajeFechaIngreso;
+    }
+
+    public void setMensajeFechaIngreso(String mensajeFechaIngreso) {
+        this.mensajeFechaIngreso = mensajeFechaIngreso;
+    }
+
+    public String getMensajeFechaEdito() {
+        return mensajeFechaEdito;
+    }
+
+    public void setMensajeFechaEdito(String mensajeFechaEdito) {
+        this.mensajeFechaEdito = mensajeFechaEdito;
+    }
+
+    public String getMensajeIdPrograma() {
+        return mensajeIdPrograma;
+    }
+
+    public void setMensajeIdPrograma(String mensajeIdPrograma) {
+        this.mensajeIdPrograma = mensajeIdPrograma;
+    }
+    
+    
     
 }

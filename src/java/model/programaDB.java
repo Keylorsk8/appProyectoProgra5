@@ -45,7 +45,7 @@ public class programaDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Nombre,Estado,CodFunIngreso.FechaIngreso,CodFunEdito,FechaEdito from Programa";
+                    = "SELECT Id,Nombre,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito from Programa";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -84,7 +84,7 @@ public class programaDB {
             programa cur = new programa();
             cur = pvoPrograma;
             strSQL
-                    = "INSERT  INTO Programa(Id,Nombre,Estado,CodFunIngreso.FechaIngreso,CodFunEdito,FechaEdito) VALUES('"
+                    = "INSERT  INTO Programa(Id,Nombre,Estado,CodFunIngreso,FechaIngreso= getDate(),CodFunEdito,FechaEdito=getdate()) VALUES('"
                     + cur.getId()+ ",'"
                     + cur.getNombre()+ "',"
                     + cur.isEstado()+ ",'"
@@ -137,7 +137,7 @@ public class programaDB {
             
             //Se crea la sentencia de Busqueda
             select=
-                    "Select Id,Nombre,Estado,CodFunIngreso.FechaIngreso,CodFunEdito,FechaEdito from Programa";
+                    "Select Id,Nombre,Estado,CodFunIngreso,FechaIngreso = getDate(),CodFunEdito,FechaEdito=getDate() from Programa";
             //se ejecuta la sentencia sql
             ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
             //se llama el array con los proyectos
