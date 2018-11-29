@@ -55,9 +55,9 @@ public class programaDB {
                 String nombre = rsPA.getString("Nombre");
                 boolean estado = rsPA.getBoolean("Estado");
                 String codFunIngreso = rsPA.getString("CodFunIngreso");
-                Date fechaIngreso = rsPA.getDate("FechaIngreso");
+                String fechaIngreso = rsPA.getString("FechaIngreso");
                 String codFunEdito = rsPA.getString("CodFunEdito");
-                Date fechaEdito = rsPA.getDate("FechaEdito");
+                String fechaEdito = rsPA.getString("FechaEdito");
                 
                 programa dep = new programa(id,nombre,estado,codFunIngreso,fechaIngreso,codFunEdito,fechaEdito);
                 listaPrograma.add(dep);
@@ -114,9 +114,9 @@ public class programaDB {
         String nombre = c.getNombre();
         boolean estado= c.isEstado();
         String codFunIngreso = c.getCodFunIngreso();
-        Date fechaIngreso = c.getFechaIngreso();
+        String fechaIngreso = c.getFechaIngreso();
         String codFunEdito = c.getCodFunEdito();
-        Date fechaEdito = c.getFechaEdito();
+        String fechaEdito = c.getFechaEdito();
         
         
 
@@ -147,9 +147,9 @@ public class programaDB {
                 String nombre = rsPA.getString("Nombre");
                 boolean estado = rsPA.getBoolean("Estado");
                 String codFunIngreso = rsPA.getString("CodFunIngreso");
-                Date fechaIngreso = rsPA.getDate("FechaIngreso");
+                String fechaIngreso = rsPA.getString("FechaIngreso");
                 String codFunEdito = rsPA.getString("CodFunEdito");
-                Date fechaEdito = rsPA.getDate("FechaEdito");
+                String fechaEdito = rsPA.getString("FechaEdito");
                
                 
                 //se construye el objeto.

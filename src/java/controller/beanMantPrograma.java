@@ -35,9 +35,9 @@ public class beanMantPrograma implements Serializable {
     private String nombre;
     private boolean estado;
     private String codFunIngreso;
-    private Date fechaIngreso;
+    private String fechaIngreso;
     private String codFunEdito;
-    private Date fechaEdito;
+    private String fechaEdito;
     private String estadoValidador;
     
     String mensajeId = " ";
@@ -219,11 +219,11 @@ public class beanMantPrograma implements Serializable {
         this.codFunIngreso = codFunIngreso;
     }
 
-    public Date getFechaIngreso() {
+    public String getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
+    public void setFechaIngreso(String fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
@@ -235,11 +235,11 @@ public class beanMantPrograma implements Serializable {
         this.codFunEdito = codFunEdito;
     }
 
-    public Date getFechaEdito() {
+    public String getFechaEdito() {
         return fechaEdito;
     }
 
-    public void setFechaEdito(Date fechaEdito) {
+    public void setFechaEdito(String fechaEdito) {
         this.fechaEdito = fechaEdito;
     }
 
