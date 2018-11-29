@@ -11,9 +11,16 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
+import model.Barrio;
+import model.BarrioDB;
 import model.Canton;
 import model.CantonDB;
+import model.Distrito;
+import model.DistritoDB;
 import model.Provincia;
 import model.ProvinciaDB;
 
@@ -25,33 +32,112 @@ import model.ProvinciaDB;
 @SessionScoped
 public class beanAutoRegistro implements Serializable {
 
-    String identificacion;
-    String nombre;
-    String apellido1;
-    String apellido2;
-    String fechaNaciemiento;
-    String Email;
+    String identificacion ="";
+    String nombre ="";
+    String apellido1 ="";
+    String apellido2 ="";
+    String fechaNaciemiento ="";
+    String Email ="";
     String provincia = "1";
-    String canton ="1";
-    String distrito ="1";
-    String barrio ="1";
-    String otrasSenias ="1";
-    
+    String canton = "1";
+    String distrito = "1";
+    String barrio = "1";
+    String otrasSenias = "";
+    String mensajes = "";
+
     LinkedList<SelectItem> provincias = new LinkedList<>();
-    LinkedList<SelectItem> distritos = new LinkedList<>();
     LinkedList<SelectItem> cantones = new LinkedList<>();
+    LinkedList<SelectItem> distritos = new LinkedList<>();
     LinkedList<SelectItem> barrios = new LinkedList<>();
+
     /**
      * Creates a new instance of beanAutoRegistro
      */
     public beanAutoRegistro() {
     }
-    
-    public void actualizar() throws SNMPExceptions{
-        LinkedList<SelectItem> cantones1 = this.getCantones();
-        this.setCantones(cantones1);
+
+    public void solicitarCuenta(){
+        if(!validar()){
+            mensajes = "";
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Solicitud Exitosa","Su cuenta ha sido solicitada con éxito,espere la respuesta de nuestro personal(normalmente tarda algunas horas)") );
+        }
     }
     
+    public boolean validar(){
+        boolean errores = false;
+        mensajes = "<ul>";
+        //Identificacion
+        if(!identificacion.equals("")){
+            try {
+                if(Integer.parseInt(identificacion) < 0){
+                }
+            } catch (Exception e) {
+                mensajes += "<li>El número de Identifición debe ser numerico</li>";
+                errores = true;
+            }
+        }else{
+            mensajes += "<li>Digite un número de Documento</li>";
+            errores = true;
+        }
+        //Nombre
+        if(nombre.equals("")){
+           mensajes += "<li>Digite un nombre</li>";
+           errores = true;
+        }
+        //Apellido 1
+        if(apellido1.equals("")){
+            mensajes += "<li>Digite su primer Apellido</li>";
+            errores = true;
+        }
+        //Apellido 2
+        if(apellido2.equals("")){
+            mensajes += "<li>Digite su segundo Apellido</li>";
+            errores = true;
+        }
+        //Fecha Nacimiento
+        if(fechaNaciemiento.equals("")){
+            mensajes += "<li>Seleccione su fecha de nacimiento</li>";
+            errores = true;
+        }
+        //Otras Señas
+        if(otrasSenias.equals("")){
+            mensajes += "<li>Digite otras señas de su dirección</li>";
+            errores = true;
+        }
+        mensajes += "</ul>";
+        return errores;
+    }
+
+    public void valueChangedProvincias(AjaxBehaviorEvent event) throws SNMPExceptions {
+        LinkedList<SelectItem> cantones1 = this.getCantones();
+        this.setCantones(cantones1);
+        LinkedList<SelectItem> distritos1 = this.getDistritos();
+        this.setDistritos(distritos1);
+        LinkedList<SelectItem> barrios1 = this.getBarrios();
+        this.setBarrios(barrios1);
+    }
+
+    public void valueChangedCanton(AjaxBehaviorEvent event) throws SNMPExceptions {
+        LinkedList<SelectItem> distritos1 = this.getDistritos();
+        this.setDistritos(distritos1);
+        LinkedList<SelectItem> barrios1 = this.getBarrios();
+        this.setBarrios(barrios1);
+    }
+    
+    public void valueChangedDistrito(AjaxBehaviorEvent event) throws SNMPExceptions{
+        LinkedList<SelectItem> barrios1 = this.getBarrios();
+        this.setBarrios(barrios1);
+    }
+
+    public String getMensajes() {
+        return mensajes;
+    }
+
+    public void setMensajes(String mensajes) {
+        this.mensajes = mensajes;
+    }
+
     public String getIdentificacion() {
         return identificacion;
     }
@@ -143,17 +229,17 @@ public class beanAutoRegistro implements Serializable {
     public LinkedList<SelectItem> getProvincias() throws SNMPExceptions {
         ProvinciaDB logica = new ProvinciaDB();
         LinkedList<Provincia> lista = logica.seleccionarProvincias();
-        
+
         int id = 0;
         String nombre = "";
-        
+
         LinkedList resultList = new LinkedList();
-        
-         for (Iterator iter = lista.iterator();iter.hasNext();) {
+
+        for (Iterator iter = lista.iterator(); iter.hasNext();) {
             Provincia pro = (Provincia) iter.next();
             id = pro.getId();
             nombre = pro.getNombre();
-            resultList.add(new SelectItem(id,nombre));
+            resultList.add(new SelectItem(id, nombre));
         }
         return resultList;
     }
@@ -162,8 +248,22 @@ public class beanAutoRegistro implements Serializable {
         this.provincias = provincias;
     }
 
-    public LinkedList<SelectItem> getDistritos() {
-        return distritos;
+    public LinkedList<SelectItem> getDistritos() throws SNMPExceptions {
+        DistritoDB logica = new DistritoDB();
+        LinkedList<Distrito> lista = logica.seleccionarDistritos(Integer.parseInt(canton), Integer.parseInt(provincia));
+
+        int id = 0;
+        String nombre = "";
+
+        LinkedList resultList = new LinkedList();
+
+        for (Iterator iter = lista.iterator(); iter.hasNext();) {
+            Distrito dis = (Distrito) iter.next();
+            id = dis.getId();
+            nombre = dis.getNombre();
+            resultList.add(new SelectItem(id, nombre));
+        }
+        return resultList;
     }
 
     public void setDistritos(LinkedList<SelectItem> distritos) {
@@ -172,18 +272,18 @@ public class beanAutoRegistro implements Serializable {
 
     public LinkedList<SelectItem> getCantones() throws SNMPExceptions {
         CantonDB logica = new CantonDB();
-        LinkedList<Canton> lista = logica.seleccionarCantones(Integer.parseInt(this.getProvincia()));
-        
+        LinkedList<Canton> lista = logica.seleccionarCantones(Integer.parseInt(provincia));
+
         int id = 0;
         String nombre = "";
-      
+
         LinkedList resultList = new LinkedList();
-        
-         for (Iterator iter = lista.iterator();iter.hasNext();) {
+
+        for (Iterator iter = lista.iterator(); iter.hasNext();) {
             Canton can = (Canton) iter.next();
             id = can.getId();
             nombre = can.getNombre();
-            resultList.add(new SelectItem(id,nombre));
+            resultList.add(new SelectItem(id, nombre));
         }
         return resultList;
     }
@@ -192,13 +292,25 @@ public class beanAutoRegistro implements Serializable {
         this.cantones = cantones;
     }
 
-    public LinkedList<SelectItem> getBarrios() {
-        return barrios;
+    public LinkedList<SelectItem> getBarrios() throws SNMPExceptions {
+        BarrioDB logica = new BarrioDB();
+        LinkedList<Barrio> lista = logica.seleccionarBarrios(Integer.parseInt(canton), Integer.parseInt(provincia),Integer.parseInt(distrito));
+
+        int id = 0;
+        String nombre = "";
+
+        LinkedList resultList = new LinkedList();
+
+        for (Iterator iter = lista.iterator(); iter.hasNext();) {
+            Barrio ba = (Barrio) iter.next();
+            id = ba.getId();
+            nombre = ba.getNombre();
+            resultList.add(new SelectItem(id, nombre));
+        }
+        return resultList;
     }
 
     public void setBarrios(LinkedList<SelectItem> barrios) {
         this.barrios = barrios;
     }
-    
-    
 }

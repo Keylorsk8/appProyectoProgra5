@@ -21,19 +21,28 @@
         <div class="limiter">
             <div class="container-login100" style="height: auto !important">
                 <div class="wrap-login100" style="margin-left: auto;margin-right: auto;height: auto;max-height: 1000px">
-                    <form class="login100-form validate-form" style="width: 75%;margin-left: auto;margin-right: auto !important">
+                    <h:form class="login100-form validate-form" style="width: 75%;margin-left: auto;margin-right: auto !important">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <h:outputText value="#{beanAutoRegistro.mensajes}" escape="false"></h:outputText>
                         <span class="login100-form-title">
                             Auto Registro DEAS
                         </span>
+                        <div class="container">
+                        </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="wrap-input100 validate-input" data-validate = "El número de Cédula es Requerido">
-                                    <p:inputText class="input100" value="#{beanAutoRegistro.identificacion}" placeholder="Número de Identificación"></p:inputText>
+                                    <p:inputText class="input100" value="#{beanAutoRegistro.identificacion}" placeholder="Número de Identificación">
+
+                                    </p:inputText>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-address-card" aria-hidden="true"></i>
                                     </span>
                                 </div>
+                            </div>
+                            <div class="col-md-6" style="text-align: center">
+                                <h5 style="margin: 5px">Datos Personales</h5>
                                 <div class="wrap-input100 validate-input" data-validate = "Un nombre es requerido">
                                     <p:inputText type="text" value="#{beanAutoRegistro.nombre}" class="input100" placeholder="Nombre"></p:inputText>
                                     <span class="focus-input100"></span>
@@ -62,9 +71,6 @@
                                         <i class="fa fa-globe-americas" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                            </div>
-
-                            <div class="col-md-6">
                                 <div class="wrap-input100 validate-input" data-validate = "Un Email válido es Requerido">
                                     <p:inputText type="Email" value="#{beanAutoRegistro.email}" class="input100" placeholder="Email"></p:inputText>
                                     <span class="focus-input100"></span>
@@ -72,20 +78,24 @@
                                         <i class="fa fa-at" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <div id="cmbProvincias" class="wrap-input100 validate-input" data-validate = "Provincia Requerida">
-                                    <h:selectOneMenu class="input100" value="#{beanAutoRegistro.provincia}">
+                            </div>
+
+                            <div class="col-md-6" style="text-align: center">
+                                <h5 style="margin: 5px">Dirección</h5>
+                                <div class="wrap-input100 validate-input" data-validate = "Provincia Requerida">
+                                    <h:selectOneMenu id="cmbProvincias" class="input100" value="#{beanAutoRegistro.provincia}">
                                         <f:selectItems value="#{beanAutoRegistro.provincias}"></f:selectItems>
-                                        <f:ajax execute="cmbProvincias" render="cmbCantones" listener="#{beanAutoRegistro.actualizar}"></f:ajax>
+                                        <f:ajax event="change" listener="#{beanAutoRegistro.valueChangedProvincias}" execute="@this" render="cmbCantones cmbDistritos cmbBarrios"></f:ajax>
                                     </h:selectOneMenu>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-globe-americas" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <div  class="wrap-input100 validate-input" data-validate = "Cantón Requerido">
+                                <div class="wrap-input100 validate-input" data-validate = "Cantón Requerido">
                                     <h:selectOneMenu id="cmbCantones" class="input100" value="#{beanAutoRegistro.canton}">
                                         <f:selectItems value="#{beanAutoRegistro.cantones}"></f:selectItems>
-                                        <f:ajax execute="cmbCantones" render="cmbProvincias"></f:ajax>
+                                        <f:ajax event="change" listener="#{beanAutoRegistro.valueChangedCanton}" execute="@this" render="cmbDistritos cmbBarrios"></f:ajax>
                                     </h:selectOneMenu>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
@@ -93,8 +103,18 @@
                                     </span>
                                 </div>
                                 <div class="wrap-input100 validate-input" data-validate = "Distrito Requerido">
-                                    <h:selectOneMenu class="input100" value="#{beanAutoRegistro.distrito}">
+                                    <h:selectOneMenu id="cmbDistritos" class="input100" value="#{beanAutoRegistro.distrito}">
                                         <f:selectItems value="#{beanAutoRegistro.distritos}"></f:selectItems>
+                                        <f:ajax event="change" listener="#{beanAutoRegistro.valueChangedDistrito}" execute="@this" render="cmbBarrios"></f:ajax>
+                                    </h:selectOneMenu>
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-globe-americas" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate = "Barrio Requerido">
+                                    <h:selectOneMenu rendered="#{beanAutoRegistro.barrios.size() > 0}" id="cmbBarrios" class="input100" value="#{beanAutoRegistro.barrio}">
+                                        <f:selectItems value="#{beanAutoRegistro.barrios}"></f:selectItems>
                                     </h:selectOneMenu>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
@@ -112,7 +132,7 @@
                         </div>
 
                         <div class="container-login100-form-btn">
-                            <h:commandButton class="login100-form-btn" value="Solicitar Cuenta"></h:commandButton>
+                            <h:commandButton class="login100-form-btn" actionListener="#{beanAutoRegistro.solicitarCuenta}" value="Solicitar Cuenta"></h:commandButton>
                         </div>
                         <div class="text-center" >
                             <p>Ya tienes cuenta?</p>
@@ -121,7 +141,7 @@
                                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                             </a>
                         </div>
-                    </form>
+                    </h:form>
                 </div>
             </div>
         </div>

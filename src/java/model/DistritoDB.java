@@ -16,26 +16,27 @@ import javax.naming.NamingException;
  *
  * @author KeylorSk8
  */
-public class CantonDB {
+public class DistritoDB {
     
-    public LinkedList<Canton> seleccionarCantones(int idProvincia) throws SNMPExceptions{
+    public LinkedList<Distrito> seleccionarDistritos(int idCanton,int idProvincia) throws SNMPExceptions{
         String select = "";
-        LinkedList<Canton> listaCantones = new LinkedList<>();
+        LinkedList<Distrito> listaDistritos = new LinkedList<>();
         try {
             //Se instancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();
 
             //Se crea la sentencia de búsqueda
-            select = "SELECT * FROM Canton where IdProvincia =";
-            select += idProvincia;
+            select = "SELECT * FROM Distrito where IdProvincia =";
+            select += idProvincia + " and IdCanton = " + idCanton; 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los proyectos   
             while (rsPA.next()) {
                 int id = rsPA.getInt("Id");
-                String nombre = rsPA.getString("nombre");       
-                Canton can = new Canton(id,idProvincia,nombre);
-                listaCantones.add(can);
+                String nombre = rsPA.getString("nombre");
+          
+                Distrito dis = new Distrito(id, idCanton, idProvincia, nombre);
+                listaDistritos.add(dis);
             }
             rsPA.close();
 
@@ -45,6 +46,6 @@ public class CantonDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
         } finally {
         }
-        return listaCantones;
+        return listaDistritos;
     }
 }
