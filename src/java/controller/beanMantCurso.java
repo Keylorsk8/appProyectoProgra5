@@ -10,6 +10,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import javax.faces.model.SelectItem;
@@ -31,12 +32,24 @@ public class beanMantCurso implements Serializable {
      * Creates a new instance of beanMantCurso
      */
     
-    String codigo = " ";
+    int id = 0;
     String descripcion = " ";
-    String codigoPrograma = " ";
-    String mensajeCodigo = " ";
+    boolean estado = false;
+    String codFunIngreso=" ";
+    Date fechaIngreso=null;
+    String codFunEdito=" ";
+    Date fechaEdito=null;
+    int idPrograma=0;
+    
+    
+    String mensajeId = " ";
     String mensajeDescripcion = " ";
-    String mensajePrograma = " ";
+    String mensajeEstado = " ";
+    String mensajeCodFunEdito=" ";
+    String mensajeCodFunIngreso=" ";
+    String mensajeFechaIngreso=" ";
+    String mensajeFechaEdito=" ";
+    String mensajeIdPrograma=" ";
     
     String mensajesetMensajeAct=" ";
     String mensajeAlerta=" ";
@@ -72,9 +85,14 @@ public class beanMantCurso implements Serializable {
         cursoDB cDB = new cursoDB();
         curso cur = new curso();
         
-        cur.setCodigoCurso(this.getCodigo());
-        cur.setDescripcion(this.descripcion);
-        cur.setCodigoPrograma(this.codigoPrograma);
+        cur.setId(id);
+        cur.setCodFunEdito(codFunEdito);
+        cur.setCodFunIngreso(codFunIngreso);
+        cur.setDescripcion(descripcion);
+        cur.setEstado(estado);
+        cur.setFechaEdito(fechaEdito);
+        cur.setFechaIngreso(fechaIngreso);
+        cur.setIdPrograma(idPrograma);
         
         cDB.actualizarCurso(cur);
         this.setMensajesetMensajeAct("Actualizacion Realizada");
@@ -103,27 +121,21 @@ public class beanMantCurso implements Serializable {
         curso depUTN = new curso();
         
         try{
-          if (this.codigo.equals(" ")) {
-                this.mensajeCodigo = "Codigo Requerido ";                
-            }            
-            if (this.descripcion.equals(" ")) {
-                this.mensajeDescripcion = "Descripcion Requerido ";
-            }            
-            
-            if (this.codigoPrograma.equals(" ")) {
-                this.mensajePrograma = "Codigo del Programa Requerido ";
-            }
-            
-              if (!this.codigo.equals(" ")) {
-                this.mensajeCodigo = " ";
-            }            
-            if (!this.descripcion.equals(" ")) {
-                this.mensajeDescripcion = " ";
-            }            
-            
-            if (!this.codigoPrograma.equals(" ")) {
-                this.mensajePrograma = "";
-            }
+         if(this.id==0){
+             this.mensajeId="Id es Requerido";
+         }
+         if(this.codFunEdito.equals(" ")){
+             this.mensajeCodFunEdito="CodFunEdito es Requerido";
+         }
+         if(this.codFunIngreso.equals(" ")){
+             this.mensajeCodFunIngreso="CodFunIngreso es Requerido";
+         }
+         if(this.descripcion.equals(" ")){
+             this.mensajeDescripcion="Descripcion es Requerido";
+         }
+         if(this.estado==false){
+             
+         }
             
           
           depUTN.setCodigoCurso(codigo);
@@ -188,85 +200,7 @@ public class beanMantCurso implements Serializable {
     }
     
     
-    public String getMensajeCodigo() {
-        return mensajeCodigo;
-    }
-    
-    public void setMensajeCodigo(String mensajeCodigo) {
-        this.mensajeCodigo = mensajeCodigo;
-    }
-    
-    public String getMensajeDescripcion() {
-        return mensajeDescripcion;
-    }
-    
-    public void setMensajeDescripcion(String mensajeDescripcion) {
-        this.mensajeDescripcion = mensajeDescripcion;
-    }
-    
-    public String getMensajePrograma() {
-        return mensajePrograma;
-    }
-    
-    public void setMensajePrograma(String mensajePrograma) {
-        this.mensajePrograma = mensajePrograma;
-    }
-    
-    public String getCodigo() {
-        return codigo;
-    }
-    
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-    
-    public String getDescripcion() {
-        return descripcion;
-    }
-    
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-    
-    public String getCodigoPrograma() {
-        return codigoPrograma;
-    }
-    
-    public void setCodigoPrograma(String codigoPrograma) {
-        this.codigoPrograma = codigoPrograma;
-    }
-    
-    public void validacion() {
-        
-        try {
-            if (this.codigo.equals(" ")) {
-                this.mensajeCodigo = "Codigo Requerido ";                
-            }            
-            if (this.descripcion.equals(" ")) {
-                this.mensajeDescripcion = "Descripcion Requerido ";
-            }            
-            
-            if (this.codigoPrograma == " ") {
-                this.mensajePrograma = "Codigo del Programa Requerido ";
-            }
-            
-              if (!this.codigo.equals(" ")) {
-                this.mensajeCodigo = " ";
-            }            
-            if (!this.descripcion.equals(" ")) {
-                this.mensajeDescripcion = " ";
-            }            
-            
-            if (!this.codigoPrograma.equals(" ")) {
-                this.mensajePrograma = "";
-            }
-            
-            
-        } catch (Exception e) {
-            e.toString();
-        }
-        
-    }
+   
     
     public void cancelar() {
         this.setCodigo(" ");

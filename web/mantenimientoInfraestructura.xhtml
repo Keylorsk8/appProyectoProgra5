@@ -70,40 +70,15 @@
                                     <tBody>
                                         <tr>
                                             <td>
-                                                <h:outputText value="Tipo de Infraestructura: "></h:outputText>
+                                                <h:outputText value="Id: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:selectOneMenu class="form-control" value="#{beanMantInfraestructura.tipoInfraestructura}">
-                                                    <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>
-                                                    <f:selectItem itemValue="Todos" itemLabel="Todos"></f:selectItem>
-                                                </h:selectOneMenu>
+                                                <h:inputText class="form-control" value="#{beanMantInfraestructura.id}"></h:inputText>
                                             </td>
                                             <td>
-                                                <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeTipo}"></h:outputText>
+                                                <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeId}"></h:outputText>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h:outputText value="Codigo de Infraestructura: "></h:outputText>
-                                            </td>
-                                            <td>
-                                                <h:inputText class="form-control" value="#{beanMantInfraestructura.codigo}"></h:inputText>
-                                            </td>
-                                            <td>
-                                                <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeCodigo}"></h:outputText>
-                                            </td>
-                                        </tr>                  
-                                        <tr>
-                                            <td>
-                                                <h:outputText value="Descripcion: "></h:outputText>
-                                            </td>
-                                            <td>
-                                                <h:inputText class="form-control" value="#{beanMantInfraestructura.descripcion}"></h:inputText>
-                                            </td>
-                                            <td>
-                                                <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeDescripcion}"></h:outputText>
-                                            </td>
-                                        </tr>                                       
+                                        </tr> 
                                         <tr>
                                             <td>
                                                 <h:outputText value="Capacidad: "></h:outputText>
@@ -114,7 +89,35 @@
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeCapacidad}"></h:outputText>
                                             </td>
+                                        </tr> 
+                                       
+                                        <tr>
+                                            <td>
+                                                <h:outputText value="Id Tipo de Infraestructura: "></h:outputText>
+                                            </td>
+                                            <td>
+                                                <h:selectOneMenu class="form-control" value="#{beanMantInfraestructura.idTipoInfraestructura}">
+                                                    <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>
+                                                    
+                                                </h:selectOneMenu>
+                                            </td>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeIdTipoInfraestructura}"></h:outputText>
+                                            </td>
                                         </tr>
+                                        
+                                        <tr>
+                                            <td>
+                                                <h:outputText value="Nombre: "></h:outputText>
+                                            </td>
+                                            <td>
+                                                <h:inputText class="form-control" value="#{beanMantInfraestructura.nombre}"></h:inputText>
+                                            </td>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeNombre}"></h:outputText>
+                                            </td>
+                                        </tr>
+                                        
                                         <tr>
                                             <td>
                                                 <h:outputText value="Ubicacion: "></h:outputText>
@@ -124,6 +127,19 @@
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeUbicacion}"></h:outputText>
+                                            </td>
+                                        </tr>
+                                         <tr>
+                                            <td>
+                                                <h:outputText value="IdPrograma: "></h:outputText>
+                                            </td>
+                                            <td>
+                                                <h:selectOneMenu class="form-control" value="#{beanMantInfraestructura.idPrograma}">
+                                                    <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>                                   
+                                                </h:selectOneMenu>
+                                            </td>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeidPrograma}"></h:outputText>
                                             </td>
                                         </tr>
                                         <tr style="text-align: center">
@@ -141,19 +157,9 @@
                                 <h:dataTable class="table table-hover table-striped table-dark" value="Lista del Bean" var="dep">
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Tipo de Infraestructura"></h:outputText>
+                                            <h:outputText value="Id"></h:outputText>
                                         </f:facet>
                                     </h:column> 
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Codigo de Infraestructura"></h:outputText>
-                                        </f:facet>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Descripcion"></h:outputText>
-                                        </f:facet>
-                                    </h:column>   
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Capacidad"></h:outputText>
@@ -161,7 +167,22 @@
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
+                                            <h:outputText value="Id Tipo de Infraestructura"></h:outputText>
+                                        </f:facet>
+                                    </h:column>   
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Nombre"></h:outputText>
+                                        </f:facet>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
                                             <h:outputText value="Ubicacion"></h:outputText>
+                                        </f:facet>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Idprograma"></h:outputText>
                                         </f:facet>
                                     </h:column>
                                     <h:column>

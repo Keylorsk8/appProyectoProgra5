@@ -10,8 +10,10 @@ import DAO.SNMPExceptions;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedList;
 import javax.naming.NamingException;
+import model.programa;
 
 /**
  *
@@ -43,18 +45,21 @@ public class programaDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT IdPrograma,NombreCurso,Descripcion from Programa";
+                    = "SELECT Id,Nombre,Estado,CodFunIngreso.FechaIngreso,CodFunEdito,FechaEdito from Programa";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los catálogos   
             while (rsPA.next()) {
-
-                String nombreCurso = rsPA.getString("NombreCurso");
-                String descripcion = rsPA.getString("Descripcion");
-                String codigoPrograma = rsPA.getString("IdPrograma");
-
-                programa dep = new programa(codigoPrograma,nombreCurso,descripcion);
+                int id= rsPA.getInt("Id");
+                String nombre = rsPA.getString("Nombre");
+                boolean estado = rsPA.getBoolean("Estado");
+                String codFunIngreso = rsPA.getString("CodFunIngreso");
+                Date fechaIngreso = rsPA.getDate("FechaIngreso");
+                String codFunEdito = rsPA.getString("CodFunEdito");
+                Date fechaEdito = rsPA.getDate("FechaEdito");
+                
+                programa dep = new programa(id,nombre,estado,codFunIngreso,fechaIngreso,codFunEdito,fechaEdito);
                 listaPrograma.add(dep);
             }
             rsPA.close();
@@ -79,10 +84,14 @@ public class programaDB {
             programa cur = new programa();
             cur = pvoPrograma;
             strSQL
-                    = "INSERT  INTO Programa(IdPrograma,NombreCurso,Descripcion) VALUES('"
-                    + cur.getCodigoPrograma()+ "','"
-                    + cur.getNombreCurso()+ "','"
-                    + cur.getDescripcion()+ "')";
+                    = "INSERT  INTO Programa(Id,Nombre,Estado,CodFunIngreso.FechaIngreso,CodFunEdito,FechaEdito) VALUES('"
+                    + cur.getId()+ ",'"
+                    + cur.getNombre()+ "',"
+                    + cur.isEstado()+ ",'"
+                    + cur.getCodFunIngreso()+ "','"
+                    + cur.getFechaIngreso() + "','"
+                    + cur.getCodFunEdito() + "','"
+                    + cur.getFechaEdito()+ "')";
 //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL/*, sqlBitacora*/);
         } catch (SQLException e) {
@@ -100,14 +109,20 @@ public class programaDB {
         programa c = new programa();
         c = programap;
 
-        //Datos de CLiente         
-        String nombreCurso = c.getNombreCurso();
-        String descripcion = c.getDescripcion();
-        String codigoPrograma = c.getCodigoPrograma();
+        //Datos de CLiente     
+        int id= c.getId();
+        String nombre = c.getNombre();
+        boolean estado= c.isEstado();
+        String codFunIngreso = c.getCodFunIngreso();
+        Date fechaIngreso = c.getFechaIngreso();
+        String codFunEdito = c.getCodFunEdito();
+        Date fechaEdito = c.getFechaEdito();
+        
+        
 
         //Se crea la sentencia de actualización
         String update
-                = "UPDATE Programa SET Descripcion = '" + descripcion + "', NombreCurso='" + nombreCurso + "' where IdPrograma = '" + codigoPrograma + "';";
+                = "UPDATE Programa SET Nombre = '" + nombre + "', Estado=" + estado + ",CodFunIngreso='"+codFunIngreso+"',FechaIngreso="+fechaIngreso+",CodFunEdito='"+codFunEdito+"',FechaEdito="+fechaEdito+" where Id = " + id + ";";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }
@@ -122,19 +137,23 @@ public class programaDB {
             
             //Se crea la sentencia de Busqueda
             select=
-                    "Select IdPrograma,NombreCurso,Descripcion from Programa";
+                    "Select Id,Nombre,Estado,CodFunIngreso.FechaIngreso,CodFunEdito,FechaEdito from Programa";
             //se ejecuta la sentencia sql
             ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
             //se llama el array con los proyectos
             while(rsPA.next()){
                 
-                String codigoPrograma = rsPA.getString("IdPrograma");
-                String nombreCurso =rsPA.getString("NombreCurso");
-                String descripcion= rsPA.getString("Descripcion");
+                int id= rsPA.getInt("Id");
+                String nombre = rsPA.getString("Nombre");
+                boolean estado = rsPA.getBoolean("Estado");
+                String codFunIngreso = rsPA.getString("CodFunIngreso");
+                Date fechaIngreso = rsPA.getDate("FechaIngreso");
+                String codFunEdito = rsPA.getString("CodFunEdito");
+                Date fechaEdito = rsPA.getDate("FechaEdito");
                
                 
                 //se construye el objeto.
-                programa perCandidato= new programa(codigoPrograma,nombreCurso,descripcion);
+                programa perCandidato= new programa(id,nombre,estado,codFunIngreso,fechaIngreso,codFunEdito,fechaEdito);
                 
                 listaCand.add(perCandidato);
             }

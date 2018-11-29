@@ -10,49 +10,36 @@ package model;
  * @author Pablo
  */
 public class infraestructura {
-    private String tipoInfraestructura;
-    private String codigoInfraestructura;
-    private String descripcion;
+    private int id;
     private int capacidad;
+    private int idTipoInfraestructura;    
+    private String nombre;   
     private String ubicacion;
+    private int idPrograma;
     
     public infraestructura(){
-        this.tipoInfraestructura=" ";
-        this.codigoInfraestructura=" ";
-        this.descripcion=" ";
+        this.id=0;
         this.capacidad=0;
+        this.idTipoInfraestructura=0;
+        this.nombre=" ";
         this.ubicacion=" ";
+        this.idPrograma=0;     
         }
-    public infraestructura(String tipoInfraestructurap,String codigoInfraestructurap,String descripcionp,int capacidadp,String ubicacionp){
-        this.tipoInfraestructura=tipoInfraestructurap;
-        this.codigoInfraestructura=codigoInfraestructurap;
-        this.descripcion=descripcionp;
+    public infraestructura(int idp,int capacidadp,int idTipoInfraestructurap,String nombrep,String ubicacionp,int idProgramap){
+        this.id=idp;
         this.capacidad=capacidadp;
+        this.idTipoInfraestructura=idTipoInfraestructurap;
+        this.nombre=nombrep;
         this.ubicacion=ubicacionp;
+        this.idPrograma=idProgramap;
     }
 
-    public String getTipoInfraestructura() {
-        return tipoInfraestructura;
+    public int getId() {
+        return id;
     }
 
-    public void setTipoInfraestructura(String tipoInfraestructura) {
-        this.tipoInfraestructura = tipoInfraestructura;
-    }
-
-    public String getCodigoInfraestructura() {
-        return codigoInfraestructura;
-    }
-
-    public void setCodigoInfraestructura(String codigoInfraestructura) {
-        this.codigoInfraestructura = codigoInfraestructura;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCapacidad() {
@@ -63,6 +50,22 @@ public class infraestructura {
         this.capacidad = capacidad;
     }
 
+    public int getIdTipoInfraestructura() {
+        return idTipoInfraestructura;
+    }
+
+    public void setIdTipoInfraestructura(int idTipoInfraestructura) {
+        this.idTipoInfraestructura = idTipoInfraestructura;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getUbicacion() {
         return ubicacion;
     }
@@ -70,6 +73,18 @@ public class infraestructura {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
+
+    public int getIdPrograma() {
+        return idPrograma;
+    }
+
+    public void setIdPrograma(int idPrograma) {
+        this.idPrograma = idPrograma;
+    }
+    
+    
+
+    
     
     
     

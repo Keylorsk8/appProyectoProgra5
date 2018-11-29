@@ -12,56 +12,74 @@ import java.util.Date;
  * @author Pablo
  */
 public class oferta {
-    private String tipoInfraestructura;
-    private String personal;
-    private String curso;
+    private int id;
+    private String descripcion;
+    private boolean estado;
     private Date fechaInicio;
     private Date fechaFinal;
-    private int horaInicio;
-    private int horaFinal;
+    private Date horaInicio;
+    private Date horaFinal;
+    private String codFunIngreso;
+    private Date fechaIngreso;
+    private String codFunEdito;
+    private Date fechaEdito;
+    private int idCurso;
+    private int idInfraestructura;
     
     public oferta(){
-    this.tipoInfraestructura=" ";
-    this.personal=" ";
-    this.curso=" ";
-    this.fechaInicio=null;
-    this.fechaFinal=null;
-    this.horaInicio=0;
-    this.horaFinal=0;
+     this.id=0;
+     this.descripcion=" ";
+     this.estado=false;
+     this.fechaInicio=null;
+     this.fechaFinal=null;
+     this.horaInicio=null;
+     this.horaFinal=null;
+     this.codFunIngreso=" ";
+     this.fechaIngreso=null;
+     this.codFunEdito=" ";
+     this.fechaEdito=null;
+     this.idCurso=0;
+     this.idInfraestructura=0;
     }
     
-    public oferta(String tipoInfraestructurap,String personalp,String cursop,Date fechaIniciop,Date fechaFinalp,int horaIniciop,int horaFinalp){
-        this.tipoInfraestructura=tipoInfraestructurap;
-        this.personal=personalp;
-        this.curso=cursop;
-        this.fechaInicio=fechaIniciop;
-        this.fechaFinal=fechaFinalp;
-        this.horaInicio=horaIniciop;
-        this.horaFinal=horaFinalp;
+    public oferta(int idp,String descripcionp,boolean estadop,Date fechaIniciop,Date fechaFinalp,Date horaIniciop,Date horaFinalp,String codFunIngresop,Date fechaIngresop,String codFunEditop,Date fechaEditop,int idCursop,int idInfraestructurap){
+      this.id=idp;
+      this.descripcion=descripcionp;
+      this.estado=estadop;
+      this.fechaInicio=fechaIniciop;
+      this.fechaFinal=fechaFinalp;
+      this.horaInicio=horaIniciop;
+      this.horaFinal=horaFinalp;
+      this.codFunIngreso=codFunIngresop;
+      this.fechaIngreso=fechaIngresop;
+      this.codFunEdito=codFunEditop;
+      this.fechaEdito=fechaEditop;
+      this.idCurso=idCursop;
+      this.idInfraestructura=idInfraestructurap;
     }
 
-    public String getTipoInfraestructura() {
-        return tipoInfraestructura;
+    public int getId() {
+        return id;
     }
 
-    public void setTipoInfraestructura(String tipoInfraestructura) {
-        this.tipoInfraestructura = tipoInfraestructura;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getPersonal() {
-        return personal;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setPersonal(String personal) {
-        this.personal = personal;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public String getCurso() {
-        return curso;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setCurso(String curso) {
-        this.curso = curso;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public Date getFechaInicio() {
@@ -80,21 +98,73 @@ public class oferta {
         this.fechaFinal = fechaFinal;
     }
 
-    public int getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(int horaInicio) {
+    public void setHoraInicio(Date horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public int getHoraFinal() {
+    public Date getHoraFinal() {
         return horaFinal;
     }
 
-    public void setHoraFinal(int horaFinal) {
+    public void setHoraFinal(Date horaFinal) {
         this.horaFinal = horaFinal;
     }
+
+    public String getCodFunIngreso() {
+        return codFunIngreso;
+    }
+
+    public void setCodFunIngreso(String codFunIngreso) {
+        this.codFunIngreso = codFunIngreso;
+    }
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public String getCodFunEdito() {
+        return codFunEdito;
+    }
+
+    public void setCodFunEdito(String codFunEdito) {
+        this.codFunEdito = codFunEdito;
+    }
+
+    public Date getFechaEdito() {
+        return fechaEdito;
+    }
+
+    public void setFechaEdito(Date fechaEdito) {
+        this.fechaEdito = fechaEdito;
+    }
+
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
+    }
+
+    public int getIdInfraestructura() {
+        return idInfraestructura;
+    }
+
+    public void setIdInfraestructura(int idInfraestructura) {
+        this.idInfraestructura = idInfraestructura;
+    }
+    
+    
+
+   
     
     
 }

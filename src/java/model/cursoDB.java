@@ -45,18 +45,23 @@ public class cursoDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT IdCurso,Descripcion,IdPrograma from Curso";
+                    = "SELECT Id,Descripcion,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito,IdPrograma from Curso";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los catálogos   
             while (rsPA.next()) {
 
-                String codigoCurso = rsPA.getString("IdCurso");
+                int id = rsPA.getInt("Id");
                 String descripcion = rsPA.getString("Descripcion");
-                String codigoPrograma = rsPA.getString("IdPrograma");
+                boolean estado= rsPA.getBoolean("esyado");
+                String codFunIngreso = rsPA.getString("CodFunIngreso");
+                Date fechaIngreso = rsPA.getDate("FechaIngreso");
+                String codFunEdito = rsPA.getString("CodFunEdito");
+                Date fechaEdito = rsPA.getDate("FechaEdito");
+                int idPrograma = rsPA.getInt("IdPrograma");
 
-                curso dep = new curso(codigoCurso, descripcion, codigoPrograma);
+                curso dep = new curso(id,descripcion,estado,codFunIngreso,fechaIngreso,codFunEdito,fechaEdito,idPrograma);
                 listaCurso.add(dep);
             }
             rsPA.close();
@@ -81,10 +86,15 @@ public class cursoDB {
             curso cur = new curso();
             cur = pvoCurso;
             strSQL
-                    = "INSERT  INTO Curso(IdCurso,Descripcion,IdPrograma) VALUES('"
-                    + cur.getCodigoCurso() + "','"
-                    + cur.getDescripcion() + "','"
-                    + cur.getCodigoPrograma() + "')";
+                    = "INSERT  INTO Curso(Id,Descripcion,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito,IdPrograma) VALUES("
+                    + cur.getId() + ",'"
+                    + cur.getDescripcion() + "',"
+                    + cur.isEstado()+ ",'"
+                    + cur.getCodFunIngreso()+ "',"
+                    + cur.getFechaIngreso()+ ",'"
+                    + cur.getCodFunEdito()+ "',"
+                    + cur.getFechaEdito()+ ","
+                    + cur.getIdPrograma()+ ")";
 //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL/*, sqlBitacora*/);
         } catch (SQLException e) {
@@ -103,13 +113,18 @@ public class cursoDB {
         c = cursop;
 
         //Datos de CLiente         
-        String codigoCurso = c.getCodigoCurso();
-        String descripcion = c.getDescripcion();
-        String codigoPrograma = c.getCodigoPrograma();
+       int id= c.getId();
+       String descripcion = c.getDescripcion();
+       boolean estado = c.isEstado();
+       String codFunIngreso = c.getCodFunIngreso();
+       Date fechaIngreso = c.getFechaIngreso();
+       String codFunEdito = c.getCodFunEdito();
+       Date fechaEdito = c.getFechaEdito();
+       int idPrograma = c.getIdPrograma();
 
         //Se crea la sentencia de actualización
         String update
-                = "UPDATE Curso SET Descripcion = '" + descripcion + "', IdPrograma='" + codigoPrograma + "' where IdCurso = '" + codigoCurso + "';";
+                = "UPDATE Curso SET Descripcion = '" + descripcion + "', Estado='" + estado + "',CodFunIngreso="+codFunIngreso+"',FechaIngreso="+fechaIngreso+",CodFunEdito='"+codFunEdito +"',FechaEdito="+fechaEdito+",IdPrograma="+idPrograma+"where Id = '" + id + "';";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }

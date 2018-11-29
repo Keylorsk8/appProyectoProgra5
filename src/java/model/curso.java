@@ -5,33 +5,50 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author Pablo
  */
 public class curso {
-    private String codigoCurso;
+    private int id;
     private String descripcion;
-    private String codigoPrograma;
+    private boolean estado;
+    private String codFunIngreso;
+    private Date fechaIngreso;
+    private String codFunEdito;
+    private Date fechaEdito;
+    private int idPrograma;
     
     public curso(){
-     this.codigoCurso=" ";
-     this.descripcion=" ";
-     this.codigoPrograma=" ";
+    this.id=0;
+    this.descripcion=" ";
+    this.estado=false;
+    this.codFunIngreso=" ";
+    this.fechaIngreso=null;
+    this.codFunEdito=" ";
+    this.fechaEdito=null;
+    this.idPrograma=0;
     }
     
-    public curso(String codigoCursop,String descripcionp,String codigoProgramap){
-        this.codigoCurso=codigoCursop;
+    public curso(int idp,String descripcionp,boolean estadop,String codFunIngresop,Date fechaIngresop,String codFunEditop,Date fechaEditop,int idProgramap){
+        this.id=idp;
         this.descripcion=descripcionp;
-        this.codigoPrograma=codigoProgramap;
+        this.estado=estadop;
+        this.codFunIngreso=codFunIngresop;
+        this.fechaIngreso=fechaIngresop;
+        this.codFunEdito=codFunEditop;
+        this.fechaEdito=fechaEditop;
+        this.idPrograma=idProgramap;       
     }
 
-    public String getCodigoCurso() {
-        return codigoCurso;
+    public int getId() {
+        return id;
     }
 
-    public void setCodigoCurso(String codigoCurso) {
-        this.codigoCurso = codigoCurso;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
@@ -42,14 +59,56 @@ public class curso {
         this.descripcion = descripcion;
     }
 
-    public String getCodigoPrograma() {
-        return codigoPrograma;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setCodigoPrograma(String codigoPrograma) {
-        this.codigoPrograma = codigoPrograma;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public String getCodFunIngreso() {
+        return codFunIngreso;
+    }
+
+    public void setCodFunIngreso(String codFunIngreso) {
+        this.codFunIngreso = codFunIngreso;
+    }
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public String getCodFunEdito() {
+        return codFunEdito;
+    }
+
+    public void setCodFunEdito(String codFunEdito) {
+        this.codFunEdito = codFunEdito;
+    }
+
+    public Date getFechaEdito() {
+        return fechaEdito;
+    }
+
+    public void setFechaEdito(Date fechaEdito) {
+        this.fechaEdito = fechaEdito;
+    }
+
+    public int getIdPrograma() {
+        return idPrograma;
+    }
+
+    public void setIdPrograma(int idPrograma) {
+        this.idPrograma = idPrograma;
     }
     
+    
+
     
     
 }
