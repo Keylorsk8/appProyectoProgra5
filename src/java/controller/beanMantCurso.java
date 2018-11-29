@@ -15,10 +15,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import javax.faces.model.SelectItem;
 import javax.naming.NamingException;
-import model.curso;
-import model.cursoDB;
-import model.programa;
-import model.programaDB;
+import model.Curso;
+import model.CursoDB;
+import model.Programa;
+import model.ProgramaDB;
 
 /**
  *
@@ -65,13 +65,13 @@ public class beanMantCurso implements Serializable {
         this.listaCandCmb = listaCandCmb;
     }
     
-    LinkedList<curso> listaTablaCurso = new LinkedList<curso>();
+    LinkedList<Curso> listaTablaCurso = new LinkedList<Curso>();
 
-    public LinkedList<curso> getListaTablaCurso() throws SNMPExceptions, SQLException {
+    public LinkedList<Curso> getListaTablaCurso() throws SNMPExceptions, SQLException {
         return listaTablaCurso;
     }
 
-    public void setListaTablaCurso(LinkedList<curso> listaTablaCurso) {
+    public void setListaTablaCurso(LinkedList<Curso> listaTablaCurso) {
         this.listaTablaCurso = listaTablaCurso;
     }
     
@@ -82,8 +82,8 @@ public class beanMantCurso implements Serializable {
     
     
     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
-        cursoDB cDB = new cursoDB();
-        curso cur = new curso();
+        CursoDB cDB = new CursoDB();
+        Curso cur = new Curso();
         
         cur.setId(id);
         cur.setCodFunEdito(codFunEdito);
@@ -100,8 +100,8 @@ public class beanMantCurso implements Serializable {
     }
     
     public void FiltroTabla() throws SNMPExceptions, SQLException{
-        LinkedList<curso> listaD = new LinkedList<curso>();
-        cursoDB dDB = new cursoDB();
+        LinkedList<Curso> listaD = new LinkedList<Curso>();
+        CursoDB dDB = new CursoDB();
 
             
         listaD = dDB.consultarCurso();
@@ -117,8 +117,8 @@ public class beanMantCurso implements Serializable {
     }
     public void ingresarRegistro()throws 
      SNMPExceptions, SQLException, NamingException, ClassNotFoundException{    
-        cursoDB dDB = new cursoDB();
-        curso depUTN = new curso();
+        CursoDB dDB = new CursoDB();
+        Curso depUTN = new Curso();
         
         try{
          if(this.id==0){
@@ -191,7 +191,7 @@ public class beanMantCurso implements Serializable {
         
     }
     
-    public void asignaDatos(curso dep){       
+    public void asignaDatos(Curso dep){       
           this.setId(dep.getId());
           setDescripcion(dep.getDescripcion());
           setEstado(dep.isEstado());
@@ -205,15 +205,15 @@ public class beanMantCurso implements Serializable {
      public LinkedList<SelectItem> getListaCand() throws SNMPExceptions, SQLException {
         int idPrograma=0;
         String nombreCurso=" "; 
-        LinkedList<programa> lista= new LinkedList<programa>();
-        programaDB cDB= new programaDB();
+        LinkedList<Programa> lista= new LinkedList<Programa>();
+        ProgramaDB cDB= new ProgramaDB();
         lista=cDB.moTodo();
         LinkedList resultList= new LinkedList();
         resultList.add(new SelectItem(0,"Seleccione Programa"));
         for(Iterator iter= lista.iterator();
                 iter.hasNext();){
             
-            programa cand= (programa)iter.next();
+            Programa cand= (Programa)iter.next();
             idPrograma=cand.getId();
             nombreCurso=cand.getNombre();
             resultList.add(new SelectItem(idPrograma,nombreCurso));

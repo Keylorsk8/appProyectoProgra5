@@ -14,12 +14,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import javax.faces.model.SelectItem;
 import javax.naming.NamingException;
-import model.curso;
-import model.cursoDB;
-import model.infraestructura;
-import model.infraestructuraDB;
-import model.programa;
-import model.programaDB;
+import model.Curso;
+import model.CursoDB;
+import model.Infraestructura;
+import model.InfraestructuraDB;
+import model.Programa;
+import model.ProgramaDB;
 
 /**
  *
@@ -80,19 +80,19 @@ public class beanMantInfraestructura implements Serializable {
         this.listaCandCmb = listaCandCmb;
     }
     
-    LinkedList<infraestructura> listaTablaInfraestructura = new LinkedList<infraestructura>();
+    LinkedList<Infraestructura> listaTablaInfraestructura = new LinkedList<Infraestructura>();
 
-    public LinkedList<infraestructura> getListaTablainfraestructura() throws SNMPExceptions, SQLException {
+    public LinkedList<Infraestructura> getListaTablainfraestructura() throws SNMPExceptions, SQLException {
         return listaTablaInfraestructura;
     }
 
-    public void setListaTablainfraestructura(LinkedList<infraestructura> listaTablainfraestructura) {
+    public void setListaTablainfraestructura(LinkedList<Infraestructura> listaTablainfraestructura) {
         this.listaTablaInfraestructura = listaTablainfraestructura;
     }
     
     public void FiltroTabla() throws SNMPExceptions, SQLException{
-        LinkedList<infraestructura> listaD = new LinkedList<infraestructura>();
-        infraestructuraDB dDB = new infraestructuraDB();
+        LinkedList<Infraestructura> listaD = new LinkedList<Infraestructura>();
+        InfraestructuraDB dDB = new InfraestructuraDB();
 
             
         listaD = dDB.consultarInfraestructura();
@@ -108,8 +108,8 @@ public class beanMantInfraestructura implements Serializable {
     }
     
     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
-        infraestructuraDB cDB = new infraestructuraDB();
-        infraestructura cur = new infraestructura();
+        InfraestructuraDB cDB = new InfraestructuraDB();
+        Infraestructura cur = new Infraestructura();
         
         cur.setId(id);
           cur.setCapacidad(capacidad);
@@ -125,8 +125,8 @@ public class beanMantInfraestructura implements Serializable {
     
      public void ingresarRegistro()throws 
      SNMPExceptions, SQLException, NamingException, ClassNotFoundException{    
-        infraestructuraDB dDB = new infraestructuraDB();
-        infraestructura depUTN = new infraestructura();
+        InfraestructuraDB dDB = new InfraestructuraDB();
+        Infraestructura depUTN = new Infraestructura();
         
         try{
            if(this.id == 0){
@@ -184,7 +184,7 @@ public class beanMantInfraestructura implements Serializable {
         
     }
      
-     public void asignaDatos(infraestructura dep){       
+     public void asignaDatos(Infraestructura dep){       
           setId(dep.getId());
           setCapacidad(dep.getCapacidad());
           setIdPrograma(dep.getIdPrograma());
@@ -196,15 +196,15 @@ public class beanMantInfraestructura implements Serializable {
      public LinkedList<SelectItem> getListaCand() throws SNMPExceptions, SQLException {
         int idPrograma=0;
         String nombre=" "; 
-        LinkedList<programa> lista= new LinkedList<programa>();
-        programaDB cDB= new programaDB();
+        LinkedList<Programa> lista= new LinkedList<Programa>();
+        ProgramaDB cDB= new ProgramaDB();
         lista=cDB.moTodo();
         LinkedList resultList= new LinkedList();
         resultList.add(new SelectItem(0,"Seleccione Programa"));
         for(Iterator iter= lista.iterator();
                 iter.hasNext();){
             
-            programa cand= (programa)iter.next();
+            Programa cand= (Programa)iter.next();
             idPrograma=cand.getId();
             nombre=cand.getNombre();
             resultList.add(new SelectItem(idPrograma,nombre));
@@ -222,11 +222,11 @@ public class beanMantInfraestructura implements Serializable {
         this.mensajeAlerta = mensajeAlerta;
     }
 
-    public LinkedList<infraestructura> getListaTablaInfraestructura() {
+    public LinkedList<Infraestructura> getListaTablaInfraestructura() {
         return listaTablaInfraestructura;
     }
 
-    public void setListaTablaInfraestructura(LinkedList<infraestructura> listaTablaInfraestructura) {
+    public void setListaTablaInfraestructura(LinkedList<Infraestructura> listaTablaInfraestructura) {
         this.listaTablaInfraestructura = listaTablaInfraestructura;
     }
     

@@ -15,8 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.naming.NamingException;
-import model.programa;
-import model.programaDB;
+import model.Programa;
+import model.ProgramaDB;
 
 /**
  *
@@ -38,75 +38,68 @@ public class beanMantPrograma implements Serializable {
     private String fechaIngreso;
     private String codFunEdito;
     private String fechaEdito;
-     String estadoValidador;
-    
+    String estadoValidador;
+
     String mensajeId = " ";
-    String mensajeNombre=" ";
-    String mensajeEstado=" ";
-    String mensajeCodFunIngreso=" ";
-    String mensajefechaIngreso=" ";
-    String mensajeCodFunEdito=" ";
-    String mensajeFechaEdito=" ";
+    String mensajeNombre = " ";
+    String mensajeEstado = " ";
+    String mensajeCodFunIngreso = " ";
+    String mensajefechaIngreso = " ";
+    String mensajeCodFunEdito = " ";
+    String mensajeFechaEdito = " ";
     String mensajeAlerta = " ";
-    
-    DateFormat dateFormat= new SimpleDateFormat("dd/MM/yyyy");
 
-    LinkedList<programa> listaTablaPrograma = new LinkedList<>();
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    public LinkedList<programa> getListaTablaPrograma() throws SNMPExceptions, SQLException {
-        programaDB dDB = new programaDB();
+    LinkedList<Programa> listaTablaPrograma = new LinkedList<>();
+
+    public LinkedList<Programa> getListaTablaPrograma() throws SNMPExceptions, SQLException {
+        ProgramaDB dDB = new ProgramaDB();
         return dDB.consultarPrograma();
     }
 
-    public void setListaTablaPrograma(LinkedList<programa> listaTablaPrograma) {
+    public void setListaTablaPrograma(LinkedList<Programa> listaTablaPrograma) {
         this.listaTablaPrograma = listaTablaPrograma;
     }
 
     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
-        programaDB cDB = new programaDB();
-        programa cur = new programa();
-        
+        ProgramaDB cDB = new ProgramaDB();
+        Programa cur = new Programa();
+
         cur.setNombre(this.getNombre());
         cur.setId(this.getId());
 
         cur.setEstado(this.isEstado());
 
-        
         cDB.actualizarPrograma(cur);
     }
 
-    public void ingresarRegistro() throws
-        SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
-        programaDB dDB = new programaDB();
-        programa depUTN = new programa();
+    public void ingresarRegistro() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        ProgramaDB dDB = new ProgramaDB();
+        Programa depUTN = new Programa();
 
         try {
-            if(this.id==0){
-                this.mensajeId = "Id es Requerido"; 
+            if (this.id == 0) {
+                this.mensajeId = "Id es Requerido";
             }
-            if(this.nombre.equals(" ")){
-                this.mensajeNombre= "Nombre es Requerido";
+            if (this.nombre.equals(" ")) {
+                this.mensajeNombre = "Nombre es Requerido";
             }
-             if(this.estadoValidador.equals("--Seleccione--")){
+            if (this.estadoValidador.equals("--Seleccione--")) {
                 this.mensajeEstado = "Estado Requerdido";
             }
-           
-           
-            
-            if(this.id>1){
-                this.mensajeId = " "; 
+            if (this.id > 1) {
+                this.mensajeId = " ";
             }
-            if(!this.nombre.equals(" ")){
-                this.mensajeNombre= " ";
+            if (!this.nombre.equals(" ")) {
+                this.mensajeNombre = " ";
             }
-           
-            if(!this.estadoValidador.equals("--Seleccione--")){
+            if (!this.estadoValidador.equals("--Seleccione--")) {
                 this.mensajeEstado = " ";
-                if(this.estadoValidador.equals("Inactivo")){
-                    this.estado=false;
-                }
-                else{
-                    this.estado=true;
+                if (this.estadoValidador.equals("Inactivo")) {
+                    this.estado = false;
+                } else {
+                    this.estado = true;
                 }
             }
             depUTN.setId(id);
@@ -114,19 +107,17 @@ public class beanMantPrograma implements Serializable {
             depUTN.setNombre(nombre);
 
             dDB.mvRegitroPrograma(depUTN);
-            actualizaDatos();
             mensajeAlerta = "Realizado con exito";
-        } catch (Exception e) {
+        } catch (SNMPExceptions | SQLException e) {
+            System.out.println("Error :" + e);
+            System.out.println("Mensaje :" + e.getMessage());
         }
-
     }
 
-    public void asignaDatos(programa dep) {
-           setId(dep.getId());
-
-           setEstado(dep.isEstado());
-
-            setNombre(dep.getNombre());
+    public void asignaDatos(Programa dep) {
+        setId(dep.getId());
+        setEstado(dep.isEstado());
+        setNombre(dep.getNombre());
     }
 
     public String getMensajeAlerta() {
@@ -137,9 +128,6 @@ public class beanMantPrograma implements Serializable {
         this.mensajeAlerta = mensajeAlerta;
     }
 
-  
-
-    
     public void cancelar() {
         this.setCodFunEdito(" ");
         this.setCodFunIngreso(" ");
@@ -277,9 +265,4 @@ public class beanMantPrograma implements Serializable {
     public void setEstadoValidador(String estadoValidador) {
         this.estadoValidador = estadoValidador;
     }
-
- 
-
-    
-    
 }
