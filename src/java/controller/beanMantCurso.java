@@ -42,6 +42,7 @@ public class beanMantCurso implements Serializable {
     int idPrograma=0;
     
     
+    String estadoValidador=" ";
     String mensajeId = " ";
     String mensajeDescripcion = " ";
     String mensajeEstado = " ";
@@ -68,7 +69,8 @@ public class beanMantCurso implements Serializable {
     LinkedList<Curso> listaTablaCurso = new LinkedList<Curso>();
 
     public LinkedList<Curso> getListaTablaCurso() throws SNMPExceptions, SQLException {
-        return listaTablaCurso;
+        CursoDB dDB = new CursoDB();
+        return dDB.consultarCurso();
     }
 
     public void setListaTablaCurso(LinkedList<Curso> listaTablaCurso) {
@@ -85,36 +87,16 @@ public class beanMantCurso implements Serializable {
         CursoDB cDB = new CursoDB();
         Curso cur = new Curso();
         
-        cur.setId(id);
-        cur.setCodFunEdito(codFunEdito);
-        cur.setCodFunIngreso(codFunIngreso);
-        cur.setDescripcion(descripcion);
-        cur.setEstado(estado);
-        cur.setFechaEdito(fechaEdito);
-        cur.setFechaIngreso(fechaIngreso);
-        cur.setIdPrograma(idPrograma);
+        cur.setId(this.getId());
+        cur.setDescripcion(this.getDescripcion());
+        cur.setEstado(this.isEstado());
+        cur.setIdPrograma(this.getIdPrograma());
         
         cDB.actualizarCurso(cur);
-        this.setMensajesetMensajeAct("Actualizacion Realizada");
-        this.FiltroTabla();
+      String men="Funciono";
     }
     
-    public void FiltroTabla() throws SNMPExceptions, SQLException{
-        LinkedList<Curso> listaD = new LinkedList<Curso>();
-        CursoDB dDB = new CursoDB();
-
-            
-        listaD = dDB.consultarCurso();
-        if(listaD.size() > 0){
-           this.setListaTablaCurso(listaD); 
-        }
-        else{
-            if(listaD.size() == 0){
-                this.setMensajeAlerta("No existe informacion de curso");
-            }
-        
-        }
-    }
+   
     public void ingresarRegistro()throws 
      SNMPExceptions, SQLException, NamingException, ClassNotFoundException{    
         CursoDB dDB = new CursoDB();
@@ -171,16 +153,19 @@ public class beanMantCurso implements Serializable {
              this.mensajeIdPrograma=" ";
          }
          
-         
+         if (!this.estadoValidador.equals("--Seleccione--")) {
+                this.mensajeEstado = " ";
+                if (this.estadoValidador.equals("Inactivo")) {
+                    this.estado = false;
+                } else {
+                    this.estado = true;
+                }
+            }
             
           
           depUTN.setId(id);
           depUTN.setDescripcion(descripcion);
           depUTN.setEstado(estado);
-          depUTN.setCodFunIngreso(codFunIngreso);
-          depUTN.setFechaIngreso(fechaIngreso);
-          depUTN.setCodFunEdito(codFunEdito);
-          depUTN.setFechaEdito(fechaEdito);
           depUTN.setIdPrograma(idPrograma);
           
           dDB.mvRegitroCurso(depUTN);
@@ -202,28 +187,36 @@ public class beanMantCurso implements Serializable {
           setIdPrograma(dep.getIdPrograma());
     }
     
-     public LinkedList<SelectItem> getListaCand() throws SNMPExceptions, SQLException {
-        int idPrograma=0;
-        String nombreCurso=" "; 
-        LinkedList<Programa> lista= new LinkedList<Programa>();
-        ProgramaDB cDB= new ProgramaDB();
-        lista=cDB.moTodo();
-        LinkedList resultList= new LinkedList();
-        resultList.add(new SelectItem(0,"Seleccione Programa"));
-        for(Iterator iter= lista.iterator();
-                iter.hasNext();){
-            
-            Programa cand= (Programa)iter.next();
-            idPrograma=cand.getId();
-            nombreCurso=cand.getNombre();
-            resultList.add(new SelectItem(idPrograma,nombreCurso));
-            
+   public LinkedList<SelectItem> getListaPrograma() throws SNMPExceptions, SQLException {
+        String nomCandidato = "";
+        int numCandidato = 0;
+        LinkedList<Programa> lista = new LinkedList<Programa>();
+        ProgramaDB cDB = new ProgramaDB();
+        lista = cDB.moTodo();
+        LinkedList resultList = new LinkedList();
+        resultList.add(new SelectItem(0, "Seleccione Programa"));
+        for (Iterator iter = lista.iterator();
+                iter.hasNext();) {
+
+            Programa cand = (Programa) iter.next();
+            numCandidato = cand.getId();
+            nomCandidato = cand.getNombre();
+            resultList.add(new SelectItem(numCandidato, nomCandidato));
+
         }
         return resultList;
     }
 
-    public void setListaCand(LinkedList<SelectItem> listaCand) {
-        this.listaCandCmb = listaCand;
+    public void setListaPrograma(LinkedList<SelectItem> listaPrograma) {
+        this.listaCandCmb = listaPrograma;
+    }
+
+    public String getEstadoValidador() {
+        return estadoValidador;
+    }
+
+    public void setEstadoValidador(String estadoValidador) {
+        this.estadoValidador = estadoValidador;
     }
     
     

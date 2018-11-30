@@ -43,7 +43,7 @@ public class CursoDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Descripcion,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito,IdPrograma from Curso";
+                    = "SELECT Id,Descripcion,Estado,IdPrograma from Curso";
 
             //Se llena el arryaList con los catálogos
             try ( //Se ejecuta la sentencia SQL
@@ -53,14 +53,10 @@ public class CursoDB {
                     
                     int id = rsPA.getInt("Id");
                     String descripcion = rsPA.getString("Descripcion");
-                    boolean estado = rsPA.getBoolean("esyado");
-                    String codFunIngreso = rsPA.getString("CodFunIngreso");
-                    Date fechaIngreso = rsPA.getDate("FechaIngreso");
-                    String codFunEdito = rsPA.getString("CodFunEdito");
-                    Date fechaEdito = rsPA.getDate("FechaEdito");
+                    boolean estado = rsPA.getBoolean("Estado");
                     int idPrograma = rsPA.getInt("IdPrograma");
                     
-                    Curso dep = new Curso(id, descripcion, estado, codFunIngreso, fechaIngreso, codFunEdito, fechaEdito, idPrograma);
+                    Curso dep = new Curso(id, descripcion, estado, idPrograma);
                     listaCurso.add(dep);
                 }
             }
@@ -86,11 +82,11 @@ public class CursoDB {
             strSQL = "INSERT  INTO Curso(Id,Descripcion,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito,IdPrograma) VALUES("
                     + cur.getId() + ",'"
                     + cur.getDescripcion() + "',"
-                    + cur.isEstado() + ",'"
-                    + cur.getCodFunIngreso() + "',"
-                    + cur.getFechaIngreso() + ",'"
-                    + cur.getCodFunEdito() + "',"
-                    + cur.getFechaEdito() + ","
+                    + (cur.isEstado()?1:0) + ",'"
+                    + 1+ "',"
+                    + "getDate()" + ",'"
+                    + 1 + "',"
+                    + "getDate()" + ","
                     + cur.getIdPrograma() + ")";
 //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL/*, sqlBitacora*/);
@@ -107,35 +103,56 @@ public class CursoDB {
     public void actualizarCurso(Curso cursop) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         //Se obtienen los valores del objeto Cliente
         Curso c = cursop;
-
         //Datos de CLiente         
         int id = c.getId();
         String descripcion = c.getDescripcion();
         boolean estado = c.isEstado();
-        String codFunIngreso = c.getCodFunIngreso();
-        Date fechaIngreso = c.getFechaIngreso();
-        String codFunEdito = c.getCodFunEdito();
-        Date fechaEdito = c.getFechaEdito();
         int idPrograma = c.getIdPrograma();
 
         //Se crea la sentencia de actualización
-        String update = "UPDATE Curso SET Descripcion = '"
-                + descripcion
-                + "', Estado='"
-                + estado
-                + "',CodFunIngreso="
-                + codFunIngreso
-                + "',FechaIngreso="
-                + fechaIngreso
-                + ",CodFunEdito='"
-                + codFunEdito
-                + "',FechaEdito="
-                + fechaEdito
-                + ",IdPrograma="
-                + idPrograma
-                + "where Id = '"
-                + id + "';";
+        String update = "UPDATE Curso SET Descripcion = '"+ descripcion+ "', Estado="+ (estado?1:0) + ",CodFunIngreso='"+ 1 + "',FechaIngreso="+ "GetDate()" + ",CodFunEdito='" + 1 + "',FechaEdito="  + "getDate()"  + ",IdPrograma=" + idPrograma  + "where Id = " + id + ";";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
+    }
+    
+    public LinkedList<Curso> moTodo() throws SNMPExceptions, SQLException{
+        String select= " ";
+        LinkedList<Curso> listaCand= new LinkedList<Curso>();
+        
+        try{
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos= new AccesoDatos();
+            
+            //Se crea la sentencia de Busqueda
+            select=
+                    "Select Id,Descripcion,Estado,IdPrograma from Curso";
+            //se ejecuta la sentencia sql
+            ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
+            //se llama el array con los proyectos
+            while(rsPA.next()){
+                
+                int id= rsPA.getInt("Id");
+                String nombre = rsPA.getString("Descripcion");
+                boolean estado = rsPA.getBoolean("Estado");
+                int idPrograma=rsPA.getInt("IdPrograma");
+
+               
+                
+                //se construye el objeto.
+                Curso perCandidato= new Curso(id,nombre,estado,idPrograma);
+                
+                listaCand.add(perCandidato);
+            }
+            rsPA.close();//se cierra el ResultSeat.
+            
+        }catch(SQLException e){
+            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION,
+                                     e.getMessage(),e.getErrorCode());
+        }catch(SNMPExceptions | ClassNotFoundException | NamingException e){
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,e.getMessage());
+        }finally{
+            
+        }
+        return listaCand;
     }
 }

@@ -71,10 +71,10 @@
                                                 <h:outputText value="Codigo del Curso: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantCurso.codigo}"></h:inputText>
+                                                <p:inputText type="number" value="#{beanMantCurso.id}"></p:inputText>
                                             </td>
                                             <td>
-                                                <h:outputText style="color: red" value="#{beanMantCurso.mensajeCodigo}"></h:outputText>
+                                                <h:outputText style="color: red" value="#{beanMantCurso.mensajeId}"></h:outputText>
                                             </td>
                                         </tr>                  
                                         <tr>
@@ -88,24 +88,41 @@
                                                 <h:outputText style="color: red" value="#{beanMantCurso.mensajeDescripcion}"></h:outputText>
                                             </td>
 
-                                        </tr>                   
+                                        </tr>  
+                                        
                                         <tr>
                                             <td>
-                                                <h:outputText value="Codigo de Programa: "></h:outputText>
+                                                <h:outputText value="Estado: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:selectOneMenu value="#{beanMantCurso.codigoPrograma}">                                          
-                                                    <f:selectItems value="#{beanMantCurso.listaCand}"></f:selectItems>
+                                                <h:selectOneMenu class="form-control" value="#{beanMantCurso.estadoValidador}">
+                                                    <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>
+                                                    <f:selectItem itemValue="Inactivo" itemLabel="Inactivo"></f:selectItem>
+                                                    <f:selectItem itemValue="Activo" itemLabel="Activo"></f:selectItem>
                                                 </h:selectOneMenu>
                                             </td>
                                             <td>
-                                                <h:outputText style="color: red" value="#{beanMantCurso.mensajePrograma}"></h:outputText>
+                                                <h:outputText style="color: red" value="#{beanMantPrograma.mensajeEstado}"></h:outputText>
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>
+                                                <h:outputText value="IdPrograma: "></h:outputText>
+                                            </td>
+                                            <td>
+                                                <h:selectOneMenu value="#{beanMantCurso.idPrograma}">                                          
+                                                    <f:selectItems value="#{beanMantCurso.listaPrograma}"></f:selectItems>
+                                                </h:selectOneMenu>
+                                            </td>
+                                            <td>
+                                                <h:outputText style="color: red" value="#{beanMantCurso.mensajeIdPrograma}"></h:outputText>
                                             </td>
                                         </tr>
                                         <tr style="text-align: center">
                                             <td colspan="2" style="text-align: center">
                                                 <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Añadir" actionListener="#{beanMantCurso.ingresarRegistro()}" ></h:commandButton>
                                                 <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Cancelar" actionListener="#{beanMantCurso.cancelar()}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Editar" actionListener="#{beanMantCurso.actualizaDatos()}" ></h:commandButton>
                                             </td>
                                         </tr>
                                     </tBody>               
@@ -115,13 +132,16 @@
                         <div class="col-md-6">
                             <p:dataTable value="#{beanMantCurso.listaTablaCurso}" var="dep" >
                                 <p:column headerText="Código Curso">
-                                    <h:outputText value="#{dep.codigoCurso}"></h:outputText>
+                                    <h:outputText value="#{dep.id}"></h:outputText>
                                 </p:column>           
                                 <p:column headerText="Descripción">
                                     <h:outputText value="#{dep.descripcion}"></h:outputText>
                                 </p:column>   
+                                 <p:column headerText="Estado">
+                                     <h:outputText value="#{dep.estado}"></h:outputText>
+                                </p:column> 
                                 <p:column headerText="Código Programa">
-                                    <h:outputText value="#{dep.codigoPrograma}"></h:outputText>
+                                    <h:outputText value="#{dep.idPrograma}"></h:outputText>
                                 </p:column>
                                 <p:column>
                                     <h:commandLink value="Editar" actionListener="#{beanMantCurso.asignaDatos(dep)}"></h:commandLink>

@@ -27,21 +27,13 @@ public class Curso {
     this.id=0;
     this.descripcion=" ";
     this.estado=false;
-    this.codFunIngreso=" ";
-    this.fechaIngreso=null;
-    this.codFunEdito=" ";
-    this.fechaEdito=null;
     this.idPrograma=0;
     }
     
-    public Curso(int idp,String descripcionp,boolean estadop,String codFunIngresop,Date fechaIngresop,String codFunEditop,Date fechaEditop,int idProgramap){
+    public Curso(int idp,String descripcionp,boolean estadop,int idProgramap){
         this.id=idp;
         this.descripcion=descripcionp;
         this.estado=estadop;
-        this.codFunIngreso=codFunIngresop;
-        this.fechaIngreso=fechaIngresop;
-        this.codFunEdito=codFunEditop;
-        this.fechaEdito=fechaEditop;
         this.idPrograma=idProgramap;       
     }
 
