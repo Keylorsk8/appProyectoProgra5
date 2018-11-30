@@ -34,42 +34,39 @@ public class beanMantInfraestructura implements Serializable {
      */
     public beanMantInfraestructura() {
     }
-    
-     int id = 0;
-     int capacidad = 0;
-     int idTipoInfraestructura = 0;    
-     String nombre = " ";   
-     String ubicacion = " ";
-     int idPrograma = 0;
-    
-    String mensajeId=" ";
-    String mensajeCapacidad=" ";
-    String mensajeIdTipoInfraestructura=" ";
-    String mensajeNombre=" ";
-    String mensajeUbicacion=" ";  
-    String mensajeidPrograma=" ";
-    
-    
-    String mensajeAlerta=" ";
-    
-   
-    
+
+    int id = 0;
+    int capacidad = 0;
+    int idTipoInfraestructura = 0;
+    String nombre = " ";
+    String ubicacion = " ";
+    int idPrograma = 0;
+
+    String mensajeId = " ";
+    String mensajeCapacidad = " ";
+    String mensajeIdTipoInfraestructura = " ";
+    String mensajeNombre = " ";
+    String mensajeUbicacion = " ";
+    String mensajeidPrograma = " ";
+
+    String mensajeAlerta = " ";
+
     public void cancelar() {
-     this.setId(0);
-     this.setCapacidad(0);
-     this.setIdPrograma(0);
-     this.setIdTipoInfraestructura(0);
-     this.setNombre(" ");
-     this.setUbicacion(" ");    
-     this.setMensajeCapacidad(" ");
-     this.setMensajeId(" ");
-     this.setMensajeIdTipoInfraestructura(" ");
-     this.setMensajeNombre(" ");
-     this.setMensajeUbicacion(" ");
-     this.setMensajeidPrograma(" ");    
+        this.setId(0);
+        this.setCapacidad(0);
+        this.setIdPrograma(0);
+        this.setIdTipoInfraestructura(0);
+        this.setNombre(" ");
+        this.setUbicacion(" ");
+        this.setMensajeCapacidad(" ");
+        this.setMensajeId(" ");
+        this.setMensajeIdTipoInfraestructura(" ");
+        this.setMensajeNombre(" ");
+        this.setMensajeUbicacion(" ");
+        this.setMensajeidPrograma(" ");
     }
-    
- private LinkedList<SelectItem> listaCandCmb= new LinkedList();
+
+    private LinkedList<SelectItem> listaCandCmb = new LinkedList();
 
     public LinkedList<SelectItem> getListaCandCmb()
             throws SNMPExceptions, SQLException {
@@ -78,10 +75,10 @@ public class beanMantInfraestructura implements Serializable {
 
     public void setListaCandCmb(LinkedList<SelectItem> listaCandCmb) {
         this.listaCandCmb = listaCandCmb;
-    } 
- private LinkedList<SelectItem> listaCandCmb1= new LinkedList();
- 
-     public LinkedList<SelectItem> getListaCandCmb1()
+    }
+    private LinkedList<SelectItem> listaCandCmb1 = new LinkedList();
+
+    public LinkedList<SelectItem> getListaCandCmb1()
             throws SNMPExceptions, SQLException {
         return listaCandCmb1;
     }
@@ -89,158 +86,148 @@ public class beanMantInfraestructura implements Serializable {
     public void setListaCandCmb1(LinkedList<SelectItem> listaCandCmb1) {
         this.listaCandCmb1 = listaCandCmb1;
     }
-    
-    LinkedList<SelectItem> listaTablaInfraestructura = new LinkedList<>();
 
-    public LinkedList<SelectItem> getListaTablaInfraestructura() 
-            throws SNMPExceptions, SQLException {
-        return listaTablaInfraestructura;
+    LinkedList<Infraestructura> listaTablaInfraestructura = new LinkedList<>();
+
+    public LinkedList<Infraestructura> getListaTablaInfraestructura() throws SNMPExceptions, SQLException {
+        InfraestructuraDB dDB = new InfraestructuraDB();
+        return dDB.consultarInfraestructura();
     }
-    
 
-    public void setListaTablaInfraestructura(LinkedList<SelectItem> listaTablaInfraestructura) {
+    public void setListaTablaInfraestructura(LinkedList<Infraestructura> listaTablaInfraestructura) {
         this.listaTablaInfraestructura = listaTablaInfraestructura;
     }
-    
 
-    
-    public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+    public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         InfraestructuraDB cDB = new InfraestructuraDB();
         Infraestructura cur = new Infraestructura();
-        
-        cur.setId(id);
-          cur.setCapacidad(capacidad);
-          cur.setIdPrograma(idPrograma);
-          cur.setIdTipoInfraestructura(idTipoInfraestructura);
-          cur.setNombre(nombre);
-          cur.setUbicacion(ubicacion);
-        
+
+        cur.setId(this.getId());
+        cur.setCapacidad(this.getCapacidad());
+        cur.setIdTipoInfraestructura(this.getIdTipoInfraestructura());
+        cur.setNombre(this.getNombre());
+        cur.setUbicacion(this.getUbicacion());
+        cur.setIdPrograma(this.getIdPrograma());
+
         cDB.actualizarInfraestructura(cur);
-        this.setMensajeAlerta("Actualizacion Realizada");
-        
+
     }
-    
-     public void ingresarRegistro()throws 
-     SNMPExceptions, SQLException, NamingException, ClassNotFoundException{    
+
+    public void ingresarRegistro() throws
+            SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         InfraestructuraDB dDB = new InfraestructuraDB();
         Infraestructura depUTN = new Infraestructura();
-        
-        try{
-           if(this.id == 0){
-                this.mensajeId="Id es Requerido";
-            }
-            if(this.capacidad == 0){
-                this.mensajeCapacidad="Capacidad es Requerido";
-            }
-            if(this.idTipoInfraestructura == 0){
-                this.mensajeIdTipoInfraestructura="Tipo Infraestructura es Requerido";
-            }
-            if(this.nombre.equals(" ")){
-                this.mensajeNombre="Nombre es Requerido";
-            }
-            if(this.ubicacion.equals(" ")){
-                this.mensajeUbicacion="Ubicacion es Requerido";
-            }          
-            if(this.idPrograma == 0){
-               this.mensajeidPrograma="IdPrograma es Requerido";     
-            }
-            
-            
-            if(this.id > 1){
-                this.mensajeId=" ";
-            }
-            if(this.capacidad > 1){
-                this.mensajeCapacidad=" ";
-            }
-            if(this.idTipoInfraestructura > 1){
-                this.mensajeIdTipoInfraestructura=" ";
-            }
-            if(!this.nombre.equals(" ")){
-                this.mensajeNombre=" ";
-            }
-            if(!this.ubicacion.equals(" ")){
-                this.mensajeUbicacion=" ";
-            }          
-            if(this.idPrograma > 1){
-               this.mensajeidPrograma=" ";     
-            }
-            
-          
-          depUTN.setId(id);
-          depUTN.setCapacidad(capacidad);
-          depUTN.setIdPrograma(idPrograma);
-          depUTN.setIdTipoInfraestructura(idTipoInfraestructura);
-          depUTN.setNombre(nombre);
-          depUTN.setUbicacion(ubicacion);
-          
-          dDB.mvRegitroInfraestructura(depUTN);
-          
-          mensajeAlerta="Realizado con exito";
-        }
-        catch(Exception e){            
-        }
-        
-    }
-     
-     public LinkedList<SelectItem> getListaPrograma() throws SNMPExceptions, SQLException {
-        String nomCandidato="";
-        int numCandidato=0; 
-        LinkedList<Programa> lista= new LinkedList<Programa>();
-        ProgramaDB cDB= new ProgramaDB();
-        lista=cDB.moTodo();
-        LinkedList resultList= new LinkedList();
-        resultList.add(new SelectItem(0,"Seleccione Programa"));
-        for(Iterator iter= lista.iterator();
-                iter.hasNext();){
-            
-            Programa cand= (Programa)iter.next();
-            numCandidato=cand.getId();
-            nomCandidato=cand.getNombre();
-            resultList.add(new SelectItem(numCandidato,nomCandidato));
-            
-        }
-        return resultList;
-    }
-     
-      public void setListaPrograma(LinkedList<SelectItem> listaPrograma) {
-        this.listaCandCmb = listaPrograma;
-      }
-     
-     public LinkedList<SelectItem> getListaTipoInfra() throws SNMPExceptions, SQLException {
-        String nomCandidato="";
-        int numCandidato=0; 
-        LinkedList<TipoInfraestructura> lista= new LinkedList<TipoInfraestructura>();
-        TipoInfraestructuraDB cDB= new TipoInfraestructuraDB();
-        lista=cDB.moTodo();
-        LinkedList resultList= new LinkedList();
-        resultList.add(new SelectItem(0,"Seleccione TipoInfraestructura"));
-        for(Iterator iter= lista.iterator();
-                iter.hasNext();){
-            
-            TipoInfraestructura cand= (TipoInfraestructura)iter.next();
-            numCandidato=cand.getId();
-            nomCandidato=cand.getNombre();
-            resultList.add(new SelectItem(numCandidato,nomCandidato));
-            
-        }
-        return resultList;
-    }
-     
-     public void setListaTipoInfra(LinkedList<SelectItem> listaTipoInfra) {
-        this.listaCandCmb1 = listaTipoInfra;
-      }
-     
-     public void asignaDatos(Infraestructura dep){       
-          setId(dep.getId());
-          setCapacidad(dep.getCapacidad());
-          setIdPrograma(dep.getIdPrograma());
-          setIdTipoInfraestructura(dep.getIdTipoInfraestructura());
-          setNombre(dep.getNombre());
-          setUbicacion(dep.getUbicacion());
-    }
-    
-    
 
+        try {
+            if (this.id == 0) {
+                this.mensajeId = "Id es Requerido";
+            }
+            if (this.capacidad == 0) {
+                this.mensajeCapacidad = "Capacidad es Requerido";
+            }
+            if (this.idTipoInfraestructura == 0) {
+                this.mensajeIdTipoInfraestructura = "Tipo Infraestructura es Requerido";
+            }
+            if (this.nombre.equals(" ")) {
+                this.mensajeNombre = "Nombre es Requerido";
+            }
+            if (this.ubicacion.equals(" ")) {
+                this.mensajeUbicacion = "Ubicacion es Requerido";
+            }
+            if (this.idPrograma == 0) {
+                this.mensajeidPrograma = "IdPrograma es Requerido";
+            }
+
+            if (this.id > 1) {
+                this.mensajeId = " ";
+            }
+            if (this.capacidad > 1) {
+                this.mensajeCapacidad = " ";
+            }
+            if (this.idTipoInfraestructura > 1) {
+                this.mensajeIdTipoInfraestructura = " ";
+            }
+            if (!this.nombre.equals(" ")) {
+                this.mensajeNombre = " ";
+            }
+            if (!this.ubicacion.equals(" ")) {
+                this.mensajeUbicacion = " ";
+            }
+            if (this.idPrograma > 1) {
+                this.mensajeidPrograma = " ";
+            }
+
+            depUTN.setId(id);
+            depUTN.setCapacidad(capacidad);
+            depUTN.setIdPrograma(idPrograma);
+            depUTN.setIdTipoInfraestructura(idTipoInfraestructura);
+            depUTN.setNombre(nombre);
+            depUTN.setUbicacion(ubicacion);
+
+            dDB.mvRegitroInfraestructura(depUTN);
+
+            mensajeAlerta = "Realizado con exito";
+        } catch (Exception e) {
+        }
+
+    }
+
+    public LinkedList<SelectItem> getListaPrograma() throws SNMPExceptions, SQLException {
+        String nomCandidato = "";
+        int numCandidato = 0;
+        LinkedList<Programa> lista = new LinkedList<Programa>();
+        ProgramaDB cDB = new ProgramaDB();
+        lista = cDB.moTodo();
+        LinkedList resultList = new LinkedList();
+        resultList.add(new SelectItem(0, "Seleccione Programa"));
+        for (Iterator iter = lista.iterator();
+                iter.hasNext();) {
+
+            Programa cand = (Programa) iter.next();
+            numCandidato = cand.getId();
+            nomCandidato = cand.getNombre();
+            resultList.add(new SelectItem(numCandidato, nomCandidato));
+
+        }
+        return resultList;
+    }
+
+    public void setListaPrograma(LinkedList<SelectItem> listaPrograma) {
+        this.listaCandCmb = listaPrograma;
+    }
+
+    public LinkedList<SelectItem> getListaTipoInfra() throws SNMPExceptions, SQLException {
+        String nomCandidato = "";
+        int numCandidato = 0;
+        LinkedList<TipoInfraestructura> lista = new LinkedList<TipoInfraestructura>();
+        TipoInfraestructuraDB cDB = new TipoInfraestructuraDB();
+        lista = cDB.moTodo();
+        LinkedList resultList = new LinkedList();
+        resultList.add(new SelectItem(0, "Seleccione TipoInfraestructura"));
+        for (Iterator iter = lista.iterator();
+                iter.hasNext();) {
+
+            TipoInfraestructura cand = (TipoInfraestructura) iter.next();
+            numCandidato = cand.getId();
+            nomCandidato = cand.getNombre();
+            resultList.add(new SelectItem(numCandidato, nomCandidato));
+
+        }
+        return resultList;
+    }
+
+    public void setListaTipoInfra(LinkedList<SelectItem> listaTipoInfra) {
+        this.listaCandCmb1 = listaTipoInfra;
+    }
+
+    public void asignaDatos(Infraestructura dep) {
+        setId(dep.getId());
+        setCapacidad(dep.getCapacidad());
+        setIdPrograma(dep.getIdPrograma());
+        setIdTipoInfraestructura(dep.getIdTipoInfraestructura());
+        setNombre(dep.getNombre());
+        setUbicacion(dep.getUbicacion());
+    }
 
     public String getMensajeAlerta() {
         return mensajeAlerta;
@@ -249,7 +236,6 @@ public class beanMantInfraestructura implements Serializable {
     public void setMensajeAlerta(String mensajeAlerta) {
         this.mensajeAlerta = mensajeAlerta;
     }
-
 
     public int getId() {
         return id;
@@ -347,9 +333,4 @@ public class beanMantInfraestructura implements Serializable {
         this.mensajeidPrograma = mensajeidPrograma;
     }
 
-    
-  
-    
-    
-    
 }

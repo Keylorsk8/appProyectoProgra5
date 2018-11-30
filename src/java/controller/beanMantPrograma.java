@@ -68,7 +68,6 @@ public class beanMantPrograma implements Serializable {
 
         cur.setNombre(this.getNombre());
         cur.setId(this.getId());
-
         cur.setEstado(this.isEstado());
 
         cDB.actualizarPrograma(cur);

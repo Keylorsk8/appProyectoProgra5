@@ -35,12 +35,12 @@ public class InfraestructuraDB {
     
      public LinkedList<Infraestructura> consultarInfraestructura() throws SNMPExceptions, SQLException {
         String select;
-        LinkedList<Infraestructura> listaInfraestructura = new LinkedList<>();
+        LinkedList<Infraestructura> listaInfraestructura = new LinkedList<Infraestructura>();
 
         try {
             //open();
             //Se instancia la clase de acceso a datos
-            accesoDatos = new AccesoDatos();
+           AccesoDatos accesoDatos = new AccesoDatos();
 
             //Se crea la sentencia de búsqueda
             select
@@ -111,17 +111,7 @@ public class InfraestructuraDB {
         String ubicacion = c.getUbicacion();
         int idPrograma = c.getIdPrograma();
         //Se crea la sentencia de actualización
-        String update = "UPDATE Infraestructura SET Capacidad = " + capacidad 
-                + ", IdTipoInfraestructura=" 
-                + idTipoInfraestructura 
-                + ",Nombre='" 
-                + nombre 
-                + "',Ubicacion='" 
-                + ubicacion 
-                + "',IdPrograma=" 
-                + idPrograma
-                + "where Id = " 
-                + id + ";";
+        String update = "UPDATE Infraestructura SET Capacidad = " + capacidad  + ", IdTipoInfraestructura="  + idTipoInfraestructura  + ",Nombre='" + nombre  + "',Ubicacion='"  + ubicacion  + "',IdPrograma="  + idPrograma  + "where Id = "  + id + ";";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }

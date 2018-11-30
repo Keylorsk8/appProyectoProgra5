@@ -73,7 +73,7 @@
                                                 <h:outputText value="Id: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText class="form-control" value="#{beanMantInfraestructura.id}"></h:inputText>
+                                                 <p:inputText type="number"  value="#{beanMantInfraestructura.id}"></p:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeId}"></h:outputText>
@@ -84,45 +84,42 @@
                                                 <h:outputText value="Capacidad: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText class="form-control" value="#{beanMantInfraestructura.capacidad}"></h:inputText>
+                                                 <p:inputText type="number"  value="#{beanMantInfraestructura.capacidad}"></p:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeCapacidad}"></h:outputText>
                                             </td>
-                                        </tr> 
-
+                                        </tr>
                                         <tr>
                                             <td>
                                                 <h:outputText value="Id Tipo de Infraestructura: "></h:outputText>
                                             </td>
                                             <td>
                                                 <h:selectOneMenu class="form-control" value="#{beanMantInfraestructura.idTipoInfraestructura}">
-                                                    <f:selectItem value="#{beanMantInfraestructura.listaTipoInfra}"></f:selectItem>                      
+                                                    <f:selectItems value="#{beanMantInfraestructura.listaTipoInfra}"></f:selectItems>                  
                                                 </h:selectOneMenu>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeIdTipoInfraestructura}"></h:outputText>
                                             </td>
                                         </tr>
-
                                         <tr>
                                             <td>
                                                 <h:outputText value="Nombre: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText class="form-control" value="#{beanMantInfraestructura.nombre}"></h:inputText>
+                                                <h:inputText value="#{beanMantInfraestructura.nombre}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeNombre}"></h:outputText>
                                             </td>
                                         </tr>
-
                                         <tr>
                                             <td>
                                                 <h:outputText value="Ubicacion: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText class="form-control" value="#{beanMantInfraestructura.ubicacion}"></h:inputText>
+                                                <h:inputText  value="#{beanMantInfraestructura.ubicacion}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeUbicacion}"></h:outputText>
@@ -134,7 +131,7 @@
                                             </td>
                                             <td>
                                                 <h:selectOneMenu class="form-control" value="#{beanMantInfraestructura.idPrograma}">
-                                                    <f:selectItem value="#{beanMantInfraestructura.listaPrograma}"></f:selectItem>                                   
+                                                    <f:selectItems value="#{beanMantInfraestructura.listaPrograma}"></f:selectItems>                                   
                                                 </h:selectOneMenu>
                                             </td>
                                             <td>
@@ -143,9 +140,9 @@
                                         </tr>
                                         <tr style="text-align: center">
                                             <td colspan="3">
-                                                <h:commandButton class="btn btn-success btn-block" style="width: 50%;margin-left: 25%" value="Añadir" actionListener="#{beanMantInfraestructura.ingresarRegistro()}" ></h:commandButton>
-                                                <h:commandButton class="btn btn-danger btn-block" style="width: 50%;margin-left: 25%" value="Cancelar" actionListener="#{beanMantInfraestructura.cancelar()}" ></h:commandButton>
-                                                <h:commandButton class="btn btn-danger btn-block" style="width: 50%;margin-left: 25%" value="Editar" actionListener="#{beanMantInfraestructura.actualizaDatos()}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Añadir" actionListener="#{beanMantInfraestructura.ingresarRegistro()}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Cancelar" actionListener="#{beanMantInfraestructura.cancelar()}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Editar" actionListener="#{beanMantInfraestructura.actualizaDatos()}" ></h:commandButton>
                                             </td>
                                         </tr>
                                     </tBody>               
@@ -173,7 +170,7 @@
                                     <h:outputText value="#{dep.idPrograma}"></h:outputText>
                                 </p:column>
                                 <p:column>
-                                    <h:commandLink value="Editar" actionListener="#{beanMantPrograma.asignaDatos(dep)}"></h:commandLink>
+                                    <h:commandLink value="Editar" actionListener="#{beanMantInfraestructura.asignaDatos(dep)}"></h:commandLink>
                                 </p:column>
                             </p:dataTable>                        
                         </div>
