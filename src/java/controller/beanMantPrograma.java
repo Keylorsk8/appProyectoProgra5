@@ -105,8 +105,11 @@ public class beanMantPrograma implements Serializable {
             depUTN.setId(id);
             depUTN.setEstado(estado);
             depUTN.setNombre(nombre);
-
+            
+          
             dDB.mvRegitroPrograma(depUTN);
+            
+            
             mensajeAlerta = "Realizado con exito";
         } catch (SNMPExceptions | SQLException e) {
             System.out.println("Error :" + e);

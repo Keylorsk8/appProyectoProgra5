@@ -12,10 +12,10 @@ import DAO.SNMPExceptions;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+
 import java.util.LinkedList;
 import javax.naming.NamingException;
-import model.Programa;
+
 
 /**
  *
@@ -84,7 +84,7 @@ public class ProgramaDB {
             cur = pvoPrograma;
             strSQL
                     = "INSERT  INTO Programa(Id,Nombre,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito) VALUES("
-                    + cur.getId()+ ",'"
+                     +cur.getId()+ ",'"
                     + cur.getNombre()+ "',"
                     +(cur.isEstado()?1:0) + ",'"
                     + "1"+ "',"
@@ -112,16 +112,10 @@ public class ProgramaDB {
         int id= c.getId();
         String nombre = c.getNombre();
         boolean estado= c.isEstado();
-        String codFunIngreso = c.getCodFunIngreso();
-        String fechaIngreso = c.getFechaIngreso();
-        String codFunEdito = c.getCodFunEdito();
-        String fechaEdito = c.getFechaEdito();
-        
-        
 
         //Se crea la sentencia de actualización
         String update
-                = "UPDATE Programa SET Nombre = '" + nombre + "', Estado=" + estado + ",CodFunIngreso='"+codFunIngreso+"',FechaIngreso="+fechaIngreso+",CodFunEdito='"+codFunEdito+"',FechaEdito="+fechaEdito+" where Id = " + id + ";";
+                = "UPDATE Programa SET Nombre = '" + nombre + "', Estado=" + (estado?1:0) + ",CodFunIngreso='"+1+"',FechaIngreso="+"getdate()"+",CodFunEdito='"+1+"',FechaEdito="+"getDate()"+" where Id = " + id + ";";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }

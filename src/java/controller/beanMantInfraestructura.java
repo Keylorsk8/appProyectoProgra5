@@ -18,6 +18,8 @@ import model.Infraestructura;
 import model.InfraestructuraDB;
 import model.Programa;
 import model.ProgramaDB;
+import model.TipoInfraestructura;
+import model.TipoInfraestructuraDB;
 
 /**
  *
@@ -67,43 +69,40 @@ public class beanMantInfraestructura implements Serializable {
      this.setMensajeidPrograma(" ");    
     }
     
-    private LinkedList<SelectItem> listaCandCmb= new LinkedList(); 
-    
-     public LinkedList<SelectItem> getListaCandCmb()
+ private LinkedList<SelectItem> listaCandCmb= new LinkedList();
+
+    public LinkedList<SelectItem> getListaCandCmb()
             throws SNMPExceptions, SQLException {
         return listaCandCmb;
     }
 
     public void setListaCandCmb(LinkedList<SelectItem> listaCandCmb) {
         this.listaCandCmb = listaCandCmb;
+    } 
+ private LinkedList<SelectItem> listaCandCmb1= new LinkedList();
+ 
+     public LinkedList<SelectItem> getListaCandCmb1()
+            throws SNMPExceptions, SQLException {
+        return listaCandCmb1;
+    }
+
+    public void setListaCandCmb1(LinkedList<SelectItem> listaCandCmb1) {
+        this.listaCandCmb1 = listaCandCmb1;
     }
     
-    LinkedList<Infraestructura> listaTablaInfraestructura = new LinkedList<Infraestructura>();
+    LinkedList<SelectItem> listaTablaInfraestructura = new LinkedList<>();
 
-    public LinkedList<Infraestructura> getListaTablainfraestructura() throws SNMPExceptions, SQLException {
+    public LinkedList<SelectItem> getListaTablaInfraestructura() 
+            throws SNMPExceptions, SQLException {
         return listaTablaInfraestructura;
     }
+    
 
-    public void setListaTablainfraestructura(LinkedList<Infraestructura> listaTablainfraestructura) {
-        this.listaTablaInfraestructura = listaTablainfraestructura;
+    public void setListaTablaInfraestructura(LinkedList<SelectItem> listaTablaInfraestructura) {
+        this.listaTablaInfraestructura = listaTablaInfraestructura;
     }
     
-    public void FiltroTabla() throws SNMPExceptions, SQLException{
-        LinkedList<Infraestructura> listaD = new LinkedList<Infraestructura>();
-        InfraestructuraDB dDB = new InfraestructuraDB();
 
-            
-        listaD = dDB.consultarInfraestructura();
-        if(listaD.size() > 0){
-           this.setListaTablainfraestructura(listaD); 
-        }
-        else{
-            if(listaD.size() == 0){
-                this.setMensajeAlerta("No existe informacion de curso");
-            }
-        
-        }
-    }
     
     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
         InfraestructuraDB cDB = new InfraestructuraDB();
@@ -118,7 +117,7 @@ public class beanMantInfraestructura implements Serializable {
         
         cDB.actualizarInfraestructura(cur);
         this.setMensajeAlerta("Actualizacion Realizada");
-        this.FiltroTabla();
+        
     }
     
      public void ingresarRegistro()throws 
@@ -175,12 +174,61 @@ public class beanMantInfraestructura implements Serializable {
           depUTN.setUbicacion(ubicacion);
           
           dDB.mvRegitroInfraestructura(depUTN);
+          
           mensajeAlerta="Realizado con exito";
         }
         catch(Exception e){            
         }
         
     }
+     
+     public LinkedList<SelectItem> getListaPrograma() throws SNMPExceptions, SQLException {
+        String nomCandidato="";
+        int numCandidato=0; 
+        LinkedList<Programa> lista= new LinkedList<Programa>();
+        ProgramaDB cDB= new ProgramaDB();
+        lista=cDB.moTodo();
+        LinkedList resultList= new LinkedList();
+        resultList.add(new SelectItem(0,"Seleccione Programa"));
+        for(Iterator iter= lista.iterator();
+                iter.hasNext();){
+            
+            Programa cand= (Programa)iter.next();
+            numCandidato=cand.getId();
+            nomCandidato=cand.getNombre();
+            resultList.add(new SelectItem(numCandidato,nomCandidato));
+            
+        }
+        return resultList;
+    }
+     
+      public void setListaPrograma(LinkedList<SelectItem> listaPrograma) {
+        this.listaCandCmb = listaPrograma;
+      }
+     
+     public LinkedList<SelectItem> getListaTipoInfra() throws SNMPExceptions, SQLException {
+        String nomCandidato="";
+        int numCandidato=0; 
+        LinkedList<TipoInfraestructura> lista= new LinkedList<TipoInfraestructura>();
+        TipoInfraestructuraDB cDB= new TipoInfraestructuraDB();
+        lista=cDB.moTodo();
+        LinkedList resultList= new LinkedList();
+        resultList.add(new SelectItem(0,"Seleccione TipoInfraestructura"));
+        for(Iterator iter= lista.iterator();
+                iter.hasNext();){
+            
+            TipoInfraestructura cand= (TipoInfraestructura)iter.next();
+            numCandidato=cand.getId();
+            nomCandidato=cand.getNombre();
+            resultList.add(new SelectItem(numCandidato,nomCandidato));
+            
+        }
+        return resultList;
+    }
+     
+     public void setListaTipoInfra(LinkedList<SelectItem> listaTipoInfra) {
+        this.listaCandCmb1 = listaTipoInfra;
+      }
      
      public void asignaDatos(Infraestructura dep){       
           setId(dep.getId());
@@ -191,25 +239,7 @@ public class beanMantInfraestructura implements Serializable {
           setUbicacion(dep.getUbicacion());
     }
     
-     public LinkedList<SelectItem> getListaCand() throws SNMPExceptions, SQLException {
-        int idPrograma=0;
-        String nombre=" "; 
-        LinkedList<Programa> lista= new LinkedList<Programa>();
-        ProgramaDB cDB= new ProgramaDB();
-        lista=cDB.moTodo();
-        LinkedList resultList= new LinkedList();
-        resultList.add(new SelectItem(0,"Seleccione Programa"));
-        for(Iterator iter= lista.iterator();
-                iter.hasNext();){
-            
-            Programa cand= (Programa)iter.next();
-            idPrograma=cand.getId();
-            nombre=cand.getNombre();
-            resultList.add(new SelectItem(idPrograma,nombre));
-            
-        }
-        return resultList;
-    }
+    
 
 
     public String getMensajeAlerta() {
@@ -220,15 +250,6 @@ public class beanMantInfraestructura implements Serializable {
         this.mensajeAlerta = mensajeAlerta;
     }
 
-    public LinkedList<Infraestructura> getListaTablaInfraestructura() {
-        return listaTablaInfraestructura;
-    }
-
-    public void setListaTablaInfraestructura(LinkedList<Infraestructura> listaTablaInfraestructura) {
-        this.listaTablaInfraestructura = listaTablaInfraestructura;
-    }
-    
-    
 
     public int getId() {
         return id;
