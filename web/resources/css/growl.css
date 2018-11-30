@@ -1,0 +1,32 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29-nov-2018, 19:28:06
+    Author     : KeylorSk8
+*/
+
+.ui-growl-icon-close {
+    cursor: pointer;
+    position: absolute;
+}
+
+.ui-growl-title {
+    font: 23px sans-serif, Monaco, monospace;
+    color: white;
+    text-align: center;
+}
+.ui-growl-message p {
+    font: 20px sans-serif, Monaco, monospace;
+    color: white;
+    letter-spacing: -1px;
+}
+.ui-growl ui-widget{
+    background-color: lightgreen;
+}
+
+.ui-growl-item-container {
+    background-color: lightseagreen;
+}
