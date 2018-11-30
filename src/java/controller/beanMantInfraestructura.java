@@ -14,8 +14,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import javax.faces.model.SelectItem;
 import javax.naming.NamingException;
-import model.Curso;
-import model.CursoDB;
 import model.Infraestructura;
 import model.InfraestructuraDB;
 import model.Programa;
