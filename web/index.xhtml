@@ -16,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="resources/LogIn/vendor/select2/select2.min.css"></link>
         <link rel="stylesheet" type="text/css" href="resources/LogIn/css/util.css"></link>
         <link rel="stylesheet" type="text/css" href="resources/LogIn/css/main.css"></link>
+        <link href="resources/css/growl.css" rel="stylesheet" type="text/css"/>
     </h:head>
     <h:body>
         <div class="limiter">
@@ -25,13 +26,14 @@
                         <img src="resources/LogIn/images/img-01.png" alt="IMG"></img>
                     </div>
 
-                    <form class="login100-form validate-form">
+                    <h:form class="login100-form validate-form">
+                        <p:growl id="growl" showDetail="true" sticky="true" />
                         <span class="login100-form-title">
                             Inicio de Sesión DEAS
                         </span>
 
                         <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                            <p:inputText class="input100" placeholder="Usuario"></p:inputText>
+                            <p:inputText class="input100" placeholder="Usuario" value="#{beanIndex.usuario}"></p:inputText>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -39,7 +41,7 @@
                         </div>
 
                         <div class="wrap-input100 validate-input" data-validate = "La Contraseña es Requierida">
-                            <p:password class="input100" placeholder="Contraseña"></p:password>
+                            <p:password class="input100" placeholder="Contraseña" value="#{beanIndex.contraseña}"></p:password>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
@@ -47,14 +49,14 @@
                         </div>
 
                         <div class="text-center p-t-12" id="radios" data-validate="Seleccione un Perfil">
-                            <p:selectOneRadio>
-                                <f:selectItem itemLabel="Solicitante">Solicitante</f:selectItem>
-                                <f:selectItem itemLabel="Funcionario">Funcionario</f:selectItem>
+                            <p:selectOneRadio value="#{beanIndex.tipoUsuario}">
+                                <f:selectItem itemLabel="Funcionario" itemValue="1"></f:selectItem>
+                                <f:selectItem itemLabel="Coordinador" itemValue="2"></f:selectItem>
                             </p:selectOneRadio>
                         </div>
 
                         <div class="container-login100-form-btn">
-                            <h:commandButton class="login100-form-btn" value="Iniciar Sesión"></h:commandButton>
+                            <h:commandButton class="login100-form-btn" value="Iniciar Sesión" actionListener="#{beanIndex.iniciarSesion()}"></h:commandButton>
                         </div>
 
                         <div class="text-center p-t-12">
@@ -72,7 +74,7 @@
                                 <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                             </a>
                         </div>
-                    </form>
+                    </h:form>
                 </div>
             </div>
         </div>

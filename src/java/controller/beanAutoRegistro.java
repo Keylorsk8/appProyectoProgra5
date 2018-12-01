@@ -9,18 +9,25 @@ import DAO.SNMPExceptions;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.LinkedList;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
+import javax.naming.NamingException;
 import model.Barrio;
 import model.BarrioDB;
 import model.Canton;
 import model.CantonDB;
 import model.Distrito;
 import model.DistritoDB;
+import model.Funcionario;
+import model.FuncionarioDB;
 import model.Provincia;
 import model.ProvinciaDB;
 
@@ -32,12 +39,12 @@ import model.ProvinciaDB;
 @SessionScoped
 public class beanAutoRegistro implements Serializable {
 
-    String identificacion ="";
-    String nombre ="";
-    String apellido1 ="";
-    String apellido2 ="";
-    String fechaNaciemiento ="";
-    String Email ="";
+    String identificacion = "";
+    String nombre = "";
+    String apellido1 = "";
+    String apellido2 = "";
+    String fechaNaciemiento = "";
+    String Email = "";
     String provincia = "1";
     String canton = "1";
     String distrito = "1";
@@ -56,52 +63,115 @@ public class beanAutoRegistro implements Serializable {
     public beanAutoRegistro() {
     }
 
-    public void solicitarCuenta(){
-        if(!validar()){
-            mensajes = "";
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Solicitud Exitosa","Su cuenta ha sido solicitada con éxito,espere la respuesta de nuestro personal(normalmente tarda algunas horas)") );
+    public void solicitarCuenta() throws SNMPExceptions, ClassNotFoundException, SQLException, NamingException {
+        if (!validar()) {
+            if (validarExistencia() == null) {
+                solicitar();
+                mensajes = "";
+                FacesContext context = FacesContext.getCurrentInstance();
+                limpiar();
+                context.addMessage(null, new FacesMessage("Solicitud Exitosa", "Su cuenta ha sido solicitada con éxito,espere la respuesta de nuestro personal(normalmente tarda algunas horas)"));
+            }else{
+                mensajes = "<h3 style='background-color:lightcoral;text-align:center'>Este Usuario ya solicitó una cuenta</h3>";
+            }
         }
     }
-    
-    public boolean validar(){
+
+    public void limpiar() {
+        this.setNombre("");
+        this.setApellido1("");
+        this.setApellido2("");
+        this.setBarrio("1");
+        this.setCanton("1");
+        this.setDistrito("1");
+        this.setProvincia("1");
+        this.setEmail("");
+        this.setIdentificacion("");
+        this.setFechaNaciemiento("");
+        this.setOtrasSenias("");
+    }
+
+    public Funcionario validarExistencia() throws SNMPExceptions, NamingException, SQLException, ClassNotFoundException {
+        FuncionarioDB logica = new FuncionarioDB();
+        return logica.validadExistenciaFuncionario(Integer.parseInt(identificacion));
+    }
+
+    public void solicitar() throws SNMPExceptions, ClassNotFoundException, SQLException, NamingException {
+        FuncionarioDB logica = new FuncionarioDB();
+        Funcionario fun = new Funcionario(Integer.parseInt(this.getIdentificacion()), "", 1, this.getEmail(),
+                this.getNombre(), this.getApellido1(), this.getApellido2(), this.getFechaNaciemiento(),
+                Integer.parseInt(this.getIdentificacion()), 0, true, 1, "01/01/1995", 1, "01/01/1995", true);
+        fun.setCodProv(Integer.parseInt(provincia));
+        fun.setCodCan(Integer.parseInt(canton));
+        fun.setCodDist(Integer.parseInt(distrito));
+        fun.setCodBa(Integer.parseInt(barrio));
+        fun.setOtrasSeñas(otrasSenias);
+        fun.setEdad(String.valueOf(calculaEdad(repararFecha(fechaNaciemiento))));
+        logica.solicitarCuenta(fun);
+    }
+
+    public String repararFecha(String fechaNacimiento) {
+        String newfecha;
+        newfecha = fechaNacimiento.substring(8, 10) + "/";
+        newfecha += fechaNacimiento.substring(5, 7) + "/";
+        newfecha += fechaNacimiento.substring(0, 4);
+        return newfecha;
+    }
+
+    public int calculaEdad(String fechaNacimiento) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaNac = LocalDate.parse(fechaNacimiento, fmt);
+        LocalDate ahora = LocalDate.now();
+
+        Period periodo = Period.between(fechaNac, ahora);
+        System.out.printf("Tu edad es: %s años, %s meses y %s días",
+                periodo.getYears(), periodo.getMonths(), periodo.getDays());
+        return periodo.getYears();
+    }
+
+    public boolean validar() {
         boolean errores = false;
-        mensajes = "<ul>";
+        mensajes = "<ul style='padding:5px;background-color:lightcoral;border-radios:20px'>";
         //Identificacion
-        if(!identificacion.equals("")){
+        if (!identificacion.equals("")) {
             try {
-                if(Integer.parseInt(identificacion) < 0){
+                if (Integer.parseInt(identificacion) < 0) {
                 }
             } catch (Exception e) {
                 mensajes += "<li>El número de Identifición debe ser numerico</li>";
                 errores = true;
             }
-        }else{
+        } else {
             mensajes += "<li>Digite un número de Documento</li>";
             errores = true;
         }
         //Nombre
-        if(nombre.equals("")){
-           mensajes += "<li>Digite un nombre</li>";
-           errores = true;
+        if (nombre.equals("")) {
+            mensajes += "<li>Digite un nombre</li>";
+            errores = true;
         }
         //Apellido 1
-        if(apellido1.equals("")){
+        if (apellido1.equals("")) {
             mensajes += "<li>Digite su primer Apellido</li>";
             errores = true;
         }
         //Apellido 2
-        if(apellido2.equals("")){
+        if (apellido2.equals("")) {
             mensajes += "<li>Digite su segundo Apellido</li>";
             errores = true;
         }
         //Fecha Nacimiento
-        if(fechaNaciemiento.equals("")){
+        if (fechaNaciemiento.equals("")) {
             mensajes += "<li>Seleccione su fecha de nacimiento</li>";
             errores = true;
         }
+        //Email
+        if(Email.equals("")){
+            mensajes += "<li>Digite su Email</li>";
+            errores = true;
+        }
         //Otras Señas
-        if(otrasSenias.equals("")){
+        if (otrasSenias.equals("")) {
             mensajes += "<li>Digite otras señas de su dirección</li>";
             errores = true;
         }
@@ -124,8 +194,8 @@ public class beanAutoRegistro implements Serializable {
         LinkedList<SelectItem> barrios1 = this.getBarrios();
         this.setBarrios(barrios1);
     }
-    
-    public void valueChangedDistrito(AjaxBehaviorEvent event) throws SNMPExceptions{
+
+    public void valueChangedDistrito(AjaxBehaviorEvent event) throws SNMPExceptions {
         LinkedList<SelectItem> barrios1 = this.getBarrios();
         this.setBarrios(barrios1);
     }
@@ -294,7 +364,7 @@ public class beanAutoRegistro implements Serializable {
 
     public LinkedList<SelectItem> getBarrios() throws SNMPExceptions {
         BarrioDB logica = new BarrioDB();
-        LinkedList<Barrio> lista = logica.seleccionarBarrios(Integer.parseInt(canton), Integer.parseInt(provincia),Integer.parseInt(distrito));
+        LinkedList<Barrio> lista = logica.seleccionarBarrios(Integer.parseInt(canton), Integer.parseInt(provincia), Integer.parseInt(distrito));
 
         int id = 0;
         String nombre = "";
