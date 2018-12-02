@@ -53,13 +53,29 @@ public class beanMantPrograma implements Serializable {
 
     LinkedList<Programa> listaTablaPrograma = new LinkedList<>();
 
-    public LinkedList<Programa> getListaTablaPrograma() throws SNMPExceptions, SQLException {
+    public LinkedList<Programa> getListaTablaPrograma() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         ProgramaDB dDB = new ProgramaDB();
-        return dDB.consultarPrograma();
+        LinkedList<Programa> listaTabla = new LinkedList<>();
+        
+        if(this.id != 0){
+          listaTabla = buscarProgramaBean();
+          
+        }else{
+        listaTabla = dDB.consultarPrograma();
+        }
+
+        return listaTabla;
     }
 
     public void setListaTablaPrograma(LinkedList<Programa> listaTablaPrograma) {
         this.listaTablaPrograma = listaTablaPrograma;
+    }
+    
+    public LinkedList<Programa> buscarProgramaBean()throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+        ProgramaDB dDB = new ProgramaDB();
+      LinkedList<Programa> Programa = new LinkedList<>();
+      return Programa = dDB.buscarPrograma(id);  
+       
     }
 
     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
