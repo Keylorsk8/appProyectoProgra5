@@ -83,14 +83,15 @@ public class ProgramaDB {
             Programa cur = new Programa();
             cur = pvoPrograma;
             strSQL
-                    = "INSERT  INTO Programa(Id,Nombre,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito) VALUES("
+                    = "INSERT  INTO Programa(Id,Nombre,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito,IdCoordinador) VALUES("
                      +cur.getId()+ ",'"
                     + cur.getNombre()+ "',"
                     +(cur.isEstado()?1:0) + ",'"
                     + "1"+ "',"
                     + "GetDate()" + ",'"
                     + "1" + "',"
-                    + "GetDate()"+ ")";
+                    + "GetDate()"+ ","
+                    + 1+ ")";
 //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL/*, sqlBitacora*/);
         } catch (SQLException e) {
@@ -157,7 +158,7 @@ public class ProgramaDB {
 
         //Se crea la sentencia de actualización
         String update
-                = "UPDATE Programa SET Nombre = '" + nombre + "', Estado=" + (estado?1:0) + ",CodFunIngreso='"+1+"',FechaIngreso="+"getdate()"+",CodFunEdito='"+1+"',FechaEdito="+"getDate()"+" where Id = " + id + ";";
+                = "UPDATE Programa SET Nombre = '" + nombre + "', Estado=" + (estado?1:0) + ",CodFunIngreso='"+1+"',FechaIngreso="+"getdate()"+",CodFunEdito='"+1+"',FechaEdito="+"getDate()"+",IdCoordinador="+1+" where Id = " + id + ";";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }

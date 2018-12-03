@@ -89,14 +89,33 @@ public class beanMantInfraestructura implements Serializable {
 
     LinkedList<Infraestructura> listaTablaInfraestructura = new LinkedList<>();
 
-    public LinkedList<Infraestructura> getListaTablaInfraestructura() throws SNMPExceptions, SQLException {
+    public LinkedList<Infraestructura> getListaTablaInfraestructura() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         InfraestructuraDB dDB = new InfraestructuraDB();
-        return dDB.consultarInfraestructura();
+         LinkedList<Infraestructura> listaTabla = new LinkedList<>();
+         
+          if(this.id != 0){
+              if(this.nombre.equals("")){
+                listaTabla = this.buscarInfraestructuraBean();  
+              }
+          }
+          else{
+              listaTabla = dDB.consultarInfraestructura();
+          }
+       
+        return listaTabla;
     }
 
     public void setListaTablaInfraestructura(LinkedList<Infraestructura> listaTablaInfraestructura) {
         this.listaTablaInfraestructura = listaTablaInfraestructura;
     }
+    
+    public LinkedList<Infraestructura> buscarInfraestructuraBean()throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+        InfraestructuraDB dDB = new InfraestructuraDB();
+      LinkedList<Infraestructura> infraestructura = new LinkedList<>();
+      return infraestructura = dDB.buscarInfraestructura(id);  
+       
+    }
+    
 
     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         InfraestructuraDB cDB = new InfraestructuraDB();

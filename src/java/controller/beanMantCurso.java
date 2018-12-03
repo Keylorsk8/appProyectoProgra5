@@ -68,16 +68,34 @@ public class beanMantCurso implements Serializable {
     
     LinkedList<Curso> listaTablaCurso = new LinkedList<Curso>();
 
-    public LinkedList<Curso> getListaTablaCurso() throws SNMPExceptions, SQLException {
-        CursoDB dDB = new CursoDB();
-        return dDB.consultarCurso();
+    public LinkedList<Curso> getListaTablaCurso()throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        CursoDB dDB = new CursoDB();      
+        LinkedList<Curso> listaTabla = new LinkedList<>();
+         
+          if(this.id != 0){
+              if(this.descripcion.equals("")){
+                listaTabla = this.buscarCursoBean();  
+              }
+          }
+          else{
+              listaTabla = dDB.consultarCurso();
+          }
+       
+        return listaTabla;
+        
+       
     }
 
     public void setListaTablaCurso(LinkedList<Curso> listaTablaCurso) {
         this.listaTablaCurso = listaTablaCurso;
     }
     
-    
+    public LinkedList<Curso> buscarCursoBean()throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+        CursoDB dDB = new CursoDB();
+      LinkedList<Curso> curso = new LinkedList<>();
+      return curso = dDB.buscarCurso(id);  
+       
+    }
     public beanMantCurso(){
         
     }

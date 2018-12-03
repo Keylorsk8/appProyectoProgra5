@@ -38,6 +38,7 @@ public class beanMantPrograma implements Serializable {
     private String fechaIngreso;
     private String codFunEdito;
     private String fechaEdito;
+    private int idCoordinador;
     String estadoValidador;
 
     String mensajeId = " ";
@@ -58,10 +59,11 @@ public class beanMantPrograma implements Serializable {
         LinkedList<Programa> listaTabla = new LinkedList<>();
         
         if(this.id != 0){
-          listaTabla = buscarProgramaBean();
-          
+            if(this.nombre.equals("")){
+              listaTabla = buscarProgramaBean();
+            }
         }else{
-        listaTabla = dDB.consultarPrograma();
+             listaTabla = dDB.consultarPrograma();
         }
 
         return listaTabla;
@@ -283,4 +285,22 @@ public class beanMantPrograma implements Serializable {
     public void setEstadoValidador(String estadoValidador) {
         this.estadoValidador = estadoValidador;
     }
+
+    public int getIdCoordinador() {
+        return idCoordinador;
+    }
+
+    public void setIdCoordinador(int idCoordinador) {
+        this.idCoordinador = idCoordinador;
+    }
+
+    public DateFormat getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+    
+    
 }

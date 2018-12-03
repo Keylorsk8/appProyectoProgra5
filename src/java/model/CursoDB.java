@@ -72,6 +72,45 @@ public class CursoDB {
         }
         return listaCurso;
     }
+    
+    public LinkedList<Curso> buscarCurso(int idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        String select = "";
+        LinkedList<Curso> listaCurso = new LinkedList<Curso>();
+
+        try {
+            //open();
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select
+                    = "SELECT Descripcion,Estado,IdPrograma from Curso where Id ="+idp;
+
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los catálogos   
+            while (rsPA.next()) {
+                     int id = rsPA.getInt("Id");
+                    String descripcion = rsPA.getString("Descripcion");
+                    boolean estado = rsPA.getBoolean("Estado");
+                    int idPrograma = rsPA.getInt("IdPrograma");
+                
+                    Curso dep = new Curso(id, descripcion, estado, idPrograma);
+                    listaCurso.add(dep);
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+
+        }
+        return listaCurso;
+    }
 
     public void mvRegitroCurso(Curso pvoCurso)
             throws SNMPExceptions, SQLException {

@@ -21,6 +21,7 @@ public class Programa {
     private String fechaIngreso;
     private String codFunEdito;
     private String fechaEdito;
+    private int idCoordinador;
     
     
     public Programa(){
@@ -31,6 +32,7 @@ public class Programa {
        this.fechaIngreso=null;
        this.codFunEdito=" ";
        this.fechaEdito=null;  
+       this.idCoordinador=0;
     }
     
     public Programa(int idp,String nombrep,boolean estadop){
@@ -94,6 +96,14 @@ public class Programa {
 
     public void setFechaEdito(String fechaEdito) {
         this.fechaEdito = fechaEdito;
+    }
+
+    public int getIdCoordinador() {
+        return idCoordinador;
+    }
+
+    public void setIdCoordinador(int idCoordinador) {
+        this.idCoordinador = idCoordinador;
     }
     
     

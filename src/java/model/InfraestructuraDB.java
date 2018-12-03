@@ -74,6 +74,48 @@ public class InfraestructuraDB {
         }
         return listaInfraestructura;
     }
+     
+     public LinkedList<Infraestructura> buscarInfraestructura(int idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        String select = "";
+        LinkedList<Infraestructura> listaInfraestructura = new LinkedList<Infraestructura>();
+
+        try {
+            //open();
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select
+                    = "SELECT Capacidad,IdTipoInfraestructura,Nombre,Ubicacion,IdPrograma  from Infraestructura where Id="+idp;
+
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los catálogos   
+            while (rsPA.next()) {
+                    int id = rsPA.getInt("Id");
+                    int capacidad = rsPA.getInt("Capacidad");
+                    int idTipoInfraestructura = rsPA.getInt("IdTipoInfraestructura");
+                    String nombre = rsPA.getString("Nombre");
+                    String ubicacion = rsPA.getString("Ubicacion");
+                    int idPrograma = rsPA.getInt("IdPrograma");
+
+                
+                 Infraestructura dep = new Infraestructura(id,capacidad,idTipoInfraestructura,nombre,ubicacion,idPrograma);
+                 listaInfraestructura.add(dep);
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+
+        }
+        return listaInfraestructura;
+    }
 
     public void mvRegitroInfraestructura(Infraestructura pvoInfraestructura)
             throws SNMPExceptions, SQLException {
