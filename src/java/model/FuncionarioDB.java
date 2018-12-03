@@ -9,6 +9,7 @@ import DAO.AccesoDatos;
 import DAO.SNMPExceptions;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import javax.naming.NamingException;
 
 /**
@@ -170,7 +171,110 @@ public class FuncionarioDB {
 
         }
         return fun;
-        
     }
 
+    public LinkedList<Funcionario> seleccionarSolicitudFuncionarios() throws SNMPExceptions{
+        LinkedList<Funcionario> funcionarios = new LinkedList<>();
+        Funcionario fun = null;
+        try {
+            //open();
+            //Se instancia la clase de acceso a datos
+            accesoDatos = new AccesoDatos();
+            //Se crea la sentencia de búsqueda
+            String select = "SELECT * from Funcionario where Solicitud = 1";
+            //Se llena el arryaList con los catálogos
+            try ( //Se ejecuta la sentencia SQL
+                    ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select)) {
+                //Se llena el arryaList con los catálogos
+                while (rsPA.next()) {
+                    int id = rsPA.getInt("Id");
+                    String contra = rsPA.getString("Contrasenia");
+                    int tipoUsuario = rsPA.getInt("idTipoUsuario");
+                    String email = rsPA.getString("Email");
+                    String nombre = rsPA.getString("Nombre");
+                    String apellido1 = rsPA.getString("Apellido1");
+                    String apellido2 = rsPA.getString("Apellido2");
+                    String fechaNacimiento = rsPA.getString("FechaNacimiento");
+                    String edad = rsPA.getString("Edad");
+                    int idDireccion = rsPA.getInt("IdDireccion");
+                    boolean Estado = rsPA.getInt("Estado") == 1;
+                    String codFunIngreso = rsPA.getString("CodFunIngreso");
+                    String fechaIngreso = rsPA.getString("FechaIngreso");
+                    String codFunEdito = rsPA.getString("CodFunEdito");
+                    String fechaEdito = rsPA.getString("FechaEdito");
+                    boolean primeraVez = rsPA.getInt("PrimeraVez") == 1;
+                    boolean solicitud = rsPA.getInt("Solicitud") == 1;
+                    boolean estadoSolicitud = rsPA.getInt("EstadoSolicitud") == 1;
+                    fun = new Funcionario(id, contra, tipoUsuario, email, nombre, apellido1, apellido2, fechaNacimiento, idDireccion, 0, Estado, Integer.parseInt(codFunIngreso), fechaIngreso, Integer.parseInt(codFunEdito), fechaEdito, primeraVez);
+                    fun.setSolicitud(solicitud);
+                    fun.setEstadoSolicitud(estadoSolicitud);
+                    fun.setEdad(edad);
+                    funcionarios.add(fun);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (SNMPExceptions | ClassNotFoundException | NamingException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+
+        }
+        return funcionarios;
+    }
+    
+    public LinkedList<Funcionario> seleccionarFuncionariosRechazados() throws SNMPExceptions{
+        LinkedList<Funcionario> funcionarios = new LinkedList<>();
+        Funcionario fun = null;
+        try {
+            //open();
+            //Se instancia la clase de acceso a datos
+            accesoDatos = new AccesoDatos();
+            //Se crea la sentencia de búsqueda
+            String select = "SELECT * from Funcionario where Solicitud = 0 and EstadoSolicitud = 0";
+            //Se llena el arryaList con los catálogos
+            try ( //Se ejecuta la sentencia SQL
+                    ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select)) {
+                //Se llena el arryaList con los catálogos
+                while (rsPA.next()) {
+                    fun = new Funcionario();
+                    int id = rsPA.getInt("Id");
+                    String contra = rsPA.getString("Contrasenia");
+                    int tipoUsuario = rsPA.getInt("idTipoUsuario");
+                    String email = rsPA.getString("Email");
+                    String nombre = rsPA.getString("Nombre");
+                    String apellido1 = rsPA.getString("Apellido1");
+                    String apellido2 = rsPA.getString("Apellido2");
+                    String fechaNacimiento = rsPA.getString("FechaNacimiento");
+                    String edad = rsPA.getString("Edad");
+                    int idDireccion = rsPA.getInt("IdDireccion");
+                    boolean Estado = rsPA.getInt("Estado") == 1;
+                    String codFunIngreso = rsPA.getString("CodFunIngreso");
+                    String fechaIngreso = rsPA.getString("FechaIngreso");
+                    String codFunEdito = rsPA.getString("CodFunEdito");
+                    String fechaEdito = rsPA.getString("FechaEdito");
+                    boolean primeraVez = rsPA.getInt("PrimeraVez") == 1;
+                    boolean solicitud = rsPA.getInt("Solicitud") == 1;
+                    boolean estadoSolicitud = rsPA.getInt("EstadoSolicitud") == 1;
+                    fun = new Funcionario(id, contra, tipoUsuario, email, nombre, apellido1, apellido2, fechaNacimiento, idDireccion, 0, Estado, Integer.parseInt(codFunIngreso), fechaIngreso, Integer.parseInt(codFunEdito), fechaEdito, primeraVez);
+                    fun.setSolicitud(solicitud);
+                    fun.setEstadoSolicitud(estadoSolicitud);
+                    fun.setEdad(edad);
+                    funcionarios.add(fun);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (SNMPExceptions | ClassNotFoundException | NamingException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+
+        }
+        return funcionarios;
+    }
 }

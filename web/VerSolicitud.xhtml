@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./resources/Main/mainTemplate.xhtml">
+
+            <ui:define name="Head">
+                <title>Solicitud</title>
+            </ui:define>
+
+            <ui:define name="NavBarLinks">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Mantenimientos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="mantenimientoCursos.xhtml">Cursos</a>
+                        <a class="dropdown-item" href="mantenimientoInfraestructura.xhtml">Infraestructura</a>
+                        <a class="dropdown-item" href="mantenimientoOferta.xhtml">Oferta</a>
+                        <a class="dropdown-item" href="mantenimientoPeriodo.xhtml">Periodo</a>
+                        <a class="dropdown-item" href="mantenimientoPrograma.xhtml">Programa</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Solicitudes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="mantenimientoCoordinacionSolicitudes.xhtml">Reservación</a>
+                        <a class="dropdown-item" href="mantenimientoCoordinacionNuevosUsuarios.xhtml">Cuentas</a>
+                    </div>
+                </li>
+                <ul class="navbar-nav ml-auto" style="margin-right: 4%">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle" style="margin-right: 2px"></i>Cuenta
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="ConfiguracionPerfilCoordinador.xhtml"><i class="fa fa-cog" style="margin-right: 2px"></i>Configuración</a>
+                        </div>
+                    </li>
+                </ul>
+            </ui:define>
+
+            <ui:define name="Content">
+                <f:metadata>
+                    <f:viewParam name="solicitud"></f:viewParam>
+                </f:metadata>
+                <h:form>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel value=""></h:outputLabel>
+                                </h:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
