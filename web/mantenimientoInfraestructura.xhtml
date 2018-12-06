@@ -73,7 +73,7 @@
                                                 <h:outputText value="Id: "></h:outputText>
                                             </td>
                                             <td>
-                                                 <p:inputText type="number"  value="#{beanMantInfraestructura.id}"></p:inputText>
+                                                <p:inputText type="number"  value="#{beanMantInfraestructura.id}"></p:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeId}"></h:outputText>
@@ -84,7 +84,7 @@
                                                 <h:outputText value="Capacidad: "></h:outputText>
                                             </td>
                                             <td>
-                                                 <p:inputText type="number"  value="#{beanMantInfraestructura.capacidad}"></p:inputText>
+                                                <p:inputText type="number"  value="#{beanMantInfraestructura.capacidad}"></p:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeCapacidad}"></h:outputText>
@@ -143,7 +143,7 @@
                                                 <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Añadir" actionListener="#{beanMantInfraestructura.ingresarRegistro()}" ></h:commandButton>
                                                 <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Limpiar" actionListener="#{beanMantInfraestructura.cancelar()}" ></h:commandButton>
                                                 <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Editar" actionListener="#{beanMantInfraestructura.actualizaDatos()}" ></h:commandButton>
-                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Buscar" actionListener="#{beanMantInfraestructura.buscarInfraestructuraBean()}" ></h:commandButton>
+                                                
                                             </td>
                                         </tr>
                                     </tBody>               
@@ -151,6 +151,17 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                            <tr>
+                                <td>
+                                    <h:outputText value="Id o Nombre: "></h:outputText>
+                                </td>
+                                <td>
+                                    <h:inputText  value="#{beanMantInfraestructura.idNombre}"></h:inputText>
+                                </td>
+                                <td>
+                                    <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Buscar" actionListener="#{beanMantInfraestructura.buscarInfraestructuraBean()}" ></h:commandButton>
+                                </td>
+                            </tr> 
                             <p:dataTable value="#{beanMantInfraestructura.listaTablaInfraestructura}" var="dep">
                                 <p:column headerText="Id">
                                     <h:outputText value="#{dep.id}"></h:outputText>

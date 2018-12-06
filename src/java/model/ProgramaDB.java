@@ -145,7 +145,7 @@ public class ProgramaDB {
                 AccesoDatos accesoDatos = new AccesoDatos();
                 //Se crea la sentencia de búsqueda
                 select
-                        = "SELECT Id,Nombre,Estado from Programa where Nombre=" + idp;
+                        = "SELECT Id,Nombre,Estado from Programa where Nombre='" + idp+"';";
                 //Se ejecuta la sentencia SQL
                 ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
                 //Se llena el arryaList con los catálogos   

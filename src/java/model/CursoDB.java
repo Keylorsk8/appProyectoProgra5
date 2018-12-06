@@ -73,7 +73,7 @@ public class CursoDB {
         return listaCurso;
     }
     
-    public LinkedList<Curso> buscarCurso(int idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+    public LinkedList<Curso> buscarCurso(String idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String select = "";
         LinkedList<Curso> listaCurso = new LinkedList<Curso>();
 
@@ -112,7 +112,7 @@ public class CursoDB {
         return listaCurso;
     }
 
-    public void mvRegitroCurso(Curso pvoCurso)
+    public void mvRegitroCurso(Curso pvoCurso,Funcionario fun)
             throws SNMPExceptions, SQLException {
         String strSQL;
         try {
@@ -122,8 +122,8 @@ public class CursoDB {
                     + cur.getId() + ",'"
                     + cur.getDescripcion() + "',"
                     + (cur.isEstado()?1:0) + ",'"
-                    + 1+ "',"
-                    + "getDate()" + ",'"
+                    + fun.getCodFunIngreso()+ "',"
+                    + fun.getFechaIngreso()+ ",'"
                     + 1 + "',"
                     + "getDate()" + ","
                     + cur.getIdPrograma() + ")";
@@ -139,9 +139,10 @@ public class CursoDB {
         }
     }
 
-    public void actualizarCurso(Curso cursop) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+    public void actualizarCurso(Curso cursop,Funcionario fun) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         //Se obtienen los valores del objeto Cliente
         Curso c = cursop;
+        Funcionario f=fun;
         //Datos de CLiente         
         int id = c.getId();
         String descripcion = c.getDescripcion();
@@ -149,7 +150,7 @@ public class CursoDB {
         int idPrograma = c.getIdPrograma();
 
         //Se crea la sentencia de actualización
-        String update = "UPDATE Curso SET Descripcion = '"+ descripcion+ "', Estado="+ (estado?1:0) + ",CodFunIngreso='"+ 1 + "',FechaIngreso="+ "GetDate()" + ",CodFunEdito='" + 1 + "',FechaEdito="  + "getDate()"  + ",IdPrograma=" + idPrograma  + "where Id = " + id + ";";
+        String update = "UPDATE Curso SET Descripcion = '"+ descripcion+ "', Estado="+ (estado?1:0) +  ",CodFunEdito='" + f.getCodFunEdito() + "',FechaEdito="  + f.getFechaEdito()  + ",IdPrograma=" + idPrograma  + "where Id = " + id + ";";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }

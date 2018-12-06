@@ -89,7 +89,7 @@
                                             </td>
 
                                         </tr>  
-                                        
+
                                         <tr>
                                             <td>
                                                 <h:outputText value="Estado: "></h:outputText>
@@ -123,7 +123,7 @@
                                                 <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Añadir" actionListener="#{beanMantCurso.ingresarRegistro()}" ></h:commandButton>
                                                 <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Limpiar" actionListener="#{beanMantCurso.cancelar()}" ></h:commandButton>
                                                 <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Editar" actionListener="#{beanMantCurso.actualizaDatos()}" ></h:commandButton>
-                                                <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Buscar" actionListener="#{beanMantCurso.buscarCursoBean()}" ></h:commandButton>
+                                                
                                             </td>
                                         </tr>
                                     </tBody>               
@@ -131,6 +131,17 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                            <tr>
+                                <td>
+                                    <h:outputText value="Id: "></h:outputText>
+                                </td>
+                                <td>
+                                    <p:inputText type="number" value="#{beanMantCurso.idNombre}"></p:inputText>
+                                </td>
+                                <td>
+                                   <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Buscar" actionListener="#{beanMantCurso.buscarCursoBean()}" ></h:commandButton>
+                                </td>
+                            </tr>  
                             <p:dataTable value="#{beanMantCurso.listaTablaCurso}" var="dep" >
                                 <p:column headerText="Código Curso">
                                     <h:outputText value="#{dep.id}"></h:outputText>
@@ -138,8 +149,8 @@
                                 <p:column headerText="Descripción">
                                     <h:outputText value="#{dep.descripcion}"></h:outputText>
                                 </p:column>   
-                                 <p:column headerText="Estado">
-                                     <h:outputText value="#{dep.estado}"></h:outputText>
+                                <p:column headerText="Estado">
+                                    <h:outputText value="#{dep.estado}"></h:outputText>
                                 </p:column> 
                                 <p:column headerText="Código Programa">
                                     <h:outputText value="#{dep.idPrograma}"></h:outputText>

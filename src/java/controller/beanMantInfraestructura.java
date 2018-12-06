@@ -12,8 +12,11 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpSession;
+import model.Funcionario;
 import model.Infraestructura;
 import model.InfraestructuraDB;
 import model.Programa;
@@ -34,13 +37,14 @@ public class beanMantInfraestructura implements Serializable {
      */
     public beanMantInfraestructura() {
     }
-
+    Funcionario fun;
     int id = 0;
     int capacidad = 0;
     int idTipoInfraestructura = 0;
     String nombre = " ";
     String ubicacion = " ";
     int idPrograma = 0;
+    String idNombre=" ";
 
     String mensajeId = " ";
     String mensajeCapacidad = " ";
@@ -64,6 +68,7 @@ public class beanMantInfraestructura implements Serializable {
         this.setMensajeNombre(" ");
         this.setMensajeUbicacion(" ");
         this.setMensajeidPrograma(" ");
+        this.setIdNombre(" ");
     }
 
     private LinkedList<SelectItem> listaCandCmb = new LinkedList();
@@ -93,11 +98,10 @@ public class beanMantInfraestructura implements Serializable {
         InfraestructuraDB dDB = new InfraestructuraDB();
          LinkedList<Infraestructura> listaTabla = new LinkedList<>();
          
-          if(this.id != 0){
-              if(this.nombre.equals("")){
+          if(!this.idNombre.equals(" ")){
                 listaTabla = this.buscarInfraestructuraBean();  
               }
-          }
+          
           else{
               listaTabla = dDB.consultarInfraestructura();
           }
@@ -112,7 +116,7 @@ public class beanMantInfraestructura implements Serializable {
     public LinkedList<Infraestructura> buscarInfraestructuraBean()throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
         InfraestructuraDB dDB = new InfraestructuraDB();
       LinkedList<Infraestructura> infraestructura = new LinkedList<>();
-      return infraestructura = dDB.buscarInfraestructura(id);  
+      return infraestructura = dDB.buscarInfraestructura(idNombre);  
        
     }
     
@@ -120,6 +124,9 @@ public class beanMantInfraestructura implements Serializable {
     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         InfraestructuraDB cDB = new InfraestructuraDB();
         Infraestructura cur = new Infraestructura();
+        
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        fun = (Funcionario) session.getAttribute("user");
 
         cur.setId(this.getId());
         cur.setCapacidad(this.getCapacidad());
@@ -127,6 +134,8 @@ public class beanMantInfraestructura implements Serializable {
         cur.setNombre(this.getNombre());
         cur.setUbicacion(this.getUbicacion());
         cur.setIdPrograma(this.getIdPrograma());
+        
+        
 
         cDB.actualizarInfraestructura(cur);
 
@@ -175,6 +184,7 @@ public class beanMantInfraestructura implements Serializable {
             if (this.idPrograma > 1) {
                 this.mensajeidPrograma = " ";
             }
+             
 
             depUTN.setId(id);
             depUTN.setCapacidad(capacidad);
@@ -351,5 +361,14 @@ public class beanMantInfraestructura implements Serializable {
     public void setMensajeidPrograma(String mensajeidPrograma) {
         this.mensajeidPrograma = mensajeidPrograma;
     }
+
+    public String getIdNombre() {
+        return idNombre;
+    }
+
+    public void setIdNombre(String idNombre) {
+        this.idNombre = idNombre;
+    }
+    
 
 }
