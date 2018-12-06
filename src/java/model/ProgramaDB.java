@@ -5,23 +5,22 @@ package model;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import DAO.AccesoDatos;
 import DAO.SNMPExceptions;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import java.util.LinkedList;
 import javax.naming.NamingException;
-
 
 /**
  *
  * @author Pablo
  */
 public class ProgramaDB {
+
     private AccesoDatos accesoDatos = new AccesoDatos();
     private Connection conn;
 
@@ -35,7 +34,7 @@ public class ProgramaDB {
     public ProgramaDB() {
         super();
     }
-    
+
     public LinkedList<Programa> consultarPrograma() throws SNMPExceptions, SQLException {
         String select = "";
         LinkedList<Programa> listaPrograma = new LinkedList<Programa>();
@@ -53,12 +52,11 @@ public class ProgramaDB {
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los catálogos   
             while (rsPA.next()) {
-                int id= rsPA.getInt("Id");
+                int id = rsPA.getInt("Id");
                 String nombre = rsPA.getString("Nombre");
                 boolean estado = rsPA.getBoolean("Estado");
 
-                
-                Programa dep = new Programa(id,nombre,estado);
+                Programa dep = new Programa(id, nombre, estado);
                 listaPrograma.add(dep);
             }
             rsPA.close();
@@ -75,23 +73,22 @@ public class ProgramaDB {
         return listaPrograma;
     }
 
-    public void mvRegitroPrograma(Programa pvoPrograma)
+    public void mvRegitroPrograma(Programa pvoPrograma, Funcionario fun)
             throws SNMPExceptions, SQLException {
         String strSQL = "";
         try {
-           //Se obtienen los valores del objeto 
             Programa cur = new Programa();
             cur = pvoPrograma;
             strSQL
                     = "INSERT  INTO Programa(Id,Nombre,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito,IdCoordinador) VALUES("
-                     +cur.getId()+ ",'"
-                    + cur.getNombre()+ "',"
-                    +(cur.isEstado()?1:0) + ",'"
-                    + "1"+ "',"
-                    + "GetDate()" + ",'"
-                    + "1" + "',"
-                    + "GetDate()"+ ","
-                    + 1+ ")";
+                    + cur.getId() + ",'"
+                    + cur.getNombre() + "',"
+                    + (cur.isEstado() ? 1 : 0) + ",'"
+                    + fun.getCodFunIngreso() + "',"
+                    + fun.getFechaIngreso() + ",'"
+                    + "'1'"+ "',"
+                    + "getDate()" + ","
+                    + fun.getId() + ")";
 //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL/*, sqlBitacora*/);
         } catch (SQLException e) {
@@ -103,62 +100,102 @@ public class ProgramaDB {
         } finally {
         }
     }
-    
-     public LinkedList<Programa> buscarPrograma(int idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+
+    public LinkedList<Programa> buscarPrograma(String idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String select = "";
         LinkedList<Programa> listaPrograma = new LinkedList<Programa>();
 
-        try {
-            //open();
-            //Se instancia la clase de acceso a datos
-            AccesoDatos accesoDatos = new AccesoDatos();
+        int numerico = Integer.parseInt(idp);
 
-            //Se crea la sentencia de búsqueda
-            select
-                    = "SELECT Id,Nombre,Estado from Programa where Id="+idp;
+        if (numerico > 0) {
+            try {
+                //open();
+                //Se instancia la clase de acceso a datos
+                AccesoDatos accesoDatos = new AccesoDatos();
+                //Se crea la sentencia de búsqueda
+                select
+                        = "SELECT Id,Nombre,Estado from Programa where Id=" + idp;
+                //Se ejecuta la sentencia SQL
+                ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+                //Se llena el arryaList con los catálogos   
+                while (rsPA.next()) {
+                    int id = rsPA.getInt("Id");
+                    String nombre = rsPA.getString("Nombre");
+                    boolean estado = rsPA.getBoolean("Estado");
 
-            //Se ejecuta la sentencia SQL
-            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
-            //Se llena el arryaList con los catálogos   
-            while (rsPA.next()) {
-                int id= rsPA.getInt("Id");
-                String nombre = rsPA.getString("Nombre");
-                boolean estado = rsPA.getBoolean("Estado");
+                    Programa dep = new Programa(id, nombre, estado);
+                    listaPrograma.add(dep);
+                }
+                rsPA.close();
 
-                
-                Programa dep = new Programa(id,nombre,estado);
-                listaPrograma.add(dep);
+            } catch (SQLException e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage(), e.getErrorCode());
+            } catch (Exception e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage());
+            } finally {
+
             }
-            rsPA.close();
+            return listaPrograma;
+        } else {
+            try {
+                //open();
+                //Se instancia la clase de acceso a datos
+                AccesoDatos accesoDatos = new AccesoDatos();
+                //Se crea la sentencia de búsqueda
+                select
+                        = "SELECT Id,Nombre,Estado from Programa where Nombre=" + idp;
+                //Se ejecuta la sentencia SQL
+                ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+                //Se llena el arryaList con los catálogos   
+                while (rsPA.next()) {
+                    int id = rsPA.getInt("Id");
+                    String nombre = rsPA.getString("Nombre");
+                    boolean estado = rsPA.getBoolean("Estado");
 
-        } catch (SQLException e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
-                    e.getMessage(), e.getErrorCode());
-        } catch (Exception e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
-                    e.getMessage());
-        } finally {
+                    Programa dep = new Programa(id, nombre, estado);
+                    listaPrograma.add(dep);
+                }
+                rsPA.close();
 
+            } catch (SQLException e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage(), e.getErrorCode());
+            } catch (Exception e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage());
+            } finally {
+
+            }
+            return listaPrograma;
         }
-        return listaPrograma;
     }
 
 
-   
-
-    public void actualizarPrograma(Programa programap) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+public void actualizarPrograma(Programa programap,Funcionario fun) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         //Se obtienen los valores del objeto Cliente
         Programa c = new Programa();
         c = programap;
+        
+        Funcionario f = new Funcionario();
+        f = fun;
 
         //Datos de CLiente     
         int id= c.getId();
         String nombre = c.getNombre();
         boolean estado= c.isEstado();
+       
+        
 
         //Se crea la sentencia de actualización
         String update
-                = "UPDATE Programa SET Nombre = '" + nombre + "', Estado=" + (estado?1:0) + ",CodFunIngreso='"+1+"',FechaIngreso="+"getdate()"+",CodFunEdito='"+1+"',FechaEdito="+"getDate()"+",IdCoordinador="+1+" where Id = " + id + ";";
+                = "UPDATE Programa SET Nombre = '" + nombre + 
+                                      "', Estado=" + (estado?1:0) + 
+                                      ",CodFunEdito='"+fun.getCodFunEdito()+
+                                      "',FechaEdito="+fun.getFechaEdito()+
+                                      ",IdCoordinador="+fun.getId()+
+                                      " where Id = " + id + ";";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }
@@ -201,5 +238,7 @@ public class ProgramaDB {
             
         }
         return listaCand;
-    }
+       }
 }
+
+
