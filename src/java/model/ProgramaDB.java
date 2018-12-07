@@ -37,17 +37,15 @@ public class ProgramaDB {
 
     public LinkedList<Programa> consultarPrograma() throws SNMPExceptions, SQLException {
         String select = "";
+         String estadop = "";
         LinkedList<Programa> listaPrograma = new LinkedList<Programa>();
-
         try {
             //open();
             //Se instancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();
-
             //Se crea la sentencia de búsqueda
             select
                     = "SELECT Id,Nombre,Estado from Programa";
-
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los catálogos   
@@ -55,8 +53,16 @@ public class ProgramaDB {
                 int id = rsPA.getInt("Id");
                 String nombre = rsPA.getString("Nombre");
                 boolean estado = rsPA.getBoolean("Estado");
+                
+                if(estado==false){
+                      estadop = "Inactivo";
+                }
+                else{
+                    estadop = "Activo";
+                }
 
-                Programa dep = new Programa(id, nombre, estado);
+                //Programa dep = new Programa(id, nombre, estado);
+                Programa dep = new Programa(id, nombre, estadop);
                 listaPrograma.add(dep);
             }
             rsPA.close();
@@ -100,9 +106,9 @@ public class ProgramaDB {
         } finally {
         }
     }
-
-    public LinkedList<Programa> buscarPrograma(String idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+    public LinkedList<Programa> buscarID(int idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String select = "";
+        String estadop=" ";
         LinkedList<Programa> listaPrograma = new LinkedList<Programa>();
             try {
                 //open();
@@ -118,7 +124,55 @@ public class ProgramaDB {
                     int id = rsPA.getInt("Id");
                     String nombre = rsPA.getString("Nombre");
                     boolean estado = rsPA.getBoolean("Estado");
-                    Programa dep = new Programa(id, nombre, estado);
+                    if(estado == false){
+                        estadop="Inactivo";
+                    }
+                    else{
+                        estadop="Activo";
+                    }
+                    
+                     Programa dep = new Programa(id, nombre, estadop);
+                    listaPrograma.add(dep);
+                }
+                rsPA.close();
+            } catch (SQLException e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage(), e.getErrorCode());
+            } catch (Exception e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage());
+            } finally {
+
+            }
+            return listaPrograma;
+       
+    }
+
+    public LinkedList<Programa> buscarPrograma(String idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        String select = "";
+        String estadop=" ";
+        LinkedList<Programa> listaPrograma = new LinkedList<Programa>();
+            try {
+                //open();
+                //Se instancia la clase de acceso a datos
+                AccesoDatos accesoDatos = new AccesoDatos();
+                //Se crea la sentencia de búsqueda
+                select
+                = "begin try SELECT * from Programa where Id=" + "Convert(int,'"+idp+"') or Nombre like '%"+idp+"%' end try begin catch select * from programa where Nombre like '%"+idp+"%' end catch";
+                //Se ejecuta la sentencia SQL
+                ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+                //Se llena el arryaList con los catálogos   
+                while (rsPA.next()) {
+                    int id = rsPA.getInt("Id");
+                    String nombre = rsPA.getString("Nombre");
+                    boolean estado = rsPA.getBoolean("Estado");
+                    if(estado == false){
+                        estadop="Inactivo";
+                    }else{
+                        estadop="Activo";
+                    }
+                    
+                    Programa dep = new Programa(id, nombre, estadop);
                     listaPrograma.add(dep);
                 }
                 rsPA.close();
@@ -159,6 +213,7 @@ public void actualizarPrograma(Programa programap,Funcionario fun) throws SNMPEx
     
        public LinkedList<Programa> moTodo() throws SNMPExceptions, SQLException{
         String select= " ";
+        String estadop=" ";
         LinkedList<Programa> listaCand= new LinkedList<Programa>();       
         try{
             //Se intancia la clase de acceso a datos
@@ -172,9 +227,17 @@ public void actualizarPrograma(Programa programap,Funcionario fun) throws SNMPEx
             while(rsPA.next()){                
                 int id= rsPA.getInt("Id");
                 String nombre = rsPA.getString("Nombre");
-                boolean estado = rsPA.getBoolean("Estado");           
+                boolean estado = rsPA.getBoolean("Estado");
+                
+                if(estado == false){
+                    estadop="Inactivo";
+                }
+                else{
+                    estadop="Activo";
+                }
+                
                 //se construye el objeto.
-                Programa perCandidato= new Programa(id,nombre,estado);              
+                Programa perCandidato= new Programa(id,nombre,estadop);              
                 listaCand.add(perCandidato);
             }
             rsPA.close();//se cierra el ResultSeat.

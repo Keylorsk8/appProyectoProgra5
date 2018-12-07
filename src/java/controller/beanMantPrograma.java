@@ -46,6 +46,7 @@ public class beanMantPrograma implements Serializable {
     String estadoValidador;
     private String idNombre="";
 
+
     String mensajeId = " ";
     String mensajeNombre = " ";
     String mensajeEstado = " ";
@@ -132,6 +133,9 @@ public class beanMantPrograma implements Serializable {
                     this.estado = true;
                 }
             }
+            
+            if(this.id >1){
+                dDB.buscarID(id);
              HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
              fun = (Funcionario) session.getAttribute("user");
             
@@ -140,6 +144,11 @@ public class beanMantPrograma implements Serializable {
             depUTN.setNombre(nombre);       
             dDB.mvRegitroPrograma(depUTN,fun);          
             mensajeAlerta = "Realizado con exito";
+            }
+            else{
+                this.mensajeId = "El ID ya existe";
+            }
+             
         } catch (SNMPExceptions | SQLException e) {
             System.out.println("Error :" + e);
             System.out.println("Mensaje :" + e.getMessage());
@@ -338,6 +347,8 @@ public class beanMantPrograma implements Serializable {
     public void setIdNombre(String idNombre) {
         this.idNombre = idNombre;
     }
+
+  
     
     
 }

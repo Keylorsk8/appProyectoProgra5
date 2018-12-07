@@ -22,6 +22,7 @@ public class Programa {
     private String codFunEdito;
     private String fechaEdito;
     private int idCoordinador;
+    private String esta;
     
     
     public Programa(){
@@ -35,13 +36,14 @@ public class Programa {
        this.idCoordinador=0;
     }
     
-    public Programa(int idp,String nombrep,boolean estadop){
+ 
+    
+    public Programa(int idp,String nombrep,String estadop){
        this.id=idp;
        this.nombre=nombrep;
-       this.estado=estadop;
+       this.esta=estadop;
 
     }
-
     public int getId() {
         return id;
     }
@@ -104,6 +106,14 @@ public class Programa {
 
     public void setIdCoordinador(int idCoordinador) {
         this.idCoordinador = idCoordinador;
+    }
+
+    public String getEsta() {
+        return esta;
+    }
+
+    public void setEsta(String esta) {
+        this.esta = esta;
     }
     
     
