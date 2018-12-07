@@ -55,7 +55,7 @@ public class beanMantCurso implements Serializable {
     String mensajeFechaIngreso=" ";
     String mensajeFechaEdito=" ";
     String mensajeIdPrograma=" ";
-    
+    String mensajeId2=" ";
     String mensajesetMensajeAct=" ";
     String mensajeAlerta=" ";
     
@@ -96,8 +96,6 @@ public class beanMantCurso implements Serializable {
     public LinkedList<Curso> buscarCursoBean()throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
         CursoDB dDB = new CursoDB();
       LinkedList<Curso> curso = new LinkedList<>();
-      
-      
       return curso = dDB.buscarCurso(idNombre);  
        
     }
@@ -116,9 +114,9 @@ public class beanMantCurso implements Serializable {
         cur.setIdPrograma(this.getIdPrograma());
         
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-             fun = (Funcionario) session.getAttribute("user");
+        fun = (Funcionario) session.getAttribute("user");
         cDB.actualizarCurso(cur,fun);
-      String men="Funciono";
+     
     }
     
    
@@ -126,8 +124,7 @@ public class beanMantCurso implements Serializable {
      SNMPExceptions, SQLException, NamingException, ClassNotFoundException{    
         CursoDB dDB = new CursoDB();
         Curso depUTN = new Curso();
-        
-        
+      
         try{
          if(this.id==0){
              this.mensajeId="Id es Requerido";
@@ -187,8 +184,11 @@ public class beanMantCurso implements Serializable {
                     this.estado = true;
                 }
             }
-              HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-             fun = (Funcionario) session.getAttribute("user");
+         
+         
+         if(this.id > 0){
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+            fun = (Funcionario) session.getAttribute("user");
           
           depUTN.setId(id);
           depUTN.setDescripcion(descripcion);
@@ -196,9 +196,14 @@ public class beanMantCurso implements Serializable {
           depUTN.setIdPrograma(idPrograma);
           
           dDB.mvRegitroCurso(depUTN,fun);
-      mensajeAlerta="Realizado con exito";
-        }
-        catch(Exception e){            
+          mensajeAlerta="Realizado con exito";
+         }else{
+              this.mensajeId2 = "El ID ya existe";
+              this.mensajeId=" ";
+         }
+        }catch(SNMPExceptions | SQLException e){ 
+            System.out.println("Error :" + e);
+            System.out.println("Mensaje :" + e.getMessage());
         }
         
     }
@@ -212,6 +217,13 @@ public class beanMantCurso implements Serializable {
           setCodFunEdito(dep.getCodFunEdito());
           setFechaEdito(dep.getFechaEdito());
           setIdPrograma(dep.getIdPrograma());
+          
+            if(this.isEstado()==true){
+            this.estadoValidador="Activo";
+        }
+        else{
+            this.estadoValidador="Inactivo";
+        }
     }
     
    public LinkedList<SelectItem> getListaPrograma() throws SNMPExceptions, SQLException {
@@ -424,6 +436,22 @@ public class beanMantCurso implements Serializable {
 
     public void setIdNombre(String idNombre) {
         this.idNombre = idNombre;
+    }
+
+    public Funcionario getFun() {
+        return fun;
+    }
+
+    public void setFun(Funcionario fun) {
+        this.fun = fun;
+    }
+
+    public String getMensajeId2() {
+        return mensajeId2;
+    }
+
+    public void setMensajeId2(String mensajeId2) {
+        this.mensajeId2 = mensajeId2;
     }
     
     

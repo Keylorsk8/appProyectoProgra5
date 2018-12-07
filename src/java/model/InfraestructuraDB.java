@@ -75,20 +75,58 @@ public class InfraestructuraDB {
         return listaInfraestructura;
     }
      
+     public LinkedList<Infraestructura> buscarID(int idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        String select = "";
+        String estadop=" ";
+                LinkedList<Infraestructura> listaInfraestructura = new LinkedList<Infraestructura>(); 
+            try {
+                //open();
+                //Se instancia la clase de acceso a datos
+                AccesoDatos accesoDatos = new AccesoDatos();
+                //Se crea la sentencia de búsqueda
+                select
+                = "begin try SELECT Id,Capacidad,IdTipoInfraestructura,Nombre,Ubicacion,IdPrograma  from Infraestructura where Id="+"Convert(int,'"+idp+"') or Nombre like '%"+idp+"%' end try begin catch SELECT Id,Capacidad,IdTipoInfraestructura,Nombre,Ubicacion,IdPrograma  from Infraestructura where Nombre like '%"+idp+"%' end catch";
+
+                //Se ejecuta la sentencia SQL
+                ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+                //Se llena el arryaList con los catálogos   
+                while (rsPA.next()) {
+                     int id = rsPA.getInt("Id");
+                    int capacidad = rsPA.getInt("Capacidad");
+                    int idTipoInfraestructura = rsPA.getInt("IdTipoInfraestructura");
+                    String nombre = rsPA.getString("Nombre");
+                    String ubicacion = rsPA.getString("Ubicacion");
+                    int idPrograma = rsPA.getInt("IdPrograma");
+                    
+                 Infraestructura dep = new Infraestructura(id,capacidad,idTipoInfraestructura,nombre,ubicacion,idPrograma);
+                 listaInfraestructura.add(dep);
+                }
+                rsPA.close();
+            } catch (SQLException e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage(), e.getErrorCode());
+            } catch (Exception e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage());
+            } finally {
+
+            }
+            return listaInfraestructura;
+       
+    }
+     
      public LinkedList<Infraestructura> buscarInfraestructura(String idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String select = "";
-        LinkedList<Infraestructura> listaInfraestructura = new LinkedList<Infraestructura>();
-       
-        int numero=Integer.parseInt(idp);
-        if(numero > 0){
+        LinkedList<Infraestructura> listaInfraestructura = new LinkedList<Infraestructura>();            
+       try{
         try {
+            int num= Integer.parseInt(idp);
             //open();
             //Se instancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();
-
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Capacidad,IdTipoInfraestructura,Nombre,Ubicacion,IdPrograma  from Infraestructura where Id="+numero;
+                    = "select * from Infraestructura where id="+num;
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -117,16 +155,14 @@ public class InfraestructuraDB {
 
         }
         return listaInfraestructura;
-        }
-        else{
-            try {
+        }catch(Exception ex){
+         try {
             //open();
             //Se instancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();
-
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Capacidad,IdTipoInfraestructura,Nombre,Ubicacion,IdPrograma  from Infraestructura where Nombre='"+idp+"';";
+                    = "select Id,Capacidad,IdTipoInfraestructura,Nombre,Ubicacion,IdPrograma from Infraestructura where Nombre like '%"+idp+"%'";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -137,9 +173,7 @@ public class InfraestructuraDB {
                     int idTipoInfraestructura = rsPA.getInt("IdTipoInfraestructura");
                     String nombre = rsPA.getString("Nombre");
                     String ubicacion = rsPA.getString("Ubicacion");
-                    int idPrograma = rsPA.getInt("IdPrograma");
-
-                
+                    int idPrograma = rsPA.getInt("IdPrograma");              
                  Infraestructura dep = new Infraestructura(id,capacidad,idTipoInfraestructura,nombre,ubicacion,idPrograma);
                  listaInfraestructura.add(dep);
             }
@@ -155,8 +189,11 @@ public class InfraestructuraDB {
 
         }
         return listaInfraestructura;
-        }
-        }
+    
+     }
+}
+       
+   
     
 
     public void mvRegitroInfraestructura(Infraestructura pvoInfraestructura)

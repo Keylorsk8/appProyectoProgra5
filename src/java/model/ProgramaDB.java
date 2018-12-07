@@ -152,13 +152,15 @@ public class ProgramaDB {
         String select = "";
         String estadop=" ";
         LinkedList<Programa> listaPrograma = new LinkedList<Programa>();
-            try {
+        try{
+             try {
+                int num= Integer.parseInt(idp);
                 //open();
                 //Se instancia la clase de acceso a datos
                 AccesoDatos accesoDatos = new AccesoDatos();
                 //Se crea la sentencia de búsqueda
                 select
-                = "begin try SELECT * from Programa where Id=" + "Convert(int,'"+idp+"') or Nombre like '%"+idp+"%' end try begin catch select * from programa where Nombre like '%"+idp+"%' end catch";
+                = "Select * from Programa where id="+num;
                 //Se ejecuta la sentencia SQL
                 ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
                 //Se llena el arryaList con los catálogos   
@@ -186,6 +188,44 @@ public class ProgramaDB {
 
             }
             return listaPrograma;
+        }catch(Exception ex) {
+             try {
+                
+                //open();
+                //Se instancia la clase de acceso a datos
+                AccesoDatos accesoDatos = new AccesoDatos();
+                //Se crea la sentencia de búsqueda
+                select
+                = "Select * from Programa where Nombre like '%"+idp+"%'";
+                //Se ejecuta la sentencia SQL
+                ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+                //Se llena el arryaList con los catálogos   
+                while (rsPA.next()) {
+                    int id = rsPA.getInt("Id");
+                    String nombre = rsPA.getString("Nombre");
+                    boolean estado = rsPA.getBoolean("Estado");
+                    if(estado == false){
+                        estadop="Inactivo";
+                    }else{
+                        estadop="Activo";
+                    }
+                    
+                    Programa dep = new Programa(id, nombre, estadop);
+                    listaPrograma.add(dep);
+                }
+                rsPA.close();
+            } catch (SQLException e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage(), e.getErrorCode());
+            } catch (Exception e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage());
+            } finally {
+
+            }
+            return listaPrograma;
+        }
+           
        
     }
 

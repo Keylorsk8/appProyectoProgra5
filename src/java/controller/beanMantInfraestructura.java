@@ -44,7 +44,8 @@ public class beanMantInfraestructura implements Serializable {
     String nombre = " ";
     String ubicacion = " ";
     int idPrograma = 0;
-    String idNombre=" ";
+    String idNombre="";
+    String mensajeId2=" ";
 
     String mensajeId = " ";
     String mensajeCapacidad = " ";
@@ -184,7 +185,12 @@ public class beanMantInfraestructura implements Serializable {
             if (this.idPrograma > 1) {
                 this.mensajeidPrograma = " ";
             }
-             
+       
+            
+            if(this.id >1){
+             dDB.buscarID(id); 
+             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+             fun = (Funcionario) session.getAttribute("user");
 
             depUTN.setId(id);
             depUTN.setCapacidad(capacidad);
@@ -194,9 +200,17 @@ public class beanMantInfraestructura implements Serializable {
             depUTN.setUbicacion(ubicacion);
 
             dDB.mvRegitroInfraestructura(depUTN);
-
             mensajeAlerta = "Realizado con exito";
-        } catch (Exception e) {
+            
+            }
+
+                else{
+                    this.mensajeId2 = "El ID ya existe";
+                }
+                
+        }catch (SNMPExceptions | SQLException e) {
+            System.out.println("Error :" + e);
+            System.out.println("Mensaje :" + e.getMessage());
         }
 
     }
@@ -368,6 +382,22 @@ public class beanMantInfraestructura implements Serializable {
 
     public void setIdNombre(String idNombre) {
         this.idNombre = idNombre;
+    }
+
+    public Funcionario getFun() {
+        return fun;
+    }
+
+    public void setFun(Funcionario fun) {
+        this.fun = fun;
+    }
+
+    public String getMensajeId2() {
+        return mensajeId2;
+    }
+
+    public void setMensajeId2(String mensajeId2) {
+        this.mensajeId2 = mensajeId2;
     }
     
 

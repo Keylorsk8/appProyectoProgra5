@@ -34,6 +34,7 @@ public class CursoDB {
 
     public LinkedList<Curso> consultarCurso() throws SNMPExceptions, SQLException {
         String select;
+        String estadop="";
         LinkedList<Curso> listaCurso = new LinkedList<>();
 
         try {
@@ -56,7 +57,14 @@ public class CursoDB {
                     boolean estado = rsPA.getBoolean("Estado");
                     int idPrograma = rsPA.getInt("IdPrograma");
                     
-                    Curso dep = new Curso(id, descripcion, estado, idPrograma);
+                    if(estado==false){
+                        estadop="Inactivo";
+                    }else{
+                        estadop="Activo";
+                    }
+                    
+                    
+                    Curso dep = new Curso(id, descripcion, estadop, idPrograma);
                     listaCurso.add(dep);
                 }
             }
@@ -75,6 +83,7 @@ public class CursoDB {
     
     public LinkedList<Curso> buscarCurso(String idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String select = "";
+        String estadop=" ";
         LinkedList<Curso> listaCurso = new LinkedList<Curso>();
 
         try {
@@ -84,18 +93,24 @@ public class CursoDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Descripcion,Estado,IdPrograma from Curso where Id ="+idp;
+                    = "SELECT Id,Descripcion,Estado,IdPrograma from Curso where Id ="+"Convert(int,'"+idp+"')";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los catálogos   
             while (rsPA.next()) {
-                     int id = rsPA.getInt("Id");
+                    int id = rsPA.getInt("Id");
                     String descripcion = rsPA.getString("Descripcion");
                     boolean estado = rsPA.getBoolean("Estado");
                     int idPrograma = rsPA.getInt("IdPrograma");
-                
-                    Curso dep = new Curso(id, descripcion, estado, idPrograma);
+                    
+                    if(estado== false){
+                        estadop="Inactivo";
+                    }else{
+                        estadop="Activo";
+                    }
+                    
+                    Curso dep = new Curso(id, descripcion, estadop, idPrograma);
                     listaCurso.add(dep);
             }
             rsPA.close();
@@ -122,8 +137,8 @@ public class CursoDB {
                     + cur.getId() + ",'"
                     + cur.getDescripcion() + "',"
                     + (cur.isEstado()?1:0) + ",'"
-                    + fun.getCodFunIngreso()+ "',"
-                    + fun.getFechaIngreso()+ ",'"
+                    + fun.getId()+ "',"
+                    + "getDate()"+ ",'"
                     + 1 + "',"
                     + "getDate()" + ","
                     + cur.getIdPrograma() + ")";
@@ -150,7 +165,7 @@ public class CursoDB {
         int idPrograma = c.getIdPrograma();
 
         //Se crea la sentencia de actualización
-        String update = "UPDATE Curso SET Descripcion = '"+ descripcion+ "', Estado="+ (estado?1:0) +  ",CodFunEdito='" + f.getCodFunEdito() + "',FechaEdito="  + f.getFechaEdito()  + ",IdPrograma=" + idPrograma  + "where Id = " + id + ";";
+        String update = "UPDATE Curso SET Descripcion = '"+ descripcion+ "', Estado="+ (estado?1:0) +  ",CodFunEdito='" + f.getId() + "',FechaEdito="  + "getDate()" + ",IdPrograma=" + idPrograma  + "where Id = " + id + ";";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }

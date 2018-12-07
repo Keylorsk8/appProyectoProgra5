@@ -63,6 +63,11 @@
                 <h:form>   
                     <div class="row">
                         <div class="col-md-6">
+                            <tr>
+                                <td>
+                                    <h:outputText value="#{beanMantCurso.mensajeAlerta}"></h:outputText>
+                                </td>
+                            </tr>
                             <div style="width: auto;height: auto;padding: 2%">
                                 <table class="table">
                                     <tBody>
@@ -75,7 +80,9 @@
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantCurso.mensajeId}"></h:outputText>
+                                                <h:outputText style="color: red" value="#{beanMantCurso.mensajeId2}"></h:outputText>
                                             </td>
+                                            
                                         </tr>                  
                                         <tr>
                                             <td>
@@ -150,7 +157,7 @@
                                     <h:outputText value="#{dep.descripcion}"></h:outputText>
                                 </p:column>   
                                 <p:column headerText="Estado">
-                                    <h:outputText value="#{dep.estado}"></h:outputText>
+                                    <h:outputText value="#{dep.estadop}"></h:outputText>
                                 </p:column> 
                                 <p:column headerText="Código Programa">
                                     <h:outputText value="#{dep.idPrograma}"></h:outputText>

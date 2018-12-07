@@ -22,6 +22,7 @@ public class Curso {
     private String codFunEdito;
     private Date fechaEdito;
     private int idPrograma;
+    private String estadop;
     
     public Curso(){
     this.id=0;
@@ -34,6 +35,12 @@ public class Curso {
         this.id=idp;
         this.descripcion=descripcionp;
         this.estado=estadop;
+        this.idPrograma=idProgramap;       
+    }
+     public Curso(int idp,String descripcionp,String estadop,int idProgramap){
+        this.id=idp;
+        this.descripcion=descripcionp;
+        this.estadop=estadop;
         this.idPrograma=idProgramap;       
     }
 
@@ -99,6 +106,14 @@ public class Curso {
 
     public void setIdPrograma(int idPrograma) {
         this.idPrograma = idPrograma;
+    }
+
+    public String getEstadop() {
+        return estadop;
+    }
+
+    public void setEstadop(String estadop) {
+        this.estadop = estadop;
     }
     
     
