@@ -92,8 +92,14 @@ public class beanMantPrograma implements Serializable {
         cur.setNombre(this.getNombre());
         cur.setId(this.getId());
         cur.setEstado(this.isEstado());
+        if(cur.isEstado()==true){
+            this.estadoValidador="Activo";
+        }
+        else{
+            this.estadoValidador="Inactivo";
+        }
          HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-             fun = (Funcionario) session.getAttribute("user");
+         fun = (Funcionario) session.getAttribute("user");
 
         cDB.actualizarPrograma(cur,fun);
     }
@@ -101,7 +107,6 @@ public class beanMantPrograma implements Serializable {
     public void ingresarRegistro() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         ProgramaDB dDB = new ProgramaDB();
         Programa depUTN = new Programa();
-
 
         try {
             if (this.id == 0) {
@@ -132,12 +137,8 @@ public class beanMantPrograma implements Serializable {
             
             depUTN.setId(id);
             depUTN.setEstado(estado);
-            depUTN.setNombre(nombre);
-            
-          
-            dDB.mvRegitroPrograma(depUTN,fun);
-            
-            
+            depUTN.setNombre(nombre);       
+            dDB.mvRegitroPrograma(depUTN,fun);          
             mensajeAlerta = "Realizado con exito";
         } catch (SNMPExceptions | SQLException e) {
             System.out.println("Error :" + e);
@@ -149,6 +150,13 @@ public class beanMantPrograma implements Serializable {
         setId(dep.getId());
         setEstado(dep.isEstado());
         setNombre(dep.getNombre());
+        
+         if(this.isEstado()==true){
+            this.estadoValidador="Activo";
+        }
+        else{
+            this.estadoValidador="Inactivo";
+        }
     }
 
     public String getMensajeAlerta() {

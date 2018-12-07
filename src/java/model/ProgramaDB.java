@@ -84,11 +84,11 @@ public class ProgramaDB {
                     + cur.getId() + ",'"
                     + cur.getNombre() + "',"
                     + (cur.isEstado() ? 1 : 0) + ",'"
-                    + fun.getCodFunIngreso() + "',"
-                    + fun.getFechaIngreso() + ",'"
+                    + fun.getId()+ "',"
+                    + "getDate()" + ",'"
                     + "'1'"+ "',"
                     + "getDate()" + ","
-                    + fun.getId() + ")";
+                    + "1" + ")";
 //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL/*, sqlBitacora*/);
         } catch (SQLException e) {
@@ -104,17 +104,13 @@ public class ProgramaDB {
     public LinkedList<Programa> buscarPrograma(String idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String select = "";
         LinkedList<Programa> listaPrograma = new LinkedList<Programa>();
-
-        int numerico = Integer.parseInt(idp);
-
-        if (numerico > 0) {
             try {
                 //open();
                 //Se instancia la clase de acceso a datos
                 AccesoDatos accesoDatos = new AccesoDatos();
                 //Se crea la sentencia de búsqueda
                 select
-                        = "SELECT Id,Nombre,Estado from Programa where Id=" + idp;
+                = "begin try SELECT * from Programa where Id=" + "Convert(int,'"+idp+"') or Nombre like '%"+idp+"%' end try begin catch select * from programa where Nombre like '%"+idp+"%' end catch";
                 //Se ejecuta la sentencia SQL
                 ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
                 //Se llena el arryaList con los catálogos   
@@ -122,12 +118,10 @@ public class ProgramaDB {
                     int id = rsPA.getInt("Id");
                     String nombre = rsPA.getString("Nombre");
                     boolean estado = rsPA.getBoolean("Estado");
-
                     Programa dep = new Programa(id, nombre, estado);
                     listaPrograma.add(dep);
                 }
                 rsPA.close();
-
             } catch (SQLException e) {
                 throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                         e.getMessage(), e.getErrorCode());
@@ -138,63 +132,26 @@ public class ProgramaDB {
 
             }
             return listaPrograma;
-        } else {
-            try {
-                //open();
-                //Se instancia la clase de acceso a datos
-                AccesoDatos accesoDatos = new AccesoDatos();
-                //Se crea la sentencia de búsqueda
-                select
-                        = "SELECT Id,Nombre,Estado from Programa where Nombre='" + idp+"';";
-                //Se ejecuta la sentencia SQL
-                ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
-                //Se llena el arryaList con los catálogos   
-                while (rsPA.next()) {
-                    int id = rsPA.getInt("Id");
-                    String nombre = rsPA.getString("Nombre");
-                    boolean estado = rsPA.getBoolean("Estado");
-
-                    Programa dep = new Programa(id, nombre, estado);
-                    listaPrograma.add(dep);
-                }
-                rsPA.close();
-
-            } catch (SQLException e) {
-                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
-                        e.getMessage(), e.getErrorCode());
-            } catch (Exception e) {
-                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
-                        e.getMessage());
-            } finally {
-
-            }
-            return listaPrograma;
-        }
+       
     }
 
 
 public void actualizarPrograma(Programa programap,Funcionario fun) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         //Se obtienen los valores del objeto Cliente
         Programa c = new Programa();
-        c = programap;
-        
+        c = programap;        
         Funcionario f = new Funcionario();
         f = fun;
-
         //Datos de CLiente     
         int id= c.getId();
         String nombre = c.getNombre();
         boolean estado= c.isEstado();
-       
-        
-
         //Se crea la sentencia de actualización
         String update
                 = "UPDATE Programa SET Nombre = '" + nombre + 
-                                      "', Estado=" + (estado?1:0) + 
-                                      ",CodFunEdito='"+fun.getCodFunEdito()+
-                                      "',FechaEdito="+fun.getFechaEdito()+
-                                      ",IdCoordinador="+fun.getId()+
+                                      "',Estado=" + (estado?1:0) + 
+                                      ",CodFunEdito='"+fun.getId()+
+                                      "',FechaEdito="+"getDate()"+                                 
                                       " where Id = " + id + ";";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
@@ -202,29 +159,22 @@ public void actualizarPrograma(Programa programap,Funcionario fun) throws SNMPEx
     
        public LinkedList<Programa> moTodo() throws SNMPExceptions, SQLException{
         String select= " ";
-        LinkedList<Programa> listaCand= new LinkedList<Programa>();
-        
+        LinkedList<Programa> listaCand= new LinkedList<Programa>();       
         try{
             //Se intancia la clase de acceso a datos
-            AccesoDatos accesoDatos= new AccesoDatos();
-            
+            AccesoDatos accesoDatos= new AccesoDatos();            
             //Se crea la sentencia de Busqueda
             select=
                     "Select Id,Nombre,Estado from Programa";
             //se ejecuta la sentencia sql
             ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
             //se llama el array con los proyectos
-            while(rsPA.next()){
-                
+            while(rsPA.next()){                
                 int id= rsPA.getInt("Id");
                 String nombre = rsPA.getString("Nombre");
-                boolean estado = rsPA.getBoolean("Estado");
-
-               
-                
+                boolean estado = rsPA.getBoolean("Estado");           
                 //se construye el objeto.
-                Programa perCandidato= new Programa(id,nombre,estado);
-                
+                Programa perCandidato= new Programa(id,nombre,estado);              
                 listaCand.add(perCandidato);
             }
             rsPA.close();//se cierra el ResultSeat.
