@@ -30,36 +30,34 @@ public class beanMantPeriodo implements Serializable {
      */
     public beanMantPeriodo() {
     }
-    
-    String idNombre="";
-    String fechaInicio=" ";
-    String fechaFinal=" ";
-    String nombre=" ";
-    
-    int id=0;
-    
+
+    String idNombre = "";
+    String fechaInicio = " ";
+    String fechaFinal = " ";
+    String nombre = " ";
+
+    int id = 0;
+
     Calendar cal = Calendar.getInstance();
-    int anio=cal.get(cal.YEAR);
-    
+    int anio = cal.get(cal.YEAR);
+
     String mensajeId;
     String mensajefechaInicio;
     String mensajefechaFinal;
     String mensajeNombre;
     String mensajeAnio;
     String mensajeAlerta;
-    
-    LinkedList<Periodo> listaTablaPeriodo= new LinkedList<>();
+
+    LinkedList<Periodo> listaTablaPeriodo = new LinkedList<>();
 
     public LinkedList<Periodo> getListaTablaPeriodo() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         PeriodoDB dDB = new PeriodoDB();
         LinkedList<Periodo> listaTabla = new LinkedList<>();
-        
-       
-            if(!this.idNombre.equals("")){
-              listaTabla = buscarPeriodoBean();
-            }
-             else{
-             listaTabla = dDB.consultarPeriodo();
+
+        if (!this.idNombre.equals("")) {
+            listaTabla = buscarPeriodoBean();
+        } else {
+            listaTabla = dDB.consultarPeriodo();
         }
 
         return listaTabla;
@@ -68,19 +66,17 @@ public class beanMantPeriodo implements Serializable {
     public void setListaTablaPeriodo(LinkedList<Periodo> listaTablaPeriodo) {
         this.listaTablaPeriodo = listaTablaPeriodo;
     }
-    
-    
-     public LinkedList<Periodo> buscarPeriodoBean()throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+
+    public LinkedList<Periodo> buscarPeriodoBean() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         PeriodoDB dDB = new PeriodoDB();
-      LinkedList<Periodo> Periodo = new LinkedList<>();
-      return Periodo = dDB.buscarPeriodo(idNombre);  
-       
+        LinkedList<Periodo> Periodo = new LinkedList<>();
+        return Periodo = dDB.buscarPeriodo(idNombre);
+
     }
-     
-      public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+
+    public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         PeriodoDB cDB = new PeriodoDB();
         Periodo cur = new Periodo();
-        
         cur.setNombre(this.getNombre());
         cur.setFechaInicio(this.getFechaInicio());
         cur.setFechaFinal(this.getFechaFinal());
@@ -88,91 +84,83 @@ public class beanMantPeriodo implements Serializable {
         cur.setId(this.getId());
         cDB.actualizarPeriodo(cur);
     }
-      
-       public void ingresarRegistro() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+
+    public void ingresarRegistro() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         PeriodoDB dDB = new PeriodoDB();
         Periodo depUTN = new Periodo();
 
         try {
-            
+
             if (this.nombre.equals(" ")) {
                 this.mensajeNombre = "Nombre es Requerido";
             }
-            if(this.fechaInicio.equals(" ")){
-                this.mensajefechaInicio="FechaInicio es Requerido";
+            if (this.fechaInicio.equals(" ")) {
+                this.mensajefechaInicio = "FechaInicio es Requerido";
             }
-            if(this.fechaFinal.equals(" ")){
-                this.mensajefechaFinal= "FechaFinal es Requerido";
+            if (this.fechaFinal.equals(" ")) {
+                this.mensajefechaFinal = "FechaFinal es Requerido";
             }
-           
+
             if (!this.nombre.equals(" ")) {
                 this.mensajeNombre = " ";
-            }           
-            if(!this.fechaInicio.equals(" ")){
-                this.mensajefechaInicio=" ";
             }
-            if(!this.fechaFinal.equals(" ")){
-                this.mensajefechaFinal= " ";
+            if (!this.fechaInicio.equals(" ")) {
+                this.mensajefechaInicio = " ";
             }
-          
+            if (!this.fechaFinal.equals(" ")) {
+                this.mensajefechaFinal = " ";
+            }
+
             int annoS = Integer.parseInt(this.fechaInicio.substring(0, 4));
             int diaS = Integer.parseInt(this.fechaInicio.substring(8, 10));
             int mesS = Integer.parseInt(this.fechaInicio.substring(5, 7));
-            this.fechaInicio=annoS + "/"+diaS+"/"+mesS;
-            
-            int anno = Integer.parseInt(this.fechaFinal.substring(0, 4));       
+            this.fechaInicio = annoS + "/" + diaS + "/" + mesS;
+
+            int anno = Integer.parseInt(this.fechaFinal.substring(0, 4));
             int dia = Integer.parseInt(this.fechaFinal.substring(8, 10));
-             int mes = Integer.parseInt(this.fechaFinal.substring(5, 7));
-              this.fechaFinal= anno+"/"+dia+"/"+mes;
-           
-            depUTN.setNombre(nombre);  
+            int mes = Integer.parseInt(this.fechaFinal.substring(5, 7));
+            this.fechaFinal = anno + "/" + dia + "/" + mes;
+
+            depUTN.setNombre(nombre);
             depUTN.setFechaInicio(fechaInicio);
             depUTN.setFechaFinal(fechaFinal);
             depUTN.setAnio(anio);
-            dDB.mvRegitroPeriodo(depUTN);          
+            dDB.mvRegitroPeriodo(depUTN);
             mensajeAlerta = "Realizado con exito";
-            
-             
+
         } catch (SNMPExceptions | SQLException e) {
             System.out.println("Error :" + e);
             System.out.println("Mensaje :" + e.getMessage());
         }
     }
-       
-       public void asignaDatos(Periodo dep) {
-        this.setId(dep.getId());   
-        this.setNombre(dep.getNombre());
-        this.setFechaInicio(dep.getFechaInicio());
-        this.setFechaFinal(dep.getFechaFinal());
-        this.setAnio(dep.getAnio());
-               
-    }
-       
-       public void cancelar(){
-           this.setAnio(0);
-           this.setFechaFinal(null);
-           this.setFechaInicio(null);
-           this.setId(0);
-           this.setIdNombre("");
-           this.setMensajeAlerta(" ");
-           this.setMensajeAnio(" ");
-           this.setMensajeId(" ");
-           this.setMensajeNombre(" ");
-           this.setMensajefechaFinal(" ");
-           this.setMensajefechaInicio(" ");
-           this.setNombre(" ");
-           
 
-           this.setListaTablaPeriodo(listaTablaPeriodo);
-       }
-      
-      
-      
-      
-      
-      
-      
-      
+    public void asignaDatos(Periodo dep) {
+        System.out.println(dep.getFechaFinal());
+        System.out.println(dep.getFechaInicio());
+        this.setId(dep.getId());
+        this.setNombre(dep.getNombre());
+        this.setFechaInicio(dep.getFechaInicio().substring(0, 10));
+        this.setFechaFinal(dep.getFechaFinal().substring(0, 10));
+        this.setAnio(dep.getAnio());
+
+    }
+
+    public void cancelar() {
+        this.setAnio(0);
+        this.setFechaFinal(null);
+        this.setFechaInicio(null);
+        this.setId(0);
+        this.setIdNombre("");
+        this.setMensajeAlerta(" ");
+        this.setMensajeAnio(" ");
+        this.setMensajeId(" ");
+        this.setMensajeNombre(" ");
+        this.setMensajefechaFinal(" ");
+        this.setMensajefechaInicio(" ");
+        this.setNombre(" ");
+
+        this.setListaTablaPeriodo(listaTablaPeriodo);
+    }
 
     public String getIdNombre() {
         return idNombre;
@@ -269,9 +257,5 @@ public class beanMantPeriodo implements Serializable {
     public void setMensajeAlerta(String mensajeAlerta) {
         this.mensajeAlerta = mensajeAlerta;
     }
-    
-    
-    
-    
-    
+
 }
