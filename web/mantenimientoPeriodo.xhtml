@@ -65,31 +65,23 @@
                 <h:form>   
                     <div class="row">
                         <div class="col-md-6">
+                            <tr>
+                                <td>
+                                    <h:outputText value="#{beanMantPeriodo.mensajeAlerta}"></h:outputText>
+                                </td>
+                            </tr>
                             <div style="width: auto;height: auto;padding: 2%">
                                 <table class="table">
                                     <tBody>                                                                               
                                         <tr>
                                             <td>
-                                                <h:outputText value="Periodo: "></h:outputText>
+                                                <h:outputText value="Nombre: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:selectOneMenu value="#{beanMantPeriodo.periodo}">
-                                                    <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>                               
-                                                </h:selectOneMenu>
+                                                <h:inputText value="#{beanMantPeriodo.nombre}"></h:inputText>
                                             </td>
                                             <td>
-                                                <h:outputText style="color: red" value="#{beanMantPeriodo.mensajePeriodo}"></h:outputText>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h:outputText value="Descripcion: "></h:outputText>
-                                            </td>
-                                            <td>
-                                                <h:inputText value="#{beanMantPeriodo.descripcion}"></h:inputText>
-                                            </td>
-                                            <td>
-                                                <h:outputText style="color: red" value="#{beanMantPeriodo.mensajedescripcion}"></h:outputText>
+                                                <h:outputText style="color: red" value="#{beanMantPeriodo.mensajeNombre}"></h:outputText>
                                             </td>
                                         </tr> 
                                         <tr>
@@ -116,36 +108,52 @@
                                         </tr>                                                                           
                                         <tr style="text-align: center">
                                             <td colspan="2">
-                                                <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px"  value="Añadir" actionListener="#{beanMantOferta.validacion()}" ></h:commandButton>
-                                                <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Cancelar" actionListener="#{beanMantOferta.cancelar()}" ></h:commandButton>
+                                                <h:commandButton  value="Guardar" class="btn btn-outline-dark" style="margin:2px;width: 25%" actionListener="#{beanMantPeriodo.ingresarRegistro()}" ></h:commandButton>
+                                                <h:commandButton  value="Limpiar" class="btn btn-outline-dark" style="margin:2px;width: 25%" actionListener="#{beanMantPeriodo.cancelar()}"></h:commandButton>
+                                                <h:commandButton  value="Editar" class="btn btn-outline-dark" style="margin:2px;width: 25%" actionListener="#{beanMantPeriodo.actualizaDatos()}" ></h:commandButton>
+
                                             </td>
                                         </tr>
                                     </tBody>               
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="datagrid">
-                                <p:dataTable value="Lista del Bean" var="dep">
-                                    <p:column headerText="Periodo">
-                                        
-                                    </p:column>           
-                                    <p:column headerText="Descripción">
-                                        
-                                    </p:column>   
+                        
+                            <div class="col-md-6">
+                                <tr>
+                                    <td>
+                                        <h:outputText value="Id o Nombre: "></h:outputText>
+                                    </td>
+                                    <td>
+                                        <h:inputText  value="#{beanMantPeriodo.idNombre}"></h:inputText>
+                                    </td>
+                                    <td>
+                                        <h:commandButton  value="Buscar" class="btn btn-outline-dark" style="margin:2px;width: 25%" actionListener="#{beanMantPeriodo. buscarPeriodoBean()}" ></h:commandButton>        
+                                    </td>
+                                </tr>
+                                <p:dataTable value="#{beanMantPeriodo.listaTablaPeriodo}" var="dep">
+                                    <p:column headerText="Id">
+                                        <h:outputText value="#{dep.id}"></h:outputText>
+                                    </p:column>
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{dep.nombre}"></h:outputText>
+                                    </p:column>
                                     <p:column headerText="Fecha Inicio">
-                                        
-                                    </p:column>
+                                        <h:outputText value="#{dep.fechaInicio}"></h:outputText>
+                                    </p:column>    
                                     <p:column headerText="Fecha Final">
-                                        
-                                    </p:column>               
+                                        <h:outputText value="#{dep.fechaFinal}"></h:outputText>
+                                    </p:column> 
+                                    <p:column headerText="Año">
+                                        <h:outputText value="#{dep.anio}"></h:outputText>
+                                    </p:column> 
                                     <p:column>
-                                        
+                                        <h:commandLink value="Editar" actionListener="#{beanMantPeriodo.asignaDatos(dep)}"></h:commandLink>
                                     </p:column>
-                                </p:dataTable>
+                                </p:dataTable>                        
                             </div>
                         </div>
-                    </div>
+                   
                 </h:form>
             </ui:define>
             <ui:define name="FooterLinks">
