@@ -1,10 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
     <body>
-    
+
         <ui:composition template="./resources/Main/mainTemplate.xhtml">
 
             <ui:define name="Head">
@@ -12,15 +13,8 @@
             </ui:define>
 
             <ui:define name="NavBarLinks">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Solicitar
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="">Reservación</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Cancelación de Reservación</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="MenuPrincipalCoordinador.xhtml">Inicio</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,13 +37,10 @@
                         <a class="dropdown-item" href="mantenimientoCoordinacionNuevosUsuarios.xhtml">Cuentas</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link">Historial</a>
-                </li>
                 <ul class="navbar-nav ml-auto" style="margin-right: 4%">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user-circle" style="margin-right: 2px"></i>Cuenta
+                            <i class="fa fa-user-circle" style="margin-right: 2px"></i>#{beanMenuPrincipalCoordinador.nombreCuenta}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="ConfiguracionPerfil.xhtml"><i class="fa fa-cog" style="margin-right: 2px"></i>Configuración</a>
@@ -60,12 +51,8 @@
                 </ul>
             </ui:define>
 
-            <ui:define name="Titulo">
-                Configuración de Cuenta
-            </ui:define>
-
             <ui:define name="Content">
-                Content
+                <h:commandButton value="Cerrar Sesión" actionListener="#{beanConfiguracionPerfilCoordinador.cerrarSesion()}"></h:commandButton>
             </ui:define>
 
             <ui:define name="FooterLinks">
@@ -76,3 +63,4 @@
 
     </body>
 </html>
+

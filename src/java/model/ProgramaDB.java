@@ -292,6 +292,48 @@ public void actualizarPrograma(Programa programap,Funcionario fun) throws SNMPEx
         }
         return listaCand;
        }
+
+    public LinkedList<Programa> seleccionarProgramasSinCoordinador() throws SNMPExceptions {
+        String select= " ";
+        String estadop=" ";
+        LinkedList<Programa> listaCand= new LinkedList<Programa>();       
+        try{
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos= new AccesoDatos();            
+            //Se crea la sentencia de Busqueda
+            select=
+                    "Select Id,Nombre,Estado from Programa where IdCoordinador is Null";
+            //se ejecuta la sentencia sql
+            ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
+            //se llama el array con los proyectos
+            while(rsPA.next()){                
+                int id= rsPA.getInt("Id");
+                String nombre = rsPA.getString("Nombre");
+                boolean estado = rsPA.getBoolean("Estado");
+                
+                if(estado == false){
+                    estadop="Inactivo";
+                }
+                else{
+                    estadop="Activo";
+                }
+                
+                //se construye el objeto.
+                Programa perCandidato= new Programa(id,nombre,estadop);              
+                listaCand.add(perCandidato);
+            }
+            rsPA.close();//se cierra el ResultSeat.
+            
+        }catch(SQLException e){
+            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION,
+                                     e.getMessage(),e.getErrorCode());
+        }catch(SNMPExceptions | ClassNotFoundException | NamingException e){
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,e.getMessage());
+        }finally{
+            
+        }
+        return listaCand;
+    }
 }
 
 

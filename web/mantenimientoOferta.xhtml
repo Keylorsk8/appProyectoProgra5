@@ -13,16 +13,10 @@
             <ui:define name="Head">
                 <title>Mantenimiento de Oferta</title>
             </ui:define>
+
             <ui:define name="NavBarLinks">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Solicitar
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="">Reservación</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Cancelación de Reservación</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="MenuPrincipalCoordinador.xhtml">Inicio</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,13 +39,10 @@
                         <a class="dropdown-item" href="mantenimientoCoordinacionNuevosUsuarios.xhtml">Cuentas</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link">Historial</a>
-                </li>
                 <ul class="navbar-nav ml-auto" style="margin-right: 4%">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user-circle" style="margin-right: 2px"></i>Cuenta
+                            <i class="fa fa-user-circle" style="margin-right: 2px"></i>#{beanMenuPrincipalCoordinador.nombreCuenta}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="ConfiguracionPerfil.xhtml"><i class="fa fa-cog" style="margin-right: 2px"></i>Configuración</a>

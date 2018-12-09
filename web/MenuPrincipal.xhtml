@@ -11,10 +11,14 @@
 
             <ui:define name="Head">
                 <title>Menu DEAS</title>
+                <link href="resources/css/menuPrincipal.css" rel="stylesheet" type="text/css"/>
             </ui:define>
 
             <ui:define name="NavBarLinks">
                 <li class="nav-item dropdown">
+                    <li class="nav-item">
+                        <a class="nav-link" href="MenuPrincipal.xhtml">Inicio</a>
+                    </li>
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Solicitar
                     </a>
@@ -30,7 +34,7 @@
                 <ul class="navbar-nav ml-auto" style="margin-right: 4%">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user-circle" style="margin-right: 2px"></i>Cuenta
+                            <i class="fa fa-user-circle" style="margin-right: 2px"></i>#{beanMenuPrincipal.nombreCuenta}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="ConfiguracionPerfil.xhtml"><i class="fa fa-cog" style="margin-right: 2px"></i>Configuración</a>
@@ -38,9 +42,54 @@
                     </li>
                 </ul>
             </ui:define>
-            
+
             <ui:define name="Content">
-                <h:outputLabel style="font-size: 30px;font-family: monospace" value="#{beanMenuPrincipal.saludo}"></h:outputLabel>
+                <p:panel header="#{beanMenuPrincipal.saludo}" style="background-color:#002752 ;margin-top: 15px;margin-left: 15px;height: 100%;align-content: center">
+                    <div style="height: 100px;width: 90%">
+                    </div>
+                    <div class="container-fluid" style="text-align: center">
+                        <div class="contenedor" style="display: inline-block">
+                            <div class="imagen">
+                                <img src="resources/Images/reservacion.svg" class="imagen"></img>
+                            </div>
+                            <div class="info">
+                                <p class="titulo"></p>
+                                <p class="adicional"></p>
+                                <a href="" class="link">Solicitar Reservación</a>
+                            </div>
+                        </div>
+                        <div class="contenedor" style="display: inline-block">
+                            <div class="imagen">
+                                <img src="resources/Images/cancelar.svg" class="imagen"></img>
+                            </div>
+                            <div class="info">
+                                <p class="titulo"></p>
+                                <p class="adicional"></p>
+                                <a href="" class="link">Cancelar Reservación</a>
+                            </div>
+                        </div>
+                        <div class="contenedor" style="display: inline-block">
+                            <div class="imagen">
+                                <img src="resources/Images/historial.svg" class="imagen"></img>
+                            </div>
+                            <div class="info">
+                                <p class="titulo"></p>
+                                <p class="adicional"></p>
+                                <a href="" class="link">Historial Reservaciones</a>
+                            </div>
+                        </div>
+                        <div class="contenedor" style="display: inline-block">
+                            <div class="imagen">
+                                <img src="resources/Images/Perfil.svg" class="imagen"></img>
+                            </div>
+                            <div class="info">
+                                <p class="titulo"></p>
+                                <p class="adicional"></p>
+                                <a href="ConfiguracionPerfil.xhtml" class="link">Configuración Cuenta</a>
+                            </div>
+                        </div>
+                    </div>
+                </p:panel>
             </ui:define>
 
             <ui:define name="FooterLinks">

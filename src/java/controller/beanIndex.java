@@ -14,9 +14,7 @@ import java.sql.SQLException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
-import javax.servlet.DispatcherType;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
 import model.Funcionario;
 import model.FuncionarioDB;
 
@@ -73,16 +71,19 @@ public class beanIndex implements Serializable {
         if(fun.getIdTipoUsuario() == 1){
             HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 session.setAttribute("user", fun);
+                session.setAttribute("TipoUsuario",1);
             FacesContext.getCurrentInstance().getExternalContext().redirect("MenuPrincipal.xhtml");
         }
         if(fun.getIdTipoUsuario() == 2){
             if(Integer.parseInt(tipoUsuario) == 1){
                 HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 session.setAttribute("user", fun);
+                session.setAttribute("TipoUsuario",1);
                 FacesContext.getCurrentInstance().getExternalContext().redirect("MenuPrincipal.xhtml");
             }else{
                 HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 session.setAttribute("user", fun);
+                session.setAttribute("TipoUsuario",2);
                 FacesContext.getCurrentInstance().getExternalContext().redirect("MenuPrincipalCoordinador.xhtml");
             }
         }
@@ -137,3 +138,4 @@ public class beanIndex implements Serializable {
         this.tipoUsuario = tipoUsuario;
     }
 }
+

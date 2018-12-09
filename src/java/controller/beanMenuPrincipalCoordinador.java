@@ -11,16 +11,15 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.RespectBindingFeature;
 import model.Funcionario;
 
 /**
  *
  * @author KeylorSk8
  */
-@Named(value = "beanMenuPrincipal")
+@Named(value = "beanMenuPrincipalCoordinador")
 @SessionScoped
-public class beanMenuPrincipal implements Serializable {
+public class beanMenuPrincipalCoordinador implements Serializable {
 
     String saludo;
     String NombreCuenta;
@@ -28,11 +27,11 @@ public class beanMenuPrincipal implements Serializable {
     /**
      * Creates a new instance of beanMenuPrincipal
      */
-    public beanMenuPrincipal() throws IOException {
+    public beanMenuPrincipalCoordinador() throws IOException {
         try {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             Funcionario fun = (Funcionario) session.getAttribute("user");
-            saludo = "Bienvenido " + fun.getNombre() + " " + fun.getApellido1() + " - Funcionario DEAS";
+            saludo = "Bienvenido " + fun.getNombre() + " " + fun.getApellido1() + " - Coordinador DEAS";
             NombreCuenta = fun.getNombre() + " " + fun.getApellido1();
         } catch (Exception e) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");

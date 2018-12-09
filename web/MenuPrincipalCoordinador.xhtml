@@ -1,13 +1,18 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./resources/Main/mainTemplate.xhtml">
+                template="./resources/Main/mainTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="Head">
         <title>Menú Principal</title>
+        <link href="resources/css/menuPrincipal.css" rel="stylesheet" type="text/css"/>
     </ui:define>
 
     <ui:define name="NavBarLinks">
+        <li class="nav-item">
+            <a class="nav-link" href="MenuPrincipalCoordinador.xhtml">Inicio</a>
+        </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Mantenimientos
@@ -32,19 +37,62 @@
         <ul class="navbar-nav ml-auto" style="margin-right: 4%">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-user-circle" style="margin-right: 2px"></i>Cuenta
+                    <i class="fa fa-user-circle" style="margin-right: 2px"></i>#{beanMenuPrincipalCoordinador.nombreCuenta}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="ConfiguracionPerfil.xhtml"><i class="fa fa-cog" style="margin-right: 2px"></i>Configuración</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><i class="fa fa-power-off" style="margin-right: 2px"></i>Salir</a>
+                    <a class="dropdown-item" href="ConfiguracionPerfilCoordinador.xhtml"><i class="fa fa-cog" style="margin-right: 2px"></i>Configuración</a>
                 </div>
             </li>
         </ul>
     </ui:define>
 
     <ui:define name="Content">
-        Content
+        <p:panel header="#{beanMenuPrincipalCoordinador.saludo}" style="background-color:#002752 ;margin-top: 15px;margin-left: 15px;height: 100%;align-content: center">
+                    <div style="height: 100px;width: 90%">
+                    </div>
+                    <div class="container-fluid" style="text-align: center">
+                        <div class="contenedor" style="display: inline-block">
+                            <div class="imagen">
+                                <img src="resources/Images/reservacion.svg" class="imagen"></img>
+                            </div>
+                            <div class="info">
+                                <p class="titulo"></p>
+                                <p class="adicional"></p>
+                                <a href="mantenimientoCoordinacionSolicitudes.xhtml" class="link">Solicitudes de Reservación</a>
+                            </div>
+                        </div>
+                        <div class="contenedor" style="display: inline-block">
+                            <div class="imagen">
+                                <img src="resources/Images/Cuentas.svg" class="imagen"></img>
+                            </div>
+                            <div class="info">
+                                <p class="titulo"></p>
+                                <p class="adicional"></p>
+                                <a href="mantenimientoCoordinacionNuevosUsuarios.xhtml" class="link">Solicitudes de Cuentas</a>
+                            </div>
+                        </div>
+                        <div class="contenedor" style="display: inline-block">
+                            <div class="imagen">
+                                <img src="resources/Images/historial.svg" class="imagen"></img>
+                            </div>
+                            <div class="info">
+                                <p class="titulo"></p>
+                                <p class="adicional"></p>
+                                <a href="" class="link">Historial de Tramites</a>
+                            </div>
+                        </div>
+                        <div class="contenedor" style="display: inline-block">
+                            <div class="imagen">
+                                <img src="resources/Images/Perfil.svg" class="imagen"></img>
+                            </div>
+                            <div class="info">
+                                <p class="titulo"></p>
+                                <p class="adicional"></p>
+                                <a href="ConfiguracionPerfilCoordinador.xhtml" class="link">Configuración Cuenta</a>
+                            </div>
+                        </div>
+                    </div>
+                </p:panel>
     </ui:define>
 
 </ui:composition>

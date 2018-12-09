@@ -16,14 +16,14 @@ import javax.servlet.http.HttpSession;
  *
  * @author KeylorSk8
  */
-@Named(value = "beanConfiguracionPerfil")
+@Named(value = "beanConfiguracionPerfilCoordinador")
 @SessionScoped
-public class beanConfiguracionPerfil implements Serializable {
+public class beanConfiguracionPerfilCoordinador implements Serializable {
 
     /**
      * Creates a new instance of beanConfiguracionPerfil
      */
-    public beanConfiguracionPerfil() {
+    public beanConfiguracionPerfilCoordinador() {
     }
 
     public void cerrarSesion() throws IOException {

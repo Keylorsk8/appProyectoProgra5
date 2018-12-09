@@ -13,39 +13,41 @@
     </h:head>
 
     <h:body>
-        <div class="container-fluid" style="margin-bottom: 60px;">
-            <div class="col-md-12">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" style="background-color: #0d2d6d !important">
-                    <a class="navbar-brand" href="MenuPrincipal.xhtml" style="margin-left: 20px"><i class="fa fa-tree" style="margin-right: 2px"></i>DEAS</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarColor01">
-                        <ul class="navbar-nav flex-row w-100" style="color: white !important">
-                            <ui:insert name="NavBarLinks">
-                                Navbar Links
-                            </ui:insert>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
+        <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true" />
+            <div class="container-fluid" style="margin-bottom: 55px;">
                 <div class="col-md-12">
-                    <ui:insert name="Content">
-                        <h1>Content</h1>
-                    </ui:insert>
-                    <div style="margin-bottom: 100px"></div>
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" style="background-color: #0d2d6d !important">
+                        <a class="navbar-brand" style="margin-left: 20px;color: white"><i class="fa fa-tree" style="margin-right: 2px"></i>DEAS</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarColor01">
+                            <ul class="navbar-nav flex-row w-100" style="color: white !important">
+                                <ui:insert name="NavBarLinks">
+                                    Navbar Links
+                                </ui:insert>
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
             </div>
-        </div>
-        <footer class="footer fixed-bottom" style="width: 100%;margin-bottom: 0;height: 35px;text-align: center">
-            <nav class="navbar" style="background-color: rgba(94,94,94,0.4) !important;">
-                <h5 style="color: white;margin-left: 45%">DEAS UTN, 2018</h5>
-            </nav>
-        </footer>
-
+            <div class="container-fluid" style="background-color: lightgray;padding-left: 0px !important;background-color: ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ui:insert name="Content">
+                            <h1>Content</h1>
+                        </ui:insert>
+                        <div style="margin-bottom: 100px"></div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer fixed-bottom" style="background-color: #0d2d6d !important;width: 100%;margin-bottom: 0;height: 35px;text-align: center">
+                <nav class="navbar" style="background-color: rgba(94,94,94,0.4) !important;">
+                    <h5 style="color: white;margin-left: 45%">DEAS UTN, 2018</h5>
+                </nav>
+            </footer>
+        </h:form>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>

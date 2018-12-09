@@ -21,8 +21,6 @@ public class FuncionarioDB {
     AccesoDatos accesoDatos = new AccesoDatos();
 
     public void solicitarCuenta(Funcionario fun) throws SNMPExceptions, ClassNotFoundException, SQLException, NamingException {
-
-        String strSQL;
         String strSQL1;
         String strSQL2;
         try {
@@ -63,10 +61,9 @@ public class FuncionarioDB {
                     + fun.getCodFunEdito() + "','"
                     + fun.getFechaEdito() + "',"
                     + (fun.isPrimeraVez() ? 1 : 0) + ","
-                    + 1 + "," 
+                    + 1 + ","
                     + 0 + ");";
-            System.out.println(strSQL1);        
-            strSQL = strSQL1;
+            System.out.println(strSQL1);
             strSQL2 = "Insert into Direccion "
                     + "([Id]\n"
                     + ",[IdProvincia]\n"
@@ -82,18 +79,17 @@ public class FuncionarioDB {
                     + fun.getCodBa() + ",'"
                     + fun.getOtrasSeñas()
                     + "')";
-            strSQL += strSQL2;
             //Se ejecuta la sentencia SQL
-             accesoDatos.ejecutaSQL(strSQL2);
-             accesoDatos.ejecutaSQL(strSQL1);   
+            accesoDatos.ejecutaSQL(strSQL2);
+            accesoDatos.ejecutaSQL(strSQL1);
         } catch (SNMPExceptions e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
         }
     }
-    
-    public Funcionario validadExistenciaFuncionario(int idFuncionario) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{        
+
+    public Funcionario validadExistenciaFuncionario(int idFuncionario) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         Funcionario fun = null;
         try {
             //open();
@@ -109,7 +105,6 @@ public class FuncionarioDB {
                     fun = new Funcionario();
                 }
             }
-
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage(), e.getErrorCode());
@@ -117,13 +112,11 @@ public class FuncionarioDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
-
         }
         return fun;
-        
     }
-    
-    public Funcionario seleccionarFuncionario(String idFuncionario) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{        
+
+    public Funcionario seleccionarFuncionario(String idFuncionario) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         Funcionario fun = null;
         try {
             //open();
@@ -160,7 +153,6 @@ public class FuncionarioDB {
                     fun.setEdad(edad);
                 }
             }
-
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage(), e.getErrorCode());
@@ -173,7 +165,7 @@ public class FuncionarioDB {
         return fun;
     }
 
-    public LinkedList<Funcionario> seleccionarSolicitudFuncionarios() throws SNMPExceptions{
+    public LinkedList<Funcionario> seleccionarSolicitudFuncionarios() throws SNMPExceptions {
         LinkedList<Funcionario> funcionarios = new LinkedList<>();
         Funcionario fun = null;
         try {
@@ -212,7 +204,6 @@ public class FuncionarioDB {
                     funcionarios.add(fun);
                 }
             }
-
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage(), e.getErrorCode());
@@ -220,12 +211,11 @@ public class FuncionarioDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
-
         }
         return funcionarios;
     }
-    
-    public LinkedList<Funcionario> seleccionarFuncionariosRechazados() throws SNMPExceptions{
+
+    public LinkedList<Funcionario> seleccionarFuncionariosRechazados() throws SNMPExceptions {
         LinkedList<Funcionario> funcionarios = new LinkedList<>();
         Funcionario fun = null;
         try {
@@ -265,7 +255,6 @@ public class FuncionarioDB {
                     funcionarios.add(fun);
                 }
             }
-
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage(), e.getErrorCode());
@@ -273,8 +262,35 @@ public class FuncionarioDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
-
         }
         return funcionarios;
+    }
+
+    public void actualizarFuncionario(Funcionario fun) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        String strSQL1;
+        String strSQL2;
+        try {
+            //Se obtienen los valores del objeto 
+            strSQL1 = "UPDATE Funcionario set CodFunIngreso = '" + fun.getCodFunIngreso()
+                    + "',FechaIngreso = " + fun.getFechaIngreso()
+                    + ",CodFunEdito = '" + fun.getCodFunEdito()
+                    + "',FechaEdito = " + fun.getFechaEdito()
+                    + " ,Solicitud = 0, Contrasenia = '" + fun.getContraseña()
+                    + "',EstadoSolicitud = 1";
+            if (fun.getIdTipoUsuario() == 2) {
+                strSQL1 += ",IdTipoUsuario = 2,IdPrograma = " + fun.getIdPrograma();
+            }
+            strSQL1 += " where Id = " + fun.getId();
+            strSQL2 = "UPDATE Programa set IdCoordinador ="+ fun.getId() +" where Id = " + fun.getIdPrograma();
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(strSQL1);
+            if(fun.getIdTipoUsuario() == 2){
+                accesoDatos.ejecutaSQL(strSQL2);
+            }
+        } catch (SNMPExceptions e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+        }
     }
 }
