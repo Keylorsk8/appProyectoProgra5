@@ -17,25 +17,24 @@ import model.FuncionarioDB;
  *
  * @author KeylorSk8
  */
-@Named(value = "beanNuevosUsuarios")
+@Named(value = "beanNuevosUsuariosRechazados")
 @SessionScoped
-public class beanNuevosUsuarios implements Serializable {
+public class beanNuevosUsuariosRechazados implements Serializable {
 
-    String mensaje = "Nuevas solicitudes de Funcionarios";
+    String mensaje = "Solicitudes de funcionarios rechazadas";
     LinkedList<Funcionario> Funcionarios = new LinkedList<>();
     FuncionarioDB logica = new FuncionarioDB();
-
+    
     /**
      * Creates a new instance of beanNuevosUsuarios
-     * @throws DAO.SNMPExceptions
      */
-    public beanNuevosUsuarios() throws SNMPExceptions {
+    public beanNuevosUsuariosRechazados() throws SNMPExceptions {
     }
 
     public LinkedList<Funcionario> getFuncionarios() throws SNMPExceptions {
-            this.setMensaje("Nuevas solicitudes de Funcionarios");
-            return logica.seleccionarSolicitudFuncionarios();
-        }
+        this.setMensaje("Solicitudes de funcionarios rechazadas");
+        return logica.seleccionarFuncionariosRechazados();    
+    }
 
     public void setFuncionarios(LinkedList<Funcionario> Funcionarios) {
         this.Funcionarios = Funcionarios;
