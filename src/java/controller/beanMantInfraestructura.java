@@ -44,8 +44,8 @@ public class beanMantInfraestructura implements Serializable {
     String nombre = " ";
     String ubicacion = " ";
     int idPrograma = 0;
-    String idNombre="";
-    String mensajeId2=" ";
+    String idNombre = "";
+    String mensajeId2 = " ";
 
     String mensajeId = " ";
     String mensajeCapacidad = " ";
@@ -70,6 +70,8 @@ public class beanMantInfraestructura implements Serializable {
         this.setMensajeUbicacion(" ");
         this.setMensajeidPrograma(" ");
         this.setIdNombre(" ");
+        
+        this.setListaTablaInfraestructura(listaTablaInfraestructura);
     }
 
     private LinkedList<SelectItem> listaCandCmb = new LinkedList();
@@ -97,35 +99,32 @@ public class beanMantInfraestructura implements Serializable {
 
     public LinkedList<Infraestructura> getListaTablaInfraestructura() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         InfraestructuraDB dDB = new InfraestructuraDB();
-         LinkedList<Infraestructura> listaTabla = new LinkedList<>();
-         
-          if(!this.idNombre.equals(" ")){
-                listaTabla = this.buscarInfraestructuraBean();  
-              }
-          
-          else{
-              listaTabla = dDB.consultarInfraestructura();
-          }
-       
+        LinkedList<Infraestructura> listaTabla = new LinkedList<>();
+
+        if (!this.idNombre.equals(" ")) {
+            listaTabla = this.buscarInfraestructuraBean();
+        } else {
+            listaTabla = dDB.consultarInfraestructura();
+        }
+
         return listaTabla;
     }
 
     public void setListaTablaInfraestructura(LinkedList<Infraestructura> listaTablaInfraestructura) {
         this.listaTablaInfraestructura = listaTablaInfraestructura;
     }
-    
-    public LinkedList<Infraestructura> buscarInfraestructuraBean()throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+
+    public LinkedList<Infraestructura> buscarInfraestructuraBean() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         InfraestructuraDB dDB = new InfraestructuraDB();
-      LinkedList<Infraestructura> infraestructura = new LinkedList<>();
-      return infraestructura = dDB.buscarInfraestructura(idNombre);  
-       
+        LinkedList<Infraestructura> infraestructura = new LinkedList<>();
+        return infraestructura = dDB.buscarInfraestructura(idNombre);
+
     }
-    
 
     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         InfraestructuraDB cDB = new InfraestructuraDB();
         Infraestructura cur = new Infraestructura();
-        
+
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         fun = (Funcionario) session.getAttribute("user");
 
@@ -135,8 +134,6 @@ public class beanMantInfraestructura implements Serializable {
         cur.setNombre(this.getNombre());
         cur.setUbicacion(this.getUbicacion());
         cur.setIdPrograma(this.getIdPrograma());
-        
-        
 
         cDB.actualizarInfraestructura(cur);
 
@@ -167,13 +164,13 @@ public class beanMantInfraestructura implements Serializable {
                 this.mensajeidPrograma = "IdPrograma es Requerido";
             }
 
-            if (this.id > 1) {
+            if (this.id >= 1) {
                 this.mensajeId = " ";
             }
-            if (this.capacidad > 1) {
+            if (this.capacidad >= 1) {
                 this.mensajeCapacidad = " ";
             }
-            if (this.idTipoInfraestructura > 1) {
+            if (this.idTipoInfraestructura >= 1) {
                 this.mensajeIdTipoInfraestructura = " ";
             }
             if (!this.nombre.equals(" ")) {
@@ -182,33 +179,39 @@ public class beanMantInfraestructura implements Serializable {
             if (!this.ubicacion.equals(" ")) {
                 this.mensajeUbicacion = " ";
             }
-            if (this.idPrograma > 1) {
+            if (this.idPrograma >= 1) {
                 this.mensajeidPrograma = " ";
-            }
-       
-            
-            if(this.id >1){
-             dDB.buscarID(id); 
-             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-             fun = (Funcionario) session.getAttribute("user");
 
-            depUTN.setId(id);
-            depUTN.setCapacidad(capacidad);
-            depUTN.setIdPrograma(idPrograma);
-            depUTN.setIdTipoInfraestructura(idTipoInfraestructura);
-            depUTN.setNombre(nombre);
-            depUTN.setUbicacion(ubicacion);
+                if (this.id >= 1) {
+                    if (this.capacidad >= 1) {
+                        if (this.idTipoInfraestructura >= 1) {
+                            if (!this.nombre.equals(" ")) {
+                                if (!this.ubicacion.equals(" ")) {
+                                    dDB.buscarID(id);
+                                    HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                                    fun = (Funcionario) session.getAttribute("user");
 
-            dDB.mvRegitroInfraestructura(depUTN);
-            mensajeAlerta = "Realizado con exito";
-            
-            }
+                                    depUTN.setId(id);
+                                    depUTN.setCapacidad(capacidad);
+                                    depUTN.setIdPrograma(idPrograma);
+                                    depUTN.setIdTipoInfraestructura(idTipoInfraestructura);
+                                    depUTN.setNombre(nombre);
+                                    depUTN.setUbicacion(ubicacion);
 
-                else{
-                    this.mensajeId2 = "El ID ya existe";
+                                    dDB.mvRegitroInfraestructura(depUTN);
+                                    mensajeAlerta = "Realizado con exito";
+                                }
+                            }
+                        }
+                    }
                 }
-                
-        }catch (SNMPExceptions | SQLException e) {
+
+            }
+          else {
+                mensajeAlerta = "Porfavor llenar los datos";
+            }
+
+        } catch (SNMPExceptions | SQLException e) {
             System.out.println("Error :" + e);
             System.out.println("Mensaje :" + e.getMessage());
         }
@@ -399,6 +402,5 @@ public class beanMantInfraestructura implements Serializable {
     public void setMensajeId2(String mensajeId2) {
         this.mensajeId2 = mensajeId2;
     }
-    
 
 }

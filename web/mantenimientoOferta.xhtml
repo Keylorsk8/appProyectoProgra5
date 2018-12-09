@@ -12,6 +12,11 @@
         <ui:composition template="./resources/Main/mainTemplate.xhtml">
             <ui:define name="Head">
                 <title>Mantenimiento de Oferta</title>
+                <style>
+                    html{
+                        background-color: lightgray;
+                    }
+                </style>
             </ui:define>
 
             <ui:define name="NavBarLinks">
@@ -53,9 +58,14 @@
                 </ul>
             </ui:define>
             <ui:define name="Content">
-                <h:form>
+                <p:panel header="Mantenimiento de Oferta" style="margin-left: 15px;margin-top: 15px;height: 100%;border: 2px solid black">
                     <div class="row">
                         <div class="col-md-6">
+                            <tr>
+                                <td>
+                                    <h:outputText value="#{beanMantOferta.mensajeAlerta}"></h:outputText>
+                                </td>
+                            </tr>
                             <div style="width: auto;height: auto;padding: 2%">
                                 <table class="table">
                                     <tBody>
@@ -125,7 +135,7 @@
                                                 <h:outputText value="Hora inicio: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantOferta.horaInicio}"></h:inputText>
+                                                <p:inputText type="number" value="#{beanMantOferta.horaInicio}"></p:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantOferta.mensajehoraInicio}"></h:outputText>
@@ -136,7 +146,7 @@
                                                 <h:outputText value="Hora Final: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantOferta.horaFinal}"></h:inputText>
+                                                <p:inputText type="number" value="#{beanMantOferta.horaFinal}"></p:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantOferta.horaInicio}"></h:outputText>
@@ -146,6 +156,7 @@
                                             <td colspan="2">
                                                 <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px"  value="Añadir" actionListener="#{beanMantOferta.validacion()}" ></h:commandButton>
                                                 <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px" value="Cancelar" actionListener="#{beanMantOferta.cancelar()}" ></h:commandButton>
+                                            
                                             </td>
                                         </tr>
                                     </tBody>               
@@ -181,7 +192,7 @@
                             </p:dataTable>
                         </div> 
                     </div>
-                </h:form>
+                </p:panel>
             </ui:define>
             <ui:define name="FooterLinks">
             </ui:define>

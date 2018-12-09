@@ -94,23 +94,23 @@ public class beanMantPeriodo implements Serializable {
             if (this.nombre.equals(" ")) {
                 this.mensajeNombre = "Nombre es Requerido";
             }
-            if (this.fechaInicio.equals(" ")) {
+            if (this.fechaInicio.equals("")) {
                 this.mensajefechaInicio = "FechaInicio es Requerido";
             }
-            if (this.fechaFinal.equals(" ")) {
+            if (this.fechaFinal.equals("")) {
                 this.mensajefechaFinal = "FechaFinal es Requerido";
             }
 
             if (!this.nombre.equals(" ")) {
                 this.mensajeNombre = " ";
             }
-            if (!this.fechaInicio.equals(" ")) {
+            if (!this.fechaInicio.equals("")) {
                 this.mensajefechaInicio = " ";
             }
-            if (!this.fechaFinal.equals(" ")) {
-                this.mensajefechaFinal = " ";
-            }
-
+            if (!this.fechaFinal.equals("")) {
+                if(!this.fechaInicio.equals("")){
+                    if (!this.nombre.equals(" ")) {
+            this.mensajefechaFinal = " ";
             int annoS = Integer.parseInt(this.fechaInicio.substring(0, 4));
             int diaS = Integer.parseInt(this.fechaInicio.substring(8, 10));
             int mesS = Integer.parseInt(this.fechaInicio.substring(5, 7));
@@ -127,6 +127,13 @@ public class beanMantPeriodo implements Serializable {
             depUTN.setAnio(anio);
             dDB.mvRegitroPeriodo(depUTN);
             mensajeAlerta = "Realizado con exito";
+                    }
+                }              
+            }else{
+                mensajeAlerta = "Porfavor llenar los datos";
+            }
+
+            
 
         } catch (SNMPExceptions | SQLException e) {
             System.out.println("Error :" + e);
@@ -135,8 +142,6 @@ public class beanMantPeriodo implements Serializable {
     }
 
     public void asignaDatos(Periodo dep) {
-        System.out.println(dep.getFechaFinal());
-        System.out.println(dep.getFechaInicio());
         this.setId(dep.getId());
         this.setNombre(dep.getNombre());
         this.setFechaInicio(dep.getFechaInicio().substring(0, 10));

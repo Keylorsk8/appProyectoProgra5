@@ -50,8 +50,8 @@ public class PeriodoDB {
             while (rsPA.next()) {
                 int id = rsPA.getInt("Id");
                 String nombre = rsPA.getString("Nombre");
-                String fechaInicio= rsPA.getString("FechaInicio");
-                String fechaFinal = rsPA.getString("FechaFinal");
+                String fechaInicio= rsPA.getString("FechaInicio").substring(0, 10);
+                String fechaFinal = rsPA.getString("FechaFinal").substring(0, 10);
                 int annio = rsPA.getInt("Anio");
                 
                 //Programa dep = new Programa(id, nombre, estado);

@@ -10,6 +10,11 @@
         <ui:composition template="./resources/Main/mainTemplate.xhtml">
             <ui:define name="Head">
                 <title>Mantenimiento de Cursos</title>
+                <style>
+                    html{
+                        background-color: lightgray;
+                    }
+                </style>
             </ui:define>
 
             <ui:define name="NavBarLinks">
@@ -51,7 +56,7 @@
                 </ul>
             </ui:define>
             <ui:define name="Content">
-                <h:form>   
+                <p:panel header="Mantenimiento de Cursos" style="margin-left: 15px;margin-top: 15px;height: 100%;border: 2px solid black">   
                     <div class="row">
                         <div class="col-md-6">
                             <tr>
@@ -100,7 +105,7 @@
                                                 </h:selectOneMenu>
                                             </td>
                                             <td>
-                                                <h:outputText style="color: red" value="#{beanMantPrograma.mensajeEstado}"></h:outputText>
+                                                <h:outputText style="color: red" value="#{beanMantCurso.mensajeEstado}"></h:outputText>
                                             </td>
                                         </tr> 
                                         <tr>
@@ -159,7 +164,7 @@
                             </p:dataTable>
                         </div>
                     </div>
-                </h:form>
+                </p:panel>
             </ui:define>
             <ui:define name="FooterLinks">
             </ui:define>

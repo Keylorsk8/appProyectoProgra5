@@ -9,6 +9,11 @@
         <ui:composition template="./resources/Main/mainTemplate.xhtml">
             <ui:define name="Head">
                 <title>Mantenimiento de Infraestructura</title>
+                <style>
+                    html{
+                        background-color: lightgray;
+                    }
+                </style>
             </ui:define>
             <ui:define name="NavBarLinks">
                 <li class="nav-item">
@@ -52,12 +57,12 @@
                 Mantenimiento de Infraestructura
             </ui:define>
             <ui:define name="Content">
-                <h:form>
+                <p:panel header="Mantenimiento de Infraestructura" style="margin-left: 15px;margin-top: 15px;height: 100%;border: 2px solid black">
                     <div class="row">
                         <div class="col-md-6">
                              <tr>
                                 <td>
-                                    <h:outputText value="#{beanMantInfraestructura.mensajeAlerta}"></h:outputText>
+                                    <h:outputText style=" color:red;" value="#{beanMantInfraestructura.mensajeAlerta}"></h:outputText>
                                 </td>
                             </tr>
                             <div style="width: auto;height: auto;padding: 2%">
@@ -183,7 +188,7 @@
                             </p:dataTable>                        
                         </div>
                     </div>   
-                </h:form>
+                </p:panel>
             </ui:define>
             <ui:define name="FooterLinks">
             </ui:define>
