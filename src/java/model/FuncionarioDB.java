@@ -276,7 +276,7 @@ public class FuncionarioDB {
                     + ",CodFunEdito = '" + fun.getCodFunEdito()
                     + "',FechaEdito = " + fun.getFechaEdito()
                     + " ,Solicitud = 0, Contrasenia = '" + fun.getContraseña()
-                    + "',EstadoSolicitud = 1";
+                    + "',EstadoSolicitud = " + fun.isEstadoSolicitud();
             if (fun.getIdTipoUsuario() == 2) {
                 strSQL1 += ",IdTipoUsuario = 2,IdPrograma = " + fun.getIdPrograma();
             }

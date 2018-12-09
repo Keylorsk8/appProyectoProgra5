@@ -88,7 +88,7 @@
                                 <h:commandButton id="boton" onclick="mostrar()" class="btn btn-success btn-block" actionListener="#{beanVerSolicitud.aceptarSolicitud()}" value="Aceptar"></h:commandButton>
                                 <hr></hr>
                                 <p:inputTextarea placeholder="Razón de rechazo" value="#{beanVerSolicitud.razon}" style="width: 100%"></p:inputTextarea>
-                                <h:commandButton class="btn btn-outline-dark btn-block" value="Rechazar" actionListener="#{beanVerSolicitud.rechazarSoicitud()}"></h:commandButton>
+                                <h:commandButton onclick="mostrar()" class="btn btn-outline-dark btn-block" value="Rechazar" actionListener="#{beanVerSolicitud.rechazarSoicitud()}"></h:commandButton>
                             </p:panel>
                             <p:panel class="alert alert-danger alert-dismissable" rendered="#{beanVerSolicitud.mensaje != null}">
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
