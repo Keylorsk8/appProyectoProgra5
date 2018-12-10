@@ -226,8 +226,6 @@ public class beanMantPeriodo implements Serializable {
 
     public void cancelar() {
         this.setAnio(0);
-        this.setFechaFinal(null);
-        this.setFechaInicio(null);
         this.setId(0);
         this.setIdNombre("");
         this.setMensajeAlerta(" ");
@@ -237,6 +235,10 @@ public class beanMantPeriodo implements Serializable {
         this.setMensajefechaFinal(" ");
         this.setMensajefechaInicio(" ");
         this.setNombre(" ");
+         Date hoy = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+        this.setFechaInicio(sd.format(hoy));
+        this.setFechaFinal(sd.format(hoy));
 
         this.setListaTablaPeriodo(listaTablaPeriodo);
     }

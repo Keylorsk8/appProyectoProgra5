@@ -286,8 +286,7 @@ public class beanMantOferta implements Serializable {
 
     public void cancelar() {
         this.setIdCurso(0);
-        this.setFechaFinal(null);
-        this.setFechaInicio(null);
+
         this.setHoraFinal(0);
         this.setHoraInicio(0);
         this.setIdInfraestructura(0);
@@ -300,6 +299,11 @@ public class beanMantOferta implements Serializable {
         this.setDescripcion(" ");
         this.setIdPeriodo(0);
         this.setIdNumero(0);
+        this.setMensajeAlerta(" ");
+         Date hoy = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+        this.setFechaInicio(sd.format(hoy));
+        this.setFechaFinal(sd.format(hoy));
 
     }
 
