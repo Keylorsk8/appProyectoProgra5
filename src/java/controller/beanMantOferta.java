@@ -24,13 +24,13 @@ public class beanMantOferta implements Serializable {
     public beanMantOferta() {
     }
     
-    String infraestructura=" ";
-    String personal=" ";
-    String curso=" ";
-    Date fechaInicio=null;
-    Date fechaFinal=null;
-    int horaInicio;
-    int horaFinal;
+    String infraestructura="";
+    String personal="";
+    String curso="";
+    String fechaInicio="";
+    String fechaFinal="";
+    int horaInicio=0;
+    int horaFinal=0;
     
     String mensajeInfra;
     String mensajePersonal;
@@ -39,22 +39,23 @@ public class beanMantOferta implements Serializable {
     String mensajefechaFinal;
     String mensajehoraInicio;
     String mensajehoraFinal;
+    String mensajeAlerta;
     
     public void validacion(){
         
-        if(this.infraestructura.equals("--Seleccione--")){
+        if(this.infraestructura.equals("")){
             this.setMensajeInfra("Debe de seleccionar una infraestructura ");
         }
-        if(this.personal.equals("--Seleccione--")){
+        if(this.personal.equals("")){
             this.setMensajePersonal("Debe de seleccionar un personal");
         }
-        if(this.curso.equals("--Seleccione--")){
+        if(this.curso.equals("")){
             this.setMensajeCurso("Debe de seleccionar un curso");
         }
-        if(this.fechaFinal == null){
+        if(this.fechaFinal.equals("")){
             this.setMensajefechaFinal("Debe se seleccionar la fecha final");
         }       
-        if(this.fechaInicio == null){
+        if(this.fechaInicio.equals("")){
             this.setMensajefechaIncio("Debe se seleccionar la fecha inicio");
         }
         if(this.horaInicio == 0){
@@ -74,17 +75,17 @@ public class beanMantOferta implements Serializable {
         if(!this.curso.equals("--Seleccione--")){
             this.setMensajeCurso(" ");
         }
-        if(this.fechaFinal != null){
+        if(!this.fechaFinal.equals("")){
             this.setMensajefechaFinal(" ");
         }
         
-        if(this.fechaInicio != null){
+        if(!this.fechaInicio.equals("")){
             this.setMensajefechaIncio(" ");
         }
-        if(this.horaInicio >= 1){
+        if(this.horaInicio > 0){
             this.setMensajehoraInicio(" ");
         }
-        if(this.horaFinal>= 1){
+        if(this.horaFinal> 0){
             this.setMensajehoraFinal(" ");
         }
         
@@ -107,6 +108,8 @@ public class beanMantOferta implements Serializable {
         this.setMensajefechaIncio(" ");
         this.setMensajehoraFinal(" ");
         this.setMensajehoraInicio(" ");
+        
+        
     }
 
     public String getMensajeInfra() {
@@ -191,19 +194,19 @@ public class beanMantOferta implements Serializable {
         this.curso = curso;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFinal() {
+    public String getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(Date fechaFinal) {
+    public void setFechaFinal(String fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 
@@ -221,6 +224,14 @@ public class beanMantOferta implements Serializable {
 
     public void setHoraFinal(int horaFinal) {
         this.horaFinal = horaFinal;
+    }
+
+    public String getMensajeAlerta() {
+        return mensajeAlerta;
+    }
+
+    public void setMensajeAlerta(String mensajeAlerta) {
+        this.mensajeAlerta = mensajeAlerta;
     }
     
     

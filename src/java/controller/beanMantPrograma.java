@@ -28,24 +28,25 @@ import model.ProgramaDB;
 @Named(value = "beanMantPrograma")
 @SessionScoped
 public class beanMantPrograma implements Serializable {
+
     Funcionario fun;
+
     /**
      * Creates a new instance of beanMantPrograma
      */
     public beanMantPrograma() {
-       
-    }
-    private int id;
-    private String nombre;
-    private boolean estado;
-    private String codFunIngreso;
-    private String fechaIngreso;
-    private String codFunEdito;
-    private String fechaEdito;
-    private int idCoordinador;
-    String estadoValidador;
-    private String idNombre="";
 
+    }
+    private int id = 0;
+    private String nombre = "";
+    private boolean estado = false;
+    private String codFunIngreso = "";
+    private String fechaIngreso = "";
+    private String codFunEdito = "";
+    private String fechaEdito = "";
+    private int idCoordinador = 0;
+    String estadoValidador = "";
+    private String idNombre = "";
 
     String mensajeId = " ";
     String mensajeNombre = " ";
@@ -63,13 +64,11 @@ public class beanMantPrograma implements Serializable {
     public LinkedList<Programa> getListaTablaPrograma() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         ProgramaDB dDB = new ProgramaDB();
         LinkedList<Programa> listaTabla = new LinkedList<>();
-        
-       
-            if(!this.idNombre.equals("")){
-              listaTabla = buscarProgramaBean();
-            }
-             else{
-             listaTabla = dDB.consultarPrograma();
+
+        if (!this.idNombre.equals("")) {
+            listaTabla = buscarProgramaBean();
+        } else {
+            listaTabla = dDB.consultarPrograma();
         }
 
         return listaTabla;
@@ -78,12 +77,12 @@ public class beanMantPrograma implements Serializable {
     public void setListaTablaPrograma(LinkedList<Programa> listaTablaPrograma) {
         this.listaTablaPrograma = listaTablaPrograma;
     }
-    
-    public LinkedList<Programa> buscarProgramaBean()throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+
+    public LinkedList<Programa> buscarProgramaBean() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         ProgramaDB dDB = new ProgramaDB();
-      LinkedList<Programa> Programa = new LinkedList<>();
-      return Programa = dDB.buscarPrograma(idNombre);  
-       
+        LinkedList<Programa> Programa = new LinkedList<>();
+        return Programa = dDB.buscarPrograma(idNombre);
+
     }
 
     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
@@ -93,16 +92,15 @@ public class beanMantPrograma implements Serializable {
         cur.setNombre(this.getNombre());
         cur.setId(this.getId());
         cur.setEstado(this.isEstado());
-        if(cur.isEstado()==true){
-            this.estadoValidador="Activo";
+        if (cur.isEstado() == true) {
+            this.estadoValidador = "Activo";
+        } else {
+            this.estadoValidador = "Inactivo";
         }
-        else{
-            this.estadoValidador="Inactivo";
-        }
-         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-         fun = (Funcionario) session.getAttribute("user");
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        fun = (Funcionario) session.getAttribute("user");
 
-        cDB.actualizarPrograma(cur,fun);
+        cDB.actualizarPrograma(cur, fun);
     }
 
     public void ingresarRegistro() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
@@ -113,16 +111,17 @@ public class beanMantPrograma implements Serializable {
             if (this.id == 0) {
                 this.mensajeId = "Id es Requerido";
             }
-            if (this.nombre.equals(" ")) {
+            if (this.nombre.equals("")) {
                 this.mensajeNombre = "Nombre es Requerido";
             }
             if (this.estadoValidador.equals("--Seleccione--")) {
                 this.mensajeEstado = "Estado Requerdido";
             }
+
             if (this.id > 1) {
                 this.mensajeId = " ";
             }
-            if (!this.nombre.equals(" ")) {
+            if (!this.nombre.equals("")) {
                 this.mensajeNombre = " ";
             }
             if (!this.estadoValidador.equals("--Seleccione--")) {
@@ -132,23 +131,24 @@ public class beanMantPrograma implements Serializable {
                 } else {
                     this.estado = true;
                 }
-            }
-            
-            if(this.id >1){
-                dDB.buscarID(id);
-             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-             fun = (Funcionario) session.getAttribute("user");
-            
-            depUTN.setId(id);
-            depUTN.setEstado(estado);
-            depUTN.setNombre(nombre);       
-            dDB.mvRegitroPrograma(depUTN,fun);          
-            mensajeAlerta = "Realizado con exito";
-            }
-            else{
+                if (this.id > 1) {
+                    if (!this.nombre.equals("")) {
+
+                        dDB.buscarID(id);
+                        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                        fun = (Funcionario) session.getAttribute("user");
+
+                        depUTN.setId(id);
+                        depUTN.setEstado(estado);
+                        depUTN.setNombre(nombre);
+                        dDB.mvRegitroPrograma(depUTN, fun);
+                        mensajeAlerta = "Realizado con exito";
+                    }
+                }
+            } else {
                 this.mensajeId = "El ID ya existe";
             }
-             
+
         } catch (SNMPExceptions | SQLException e) {
             System.out.println("Error :" + e);
             System.out.println("Mensaje :" + e.getMessage());
@@ -159,12 +159,11 @@ public class beanMantPrograma implements Serializable {
         setId(dep.getId());
         setEstado(dep.isEstado());
         setNombre(dep.getNombre());
-        
-         if(this.isEstado()==true){
-            this.estadoValidador="Activo";
-        }
-        else{
-            this.estadoValidador="Inactivo";
+
+        if (this.isEstado() == true) {
+            this.estadoValidador = "Activo";
+        } else {
+            this.estadoValidador = "Inactivo";
         }
     }
 
@@ -193,7 +192,8 @@ public class beanMantPrograma implements Serializable {
         this.setMensajefechaIngreso(" ");
         this.setNombre(" ");
         this.setIdNombre("");
-        
+        this.setListaTablaPrograma(listaTablaPrograma);
+
     }
 
     public int getId() {
@@ -348,7 +348,4 @@ public class beanMantPrograma implements Serializable {
         this.idNombre = idNombre;
     }
 
-  
-    
-    
 }
