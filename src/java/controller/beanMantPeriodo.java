@@ -10,6 +10,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -29,6 +30,10 @@ public class beanMantPeriodo implements Serializable {
      * Creates a new instance of beanMantPeriodo
      */
     public beanMantPeriodo() {
+         Date hoy = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+        this.setFechaInicio(sd.format(hoy));
+        this.setFechaFinal(sd.format(hoy));
     }
 
     String idNombre = "";
@@ -107,6 +112,10 @@ public class beanMantPeriodo implements Serializable {
             if (!this.fechaInicio.equals("")) {
                 this.mensajefechaInicio = " ";
             }
+             if(!validar()){
+                    this.mensajefechaFinal=" ";
+                    this.mensajefechaInicio=" ";
+                }
             if (!this.fechaFinal.equals("")) {
                 if(!this.fechaInicio.equals("")){
                     if (!this.nombre.equals(" ")) {
@@ -138,6 +147,68 @@ public class beanMantPeriodo implements Serializable {
         } catch (SNMPExceptions | SQLException e) {
             System.out.println("Error :" + e);
             System.out.println("Mensaje :" + e.getMessage());
+        }
+    }
+    
+    public boolean validar() {
+        boolean errores = false;
+      
+        if (!comparFechasInicio()) {
+            mensajefechaInicio = "Digite una fecha de entrega posterior a la fecha actual";
+            errores = true;
+        }
+           if (!comparFechasFinal()) {
+            mensajefechaFinal = "Digite una fecha de entrega posterior a la fecha actual";
+            errores = true;
+        }
+       
+        return errores;
+    }
+    
+     public boolean comparFechasInicio() {
+        String sFecha = this.fechaInicio;
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(sFecha);
+        Date fechaSeleccionada = null;
+        try {
+            fechaSeleccionada = (Date) formatoDelTexto.parse(sFecha);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        System.out.println(fechaSeleccionada.toString());
+
+        Date fechaActual = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(fechaActual);
+        c.add(Calendar.HOUR, -2);
+        fechaActual = (Date) c.getTime();
+        if (fechaSeleccionada.before(fechaActual)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+     public boolean comparFechasFinal() {
+        String sFecha = this.fechaFinal;
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(sFecha);
+        Date fechaSeleccionada = null;
+        try {
+            fechaSeleccionada = (Date) formatoDelTexto.parse(sFecha);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        System.out.println(fechaSeleccionada.toString());
+
+        Date fechaActual = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(fechaActual);
+        c.add(Calendar.HOUR, -2);
+        fechaActual = (Date) c.getTime();
+        if (fechaSeleccionada.before(fechaActual)) {
+            return false;
+        } else {
+            return true;
         }
     }
 
