@@ -106,6 +106,11 @@ public class beanMantCurso implements Serializable {
 
         cur.setId(this.getId());
         cur.setDescripcion(this.getDescripcion());
+        if (this.estadoValidador.equals("Activo")) {
+            estado = true;
+        } else {
+            estado = false;
+        }
         cur.setEstado(this.isEstado());
         cur.setIdPrograma(this.getIdPrograma());
 
@@ -114,15 +119,15 @@ public class beanMantCurso implements Serializable {
         cDB.actualizarCurso(cur, fun);
 
     }
-    
-    public String nombrePrograma(int idPrograma) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+
+    public String nombrePrograma(int idPrograma) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         LinkedList<Programa> periodo = new ProgramaDB().buscarPrograma(String.valueOf(idPrograma));
         Programa cu = periodo.get(0);
         return cu.getNombre();
     }
 
     public void ingresarRegistro() throws
-        SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+            SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         CursoDB dDB = new CursoDB();
         Curso depUTN = new Curso();
 
@@ -136,18 +141,7 @@ public class beanMantCurso implements Serializable {
             if (this.estado == false) {
                 this.mensajeEstado = "Estado es Requerido";
             }
-            if (this.codFunIngreso.equals(" ")) {
-                this.mensajeCodFunIngreso = "CodFunIngreso es Requerido";
-            }
-            if (this.fechaIngreso == null) {
-                this.mensajeFechaIngreso = "FechaIngreso es Requerido";
-            }
-            if (this.codFunEdito.equals(" ")) {
-                this.mensajeCodFunEdito = "CodFunEdito es Requerido";
-            }
-            if (this.fechaEdito == null) {
-                this.mensajeFechaEdito = "FechaEdito es Requerido";
-            }
+
             if (this.idPrograma == 0) {
                 this.mensajeIdPrograma = "IdPrograma es Requerido";
             }
@@ -161,18 +155,7 @@ public class beanMantCurso implements Serializable {
             if (this.estado != false) {
                 this.mensajeEstado = " ";
             }
-            if (!this.codFunIngreso.equals(" ")) {
-                this.mensajeCodFunIngreso = " ";
-            }
-            if (this.fechaIngreso != null) {
-                this.mensajeFechaIngreso = " ";
-            }
-            if (!this.codFunEdito.equals(" ")) {
-                this.mensajeCodFunEdito = " ";
-            }
-            if (this.fechaEdito != null) {
-                this.mensajeFechaEdito = " ";
-            }
+
             if (this.idPrograma != 0) {
                 this.mensajeIdPrograma = " ";
             }
@@ -188,36 +171,29 @@ public class beanMantCurso implements Serializable {
                 if (this.id > 1) {
                     if (!this.descripcion.equals(" ")) {
                         if (this.estado != false) {
-                            if (!this.codFunIngreso.equals(" ")) {
-                                if (this.fechaIngreso != null) {
-                                    if (!this.codFunEdito.equals(" ")) {
-                                        if (this.fechaEdito != null) {
-                                            if (this.idPrograma != 0) {
-                                                HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                                                fun = (Funcionario) session.getAttribute("user");
+                            if (this.idPrograma != 0) {
+                                HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                                fun = (Funcionario) session.getAttribute("user");
 
-                                                depUTN.setId(id);
-                                                depUTN.setDescripcion(descripcion);
-                                                depUTN.setEstado(estado);
-                                                depUTN.setIdPrograma(idPrograma);
+                                depUTN.setId(id);
+                                depUTN.setDescripcion(descripcion);
+                                depUTN.setEstado(estado);
+                                depUTN.setIdPrograma(idPrograma);
 
-                                                dDB.mvRegitroCurso(depUTN, fun);
-                                                mensajeAlerta = "Realizado con exito";
-                                            }
-                                        }
-                                    }
-                                }
+                                dDB.mvRegitroCurso(depUTN, fun);
+                                mensajeAlerta = "Realizado con exito";
+
                             }
+                        } else {
+                            mensajeAlerta = "Porfavor llenar los datos";
                         }
                     }
                 }
-
-            } else {
-                mensajeAlerta = "Porfavor llenar los datos";
             }
         } catch (SNMPExceptions | SQLException e) {
             System.out.println("Error :" + e);
             System.out.println("Mensaje :" + e.getMessage());
+            mensajeAlerta = "Porfavor llenar los datos";
         }
 
     }

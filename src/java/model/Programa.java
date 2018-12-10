@@ -28,14 +28,19 @@ public class Programa {
     public Programa(){
        this.id=0;
        this.nombre=" ";
-       this.estado=false;
+
        this.codFunIngreso=" ";
        this.fechaIngreso=null;
        this.codFunEdito=" ";
        this.fechaEdito=null;  
        this.idCoordinador=0;
     }
-    
+    public Programa(int idp,String nombrep,boolean estadop){
+       this.id=idp;
+       this.nombre=nombrep;
+       this.estado=estadop;
+
+    }
  
     
     public Programa(int idp,String nombrep,String estadop){

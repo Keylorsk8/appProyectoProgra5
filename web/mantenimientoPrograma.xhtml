@@ -92,8 +92,7 @@
                                                 <h:outputText value="Estado: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:selectOneMenu class="form-control" value="#{beanMantPrograma.estadoValidador}">
-                                                    <f:selectItem itemValue="--Seleccione--" itemLabel="--Seleccione--"></f:selectItem>
+                                                <h:selectOneMenu class="form-control" value="#{beanMantPrograma.estadoValidador}">                                                 
                                                     <f:selectItem itemValue="Inactivo" itemLabel="Inactivo"></f:selectItem>
                                                     <f:selectItem itemValue="Activo" itemLabel="Activo"></f:selectItem>
                                                 </h:selectOneMenu>
@@ -135,7 +134,7 @@
                                     <h:outputText value="#{dep.nombre}"></h:outputText>
                                 </p:column>
                                 <p:column headerText="Estado">
-                                    <h:outputText value="#{dep.esta}"></h:outputText>
+                                    <h:outputText value="#{dep.estado?'Activo':'Inactivo'}"></h:outputText>
                                 </p:column>                                
                                 <p:column>
                                     <h:commandLink value="Editar" actionListener="#{beanMantPrograma.asignaDatos(dep)}"></h:commandLink>

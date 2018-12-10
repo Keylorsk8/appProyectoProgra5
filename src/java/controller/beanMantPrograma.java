@@ -35,11 +35,19 @@ public class beanMantPrograma implements Serializable {
      * Creates a new instance of beanMantPrograma
      */
     public beanMantPrograma() {
+        if(this.estadoValidador.equals("Inactivo")){
+            estado=false;
+        }else{
+            if(this.estadoValidador.equals("Activo")){
+                estado=true;
+            }
+            
+        }
 
     }
     private int id = 0;
     private String nombre = "";
-    private boolean estado = false;
+    private boolean estado ;
     private String codFunIngreso = "";
     private String fechaIngreso = "";
     private String codFunEdito = "";
@@ -91,12 +99,15 @@ public class beanMantPrograma implements Serializable {
 
         cur.setNombre(this.getNombre());
         cur.setId(this.getId());
-        cur.setEstado(this.isEstado());
-        if (cur.isEstado() == true) {
-            this.estadoValidador = "Activo";
-        } else {
-            this.estadoValidador = "Inactivo";
+        
+        if(this.estadoValidador.equals("Activo")){
+            this.estado=true;
+        }else{
+            this.estado=false;
         }
+        
+        cur.setEstado(this.isEstado());
+        
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         fun = (Funcionario) session.getAttribute("user");
 

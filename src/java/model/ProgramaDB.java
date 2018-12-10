@@ -54,15 +54,9 @@ public class ProgramaDB {
                 String nombre = rsPA.getString("Nombre");
                 boolean estado = rsPA.getBoolean("Estado");
                 
-                if(estado==false){
-                      estadop = "Inactivo";
-                }
-                else{
-                    estadop = "Activo";
-                }
 
                 //Programa dep = new Programa(id, nombre, estado);
-                Programa dep = new Programa(id, nombre, estadop);
+                Programa dep = new Programa(id, nombre, estado);
                 listaPrograma.add(dep);
             }
             rsPA.close();
@@ -91,8 +85,8 @@ public class ProgramaDB {
                     + cur.getNombre() + "',"
                     + (cur.isEstado() ? 1 : 0) + ",'"
                     + fun.getId()+ "',"
-                    + "getDate()" + ",'"
-                    + "'1'"+ "',"
+                    + "getDate()" + ","
+                    + "'1'"+ ","
                     + "getDate()" + ","
                     + "1" + ")";
 //Se ejecuta la sentencia SQL
