@@ -152,8 +152,8 @@ public class PeriodoDB {
                 while (rsPA.next()) {
                   int id = rsPA.getInt("Id");
                     String nombre = rsPA.getString("Nombre");
-                    String fechaInicio = rsPA.getString("FechaInicio");
-                    String fechaFinal = rsPA.getString("FechaFinal");
+                    String fechaInicio = rsPA.getString("FechaInicio").substring(0,10);
+                    String fechaFinal = rsPA.getString("FechaFinal").substring(0,10);
                     int anio = rsPA.getInt("Anio");    
                      Periodo dep = new Periodo(id, nombre,fechaInicio,fechaFinal,anio);
                     listaPeriodo.add(dep);
@@ -184,8 +184,8 @@ public class PeriodoDB {
                 while (rsPA.next()) {
                    int id = rsPA.getInt("Id");
                     String nombre = rsPA.getString("Nombre");
-                    String fechaInicio = rsPA.getString("FechaInicio");
-                    String fechaFinal = rsPA.getString("FechaFinal");
+                    String fechaInicio = rsPA.getString("FechaInicio").substring(0,10);
+                    String fechaFinal = rsPA.getString("FechaFinal").substring(0,10);
                     int anio = rsPA.getInt("Anio");    
                      Periodo dep = new Periodo(id, nombre,fechaInicio,fechaFinal,anio);
                     listaPeriodo.add(dep);

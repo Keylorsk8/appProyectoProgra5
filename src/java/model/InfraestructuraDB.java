@@ -236,4 +236,42 @@ public class InfraestructuraDB {
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }
+    
+     public LinkedList<Infraestructura> moTodo() throws SNMPExceptions, SQLException{
+        String select= " ";
+        LinkedList<Infraestructura> listaInfraestructura= new LinkedList<Infraestructura>();
+        
+        try{
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos= new AccesoDatos();
+            
+            //Se crea la sentencia de Busqueda
+            select=
+                    "SELECT Id,Capacidad,IdTipoInfraestructura,Nombre,Ubicacion,IdPrograma  from Infraestructura";
+            //se ejecuta la sentencia sql
+            ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
+            //se llama el array con los proyectos
+            while(rsPA.next()){
+                
+                 int id = rsPA.getInt("Id");
+                    int capacidad = rsPA.getInt("Capacidad");
+                    int idTipoInfraestructura = rsPA.getInt("IdTipoInfraestructura");
+                    String nombre = rsPA.getString("Nombre");
+                    String ubicacion = rsPA.getString("Ubicacion");
+                    int idPrograma = rsPA.getInt("IdPrograma");              
+                 Infraestructura dep = new Infraestructura(id,capacidad,idTipoInfraestructura,nombre,ubicacion,idPrograma);
+                 listaInfraestructura.add(dep);
+            }
+            rsPA.close();//se cierra el ResultSeat.
+            
+        }catch(SQLException e){
+            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION,
+                                     e.getMessage(),e.getErrorCode());
+        }catch(SNMPExceptions | ClassNotFoundException | NamingException e){
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,e.getMessage());
+        }finally{
+            
+        }
+        return listaInfraestructura;
+    }
 }

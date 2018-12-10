@@ -138,6 +138,18 @@ public class beanMantInfraestructura implements Serializable {
         cDB.actualizarInfraestructura(cur);
 
     }
+    
+    public String nombrePrograma(int idPrograma) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+        LinkedList<Programa> periodo = new ProgramaDB().buscarPrograma(String.valueOf(idPrograma));
+        Programa cu = periodo.get(0);
+        return cu.getNombre();
+    }
+    
+    public String nombreTipoInfraestructura(int idPrograma) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+        LinkedList<TipoInfraestructura> tipoInfraestructura = new TipoInfraestructuraDB().buscarID(idPrograma);
+        TipoInfraestructura cu = tipoInfraestructura.get(0);
+        return cu.getNombre();
+    }
 
     public void ingresarRegistro() throws
             SNMPExceptions, SQLException, NamingException, ClassNotFoundException {

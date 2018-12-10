@@ -76,7 +76,7 @@
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantCurso.mensajeId}"></h:outputText>
-                                                <h:outputText style="color: red" value="#{beanMantCurso.mensajeId2}"></h:outputText>
+                                               
                                             </td>
                                             
                                         </tr>                  
@@ -156,7 +156,7 @@
                                     <h:outputText value="#{dep.estadop}"></h:outputText>
                                 </p:column> 
                                 <p:column headerText="Código Programa">
-                                    <h:outputText value="#{dep.idPrograma}"></h:outputText>
+                                    <h:outputText value="#{beanMantCurso.nombrePrograma(dep.idPrograma)}"></h:outputText>
                                 </p:column>
                                 <p:column>
                                     <h:commandLink value="Editar" actionListener="#{beanMantCurso.asignaDatos(dep)}"></h:commandLink>

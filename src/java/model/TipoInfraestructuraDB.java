@@ -50,10 +50,7 @@ public class TipoInfraestructuraDB {
                 
                 int id= rsPA.getInt("Id");
                 String nombre = rsPA.getString("Nombre");
-                
-
-               
-                
+                   
                 //se construye el objeto.
                 TipoInfraestructura perCandidato= new TipoInfraestructura(id,nombre);
                 
@@ -70,5 +67,41 @@ public class TipoInfraestructuraDB {
             
         }
         return listaCand;
+    }
+     
+      public LinkedList<TipoInfraestructura> buscarID(int idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        String select = "";
+        String estadop=" ";
+        LinkedList<TipoInfraestructura> listaTipoInfraestructura = new LinkedList<TipoInfraestructura>();
+            try {
+                //open();
+                //Se instancia la clase de acceso a datos
+                AccesoDatos accesoDatos = new AccesoDatos();
+                //Se crea la sentencia de búsqueda
+                select
+                = "Select Id,Nombre from TipoInfraestructura where id=" +idp;
+                //Se ejecuta la sentencia SQL
+                ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+                //Se llena el arryaList con los catálogos   
+                while (rsPA.next()) {
+                    int id= rsPA.getInt("Id");
+                String nombre = rsPA.getString("Nombre");
+                   
+                //se construye el objeto.
+                TipoInfraestructura perCandidato= new TipoInfraestructura(id,nombre);
+                
+                listaTipoInfraestructura.add(perCandidato);
+                }
+                rsPA.close();
+            } catch (SQLException e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage(), e.getErrorCode());
+            } catch (Exception e) {
+                throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                        e.getMessage());
+            } finally {
+
+            }
+            return listaTipoInfraestructura;       
     }
 }

@@ -5,10 +5,26 @@
  */
 package controller;
 
+import DAO.SNMPExceptions;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import javax.naming.NamingException;
+import javax.servlet.http.HttpSession;
+import model.Curso;
+import model.CursoDB;
+import model.Funcionario;
+import model.Infraestructura;
+import model.InfraestructuraDB;
+import model.Oferta;
+import model.OfertaDB;
+import model.Periodo;
+import model.PeriodoDB;
 
 /**
  *
@@ -22,94 +38,348 @@ public class beanMantOferta implements Serializable {
      * Creates a new instance of beanMantOferta
      */
     public beanMantOferta() {
+        if(this.estado==false){
+            estadoValidador="Inactivo";
+        }else{
+            if(this.estado==true){
+                estadoValidador="Activo";
+            }
+            else{
+                estadoValidador="--Seleccione--";
+            }
+        }
     }
-    
-    String infraestructura="";
-    String personal="";
-    String curso="";
-    String fechaInicio="";
-    String fechaFinal="";
-    int horaInicio=0;
-    int horaFinal=0;
-    
+    Funcionario fun;
+    int idNumero = 0;
+    int id = 0;
+    int idInfraestructura = 0;
+    int idCurso = 0;
+    int idPeriodo = 0;
+    String estadoValidador = " ";
+    boolean estado = false;
+    String fechaInicio = " ";
+    String fechaFinal = " ";
+    int horaInicio = 0;
+    int horaFinal = 0;
+    String descripcion = " ";
+
     String mensajeInfra;
-    String mensajePersonal;
     String mensajeCurso;
     String mensajefechaIncio;
     String mensajefechaFinal;
     String mensajehoraInicio;
     String mensajehoraFinal;
     String mensajeAlerta;
-    
-    public void validacion(){
-        
-        if(this.infraestructura.equals("")){
-            this.setMensajeInfra("Debe de seleccionar una infraestructura ");
+    String mensajeDescripcion;
+    String mensajePeriodo;
+    String mensajeEstado;
+
+    LinkedList<Oferta> listaTablaOferta = new LinkedList<>();
+
+    public LinkedList<Oferta> getListaTablaOferta() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        OfertaDB dDB = new OfertaDB();
+        LinkedList<Oferta> listaTabla = new LinkedList<>();
+        if (this.idNumero > 0) {
+            listaTabla = this.buscarOfertaBean();
+        } else {
+            listaTabla = dDB.consultarOferta();
         }
-        if(this.personal.equals("")){
-            this.setMensajePersonal("Debe de seleccionar un personal");
-        }
-        if(this.curso.equals("")){
-            this.setMensajeCurso("Debe de seleccionar un curso");
-        }
-        if(this.fechaFinal.equals("")){
-            this.setMensajefechaFinal("Debe se seleccionar la fecha final");
-        }       
-        if(this.fechaInicio.equals("")){
-            this.setMensajefechaIncio("Debe se seleccionar la fecha inicio");
-        }
-        if(this.horaInicio == 0){
-            this.setMensajehoraInicio("Debe de seleccionar la hora inicio");
-        }
-        if(this.horaFinal==0){
-            this.setMensajehoraFinal("Debe de seleccionar la hora final ");
-        }
-        
-        
-           if(!this.infraestructura.equals("--Seleccione--")){
-            this.setMensajeInfra(" ");
-        }
-        if(!this.personal.equals("--Seleccione--")){
-            this.setMensajePersonal(" ");
-        }
-        if(!this.curso.equals("--Seleccione--")){
-            this.setMensajeCurso(" ");
-        }
-        if(!this.fechaFinal.equals("")){
-            this.setMensajefechaFinal(" ");
-        }
-        
-        if(!this.fechaInicio.equals("")){
-            this.setMensajefechaIncio(" ");
-        }
-        if(this.horaInicio > 0){
-            this.setMensajehoraInicio(" ");
-        }
-        if(this.horaFinal> 0){
-            this.setMensajehoraFinal(" ");
-        }
-        
-        
-        
+        return listaTabla;
     }
     
-    public void cancelar(){
-        this.setCurso(" ");
+    public String nombreCurso(int idCurso) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+        LinkedList<Curso> curso = new CursoDB().buscarCurso(String.valueOf(idCurso));
+        Curso cu = curso.get(0);
+        return cu.getDescripcion();
+    }
+    
+    public String nombreInfraestructura(int idInfraestructura) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+        LinkedList<Infraestructura> infraestructura = new InfraestructuraDB().buscarInfraestructura(String.valueOf(idInfraestructura));
+        Infraestructura cu = infraestructura.get(0);
+        return cu.getNombre();
+    }
+    
+    public String nombrePeriodo(int idPeriodo) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+        LinkedList<Periodo> periodo = new PeriodoDB().buscarPeriodo(String.valueOf(idPeriodo));
+        Periodo cu = periodo.get(0);
+        return cu.getNombre();
+    }
+
+    public void setListaTablaOferta(LinkedList<Oferta> listaTablaOferta) {
+        this.listaTablaOferta = listaTablaOferta;
+    }
+
+    public void ingresarRegistro()
+            throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        OfertaDB dDB = new OfertaDB();
+        Oferta depUTN = new Oferta();
+
+        try {
+            if (this.descripcion.equals(" ")) {
+                this.mensajeDescripcion = "Descripcion es Requerido";
+            }
+            if (this.idInfraestructura == 0) {
+                this.setMensajeInfra("Infraestructura es Requerido");
+            }
+            if (this.idCurso == 0) {
+                this.setMensajeCurso("Curso es Requerido");
+            }
+            if (this.fechaFinal.equals(" ")) {
+                this.setMensajefechaFinal("Fecha Final es Requerido");
+            }
+            if (this.fechaInicio.equals(" ")) {
+                this.setMensajefechaIncio("Fecha Inicio es Requerido");
+            }
+            if (this.horaInicio == 0) {
+                this.setMensajehoraInicio("Hora Inicio es Requerido");
+            }
+            if (this.horaFinal == 0) {
+                this.setMensajehoraFinal("Hora Final es Requerido");
+            }
+            if (this.idPeriodo == 0) {
+                this.mensajePeriodo = "Periodo es Requerido";
+            }
+            if (!this.descripcion.equals(" ")) {
+                this.mensajeDescripcion = " ";
+            }
+
+            if (this.idInfraestructura > 0) {
+                this.setMensajeInfra(" ");
+            }
+            if (this.idCurso > 0) {
+                this.setMensajeCurso(" ");
+            }
+            if (!this.fechaFinal.equals(" ")) {
+                this.setMensajefechaFinal(" ");
+            }
+            if (!this.fechaInicio.equals(" ")) {
+                this.setMensajefechaIncio(" ");
+            }
+            if (this.horaInicio > 0) {
+                this.setMensajehoraInicio(" ");
+            }
+            if (this.horaFinal > 0) {
+                this.setMensajehoraFinal(" ");
+            }
+
+            if (!this.estadoValidador.equals("--Seleccione--")) {
+                this.mensajeEstado = " ";
+                if (this.estadoValidador.equals("Inactivo")) {
+                    this.estado = false;
+                } else {
+                    this.estado = true;
+                }
+
+                if (this.idPeriodo > 0) {
+                    this.mensajePeriodo = " ";
+                    if (this.idInfraestructura > 0) {
+                        if (this.idCurso > 0) {
+                            if (!this.fechaFinal.equals(" ")) {
+                                if (!this.fechaInicio.equals(" ")) {
+                                    if (this.horaInicio > 0) {
+                                        if (this.horaFinal > 0) {
+                                            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                                            fun = (Funcionario) session.getAttribute("user");
+
+                                            depUTN.setDescripcion(descripcion);
+                                            depUTN.setEstadov(estado);
+                                            depUTN.setFechaFinal(fechaFinal.substring(0, 10));
+                                            depUTN.setFechaInicio(fechaInicio.substring(0, 10));
+                                            depUTN.setHoraFinal(horaFinal);
+                                            depUTN.setHoraInicio(horaInicio);
+                                            depUTN.setIdCurso(idCurso);
+                                            depUTN.setIdInfraestructura(idInfraestructura);
+                                            depUTN.setIdPeriodo(idPeriodo);
+
+                                            dDB.mvRegitroOferta(depUTN, fun);
+                                            mensajeAlerta = "Realizado con exito";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                mensajeAlerta = "Porfavor llenar los datos";
+            }
+        } catch (SNMPExceptions | SQLException e) {
+            System.out.println("Error :" + e);
+            System.out.println("Mensaje :" + e.getMessage());
+        }
+    }
+
+    public void cancelar() {
+        this.setIdCurso(0);
         this.setFechaFinal(null);
         this.setFechaInicio(null);
         this.setHoraFinal(0);
         this.setHoraInicio(0);
-        this.setInfraestructura(" ");
-        this.setPersonal(" ");
+        this.setIdInfraestructura(0);
         this.setMensajeCurso(" ");
         this.setMensajeInfra(" ");
-        this.setMensajePersonal(" ");
         this.setMensajefechaFinal(" ");
         this.setMensajefechaIncio(" ");
         this.setMensajehoraFinal(" ");
         this.setMensajehoraInicio(" ");
-        
-        
+        this.setDescripcion(" ");
+        this.setIdPeriodo(0);
+        this.setIdNumero(0);
+
+    }
+
+    public LinkedList<Oferta> buscarOfertaBean() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        OfertaDB dDB = new OfertaDB();
+        LinkedList<Oferta> oferta = new LinkedList<>();
+        return oferta = dDB.buscarOferta(idNumero);
+    }
+
+    public LinkedList<SelectItem> getListaPeriodo() throws SNMPExceptions, SQLException {
+        String nomCandidato = "";
+        int numCandidato = 0;
+        LinkedList<Periodo> lista = new LinkedList<Periodo>();
+        PeriodoDB cDB = new PeriodoDB();
+        lista = cDB.moTodo();
+        LinkedList resultList = new LinkedList();
+        resultList.add(new SelectItem(0, "Seleccione Periodo"));
+        for (Iterator iter = lista.iterator();
+                iter.hasNext();) {
+
+            Periodo cand = (Periodo) iter.next();
+            numCandidato = cand.getId();
+            nomCandidato = cand.getNombre();
+            resultList.add(new SelectItem(numCandidato, nomCandidato));
+
+        }
+        return resultList;
+    }
+
+    public void setListaPeriodo(LinkedList<SelectItem> listaPeriodo) {
+        this.listaPeriodoCmb = listaPeriodo;
+    }
+
+    private LinkedList<SelectItem> listaPeriodoCmb = new LinkedList();
+
+    public LinkedList<SelectItem> getListaPeriodoCmb()
+            throws SNMPExceptions, SQLException {
+        return listaPeriodoCmb;
+    }
+
+    public void setListaPeriodoCmb(LinkedList<SelectItem> listaCandCmb) {
+        this.listaPeriodoCmb = listaCandCmb;
+    }
+
+    public LinkedList<SelectItem> getListaCurso() throws SNMPExceptions, SQLException {
+        String nomCandidato = "";
+        int numCandidato = 0;
+        LinkedList<Curso> lista = new LinkedList<Curso>();
+        CursoDB cDB = new CursoDB();
+        lista = cDB.moTodo();
+        LinkedList resultList = new LinkedList();
+        resultList.add(new SelectItem(0, "Seleccione Curso"));
+        for (Iterator iter = lista.iterator();
+                iter.hasNext();) {
+
+            Curso cand = (Curso) iter.next();
+            numCandidato = cand.getId();
+            nomCandidato = cand.getDescripcion();
+            resultList.add(new SelectItem(numCandidato, nomCandidato));
+
+        }
+        return resultList;
+    }
+
+    public void setListaCurso(LinkedList<SelectItem> listaCurso) {
+        this.listaCursoCmb = listaCurso;
+    }
+
+    private LinkedList<SelectItem> listaCursoCmb = new LinkedList();
+
+    public LinkedList<SelectItem> getListaCursoCmb()
+            throws SNMPExceptions, SQLException {
+        return listaCursoCmb;
+    }
+
+    public void setListaCursoCmb(LinkedList<SelectItem> listaCandCmb) {
+        this.listaCursoCmb = listaCandCmb;
+    }
+
+    public LinkedList<SelectItem> getListaInfraestructura() throws SNMPExceptions, SQLException {
+        String nomCandidato = "";
+        int numCandidato = 0;
+        LinkedList<Infraestructura> lista = new LinkedList<Infraestructura>();
+        InfraestructuraDB cDB = new InfraestructuraDB();
+        lista = cDB.moTodo();
+        LinkedList resultList = new LinkedList();
+        resultList.add(new SelectItem(0, "Seleccione Curso"));
+        for (Iterator iter = lista.iterator();
+                iter.hasNext();) {
+
+            Infraestructura cand = (Infraestructura) iter.next();
+            numCandidato = cand.getId();
+            nomCandidato = cand.getNombre();
+            resultList.add(new SelectItem(numCandidato, nomCandidato));
+        }
+        return resultList;
+    }
+
+    public void setListaInfraestructura(LinkedList<SelectItem> listaInfraestructura) {
+        this.listaInfraestructuraCmb = listaInfraestructura;
+    }
+
+    private LinkedList<SelectItem> listaInfraestructuraCmb = new LinkedList();
+
+    public LinkedList<SelectItem> getListaInfraestructuraCmb()
+            throws SNMPExceptions, SQLException {
+        return listaInfraestructuraCmb;
+    }
+
+    public void setListaInfraestructuraCmb(LinkedList<SelectItem> listaCandCmb) {
+        this.listaInfraestructuraCmb = listaCandCmb;
+    }
+
+    public void asignaDatos(Oferta dep) {
+        this.setDescripcion(dep.getDescripcion());
+        this.setEstado(dep.isEstadov());
+        if (this.isEstado() == true) {
+            this.estadoValidador = "Activo";
+        } else {
+            this.estadoValidador = "Inactivo";
+        }
+        this.setFechaFinal(dep.getFechaFinal().substring(0, 10));
+        this.setFechaInicio(dep.getFechaInicio().substring(0, 10));
+        this.setHoraFinal(dep.getHoraFinal());
+        this.setHoraInicio(dep.getHoraInicio());
+        this.setIdCurso(dep.getIdCurso());
+        this.setIdInfraestructura(dep.getIdInfraestructura());
+        this.setIdPeriodo(dep.getIdPeriodo());
+        this.setId(dep.getId());
+    }
+
+    public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        OfertaDB cDB = new OfertaDB();
+        Oferta cur = new Oferta();
+
+        cur.setId(id);
+        cur.setDescripcion(descripcion); 
+        if(this.estadoValidador.equals("Activo")){
+            this.estado=true;
+        }else{
+            this.estado=false;
+        }
+        cur.setEstadov(this.isEstado());
+        cur.setFechaFinal(fechaFinal.substring(0, 10));
+        cur.setFechaInicio(fechaInicio.substring(0, 10));
+        cur.setHoraFinal(horaFinal);
+        cur.setHoraInicio(horaInicio);
+        cur.setIdCurso(idCurso);
+        cur.setIdInfraestructura(idInfraestructura);
+        cur.setIdPeriodo(idPeriodo);
+
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        fun = (Funcionario) session.getAttribute("user");
+        cDB.actualizarOferta(cur, fun);
+
     }
 
     public String getMensajeInfra() {
@@ -118,14 +388,6 @@ public class beanMantOferta implements Serializable {
 
     public void setMensajeInfra(String mensajeInfra) {
         this.mensajeInfra = mensajeInfra;
-    }
-
-    public String getMensajePersonal() {
-        return mensajePersonal;
-    }
-
-    public void setMensajePersonal(String mensajePersonal) {
-        this.mensajePersonal = mensajePersonal;
     }
 
     public String getMensajeCurso() {
@@ -167,32 +429,6 @@ public class beanMantOferta implements Serializable {
     public void setMensajehoraFinal(String mensajehoraFinal) {
         this.mensajehoraFinal = mensajehoraFinal;
     }
-    
-    
-
-    public String getInfraestructura() {
-        return infraestructura;
-    }
-
-    public void setInfraestructura(String infraestructura) {
-        this.infraestructura = infraestructura;
-    }
-
-    public String getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(String personal) {
-        this.personal = personal;
-    }
-
-    public String getCurso() {
-        return curso;
-    }
-
-    public void setCurso(String curso) {
-        this.curso = curso;
-    }
 
     public String getFechaInicio() {
         return fechaInicio;
@@ -233,8 +469,101 @@ public class beanMantOferta implements Serializable {
     public void setMensajeAlerta(String mensajeAlerta) {
         this.mensajeAlerta = mensajeAlerta;
     }
-    
-    
-    
-    
+
+    public int getIdInfraestructura() {
+        return idInfraestructura;
+    }
+
+    public void setIdInfraestructura(int idInfraestructura) {
+        this.idInfraestructura = idInfraestructura;
+    }
+
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
+    }
+
+    public int getIdPeriodo() {
+        return idPeriodo;
+    }
+
+    public void setIdPeriodo(int idPeriodo) {
+        this.idPeriodo = idPeriodo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getMensajeDescripcion() {
+        return mensajeDescripcion;
+    }
+
+    public void setMensajeDescripcion(String mensajeDescripcion) {
+        this.mensajeDescripcion = mensajeDescripcion;
+    }
+
+    public Funcionario getFun() {
+        return fun;
+    }
+
+    public void setFun(Funcionario fun) {
+        this.fun = fun;
+    }
+
+    public int getIdNumero() {
+        return idNumero;
+    }
+
+    public void setIdNumero(int idNumero) {
+        this.idNumero = idNumero;
+    }
+
+    public String getMensajePeriodo() {
+        return mensajePeriodo;
+    }
+
+    public void setMensajePeriodo(String mensajePeriodo) {
+        this.mensajePeriodo = mensajePeriodo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMensajeEstado() {
+        return mensajeEstado;
+    }
+
+    public void setMensajeEstado(String mensajeEstado) {
+        this.mensajeEstado = mensajeEstado;
+    }
+
+    public String getEstadoValidador() {
+        return estadoValidador;
+    }
+
+    public void setEstadoValidador(String estadoValidador) {
+        this.estadoValidador = estadoValidador;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
 }

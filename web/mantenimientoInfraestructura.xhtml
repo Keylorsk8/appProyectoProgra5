@@ -171,7 +171,7 @@
                                     <h:outputText value="#{dep.capacidad}"></h:outputText>
                                 </p:column>
                                 <p:column headerText="Tipo de Infraestructura">
-                                    <h:outputText value="#{dep.idTipoInfraestructura}"></h:outputText>
+                                    <h:outputText value="#{beanMantInfraestructura.nombreTipoInfraestructura(dep.idTipoInfraestructura)}"></h:outputText>
                                 </p:column>    
                                 <p:column headerText="Nombre">
                                     <h:outputText value="#{dep.nombre}"></h:outputText>
@@ -180,7 +180,7 @@
                                     <h:outputText value="#{dep.ubicacion}"></h:outputText>
                                 </p:column>
                                 <p:column headerText="IdPrograma">
-                                    <h:outputText value="#{dep.idPrograma}"></h:outputText>
+                                    <h:outputText value="#{beanMantInfraestructura.nombrePrograma(dep.idPrograma)}"></h:outputText>
                                 </p:column>
                                 <p:column>
                                     <h:commandLink value="Editar" actionListener="#{beanMantInfraestructura.asignaDatos(dep)}"></h:commandLink>

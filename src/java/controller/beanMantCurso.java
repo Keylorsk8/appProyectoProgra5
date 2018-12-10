@@ -114,6 +114,12 @@ public class beanMantCurso implements Serializable {
         cDB.actualizarCurso(cur, fun);
 
     }
+    
+    public String nombrePrograma(int idPrograma) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+        LinkedList<Programa> periodo = new ProgramaDB().buscarPrograma(String.valueOf(idPrograma));
+        Programa cu = periodo.get(0);
+        return cu.getNombre();
+    }
 
     public void ingresarRegistro() throws
         SNMPExceptions, SQLException, NamingException, ClassNotFoundException {

@@ -1,3 +1,4 @@
+package model;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,35 +15,31 @@ import java.util.Date;
 public class Oferta {
     private int id;
     private String descripcion;
-    private boolean estado;
-    private Date fechaInicio;
-    private Date fechaFinal;
-    private Date horaInicio;
-    private Date horaFinal;
-    private String codFunIngreso;
-    private Date fechaIngreso;
-    private String codFunEdito;
-    private Date fechaEdito;
+    private String estado;
+    private String fechaInicio;
+    private String fechaFinal;
+    private int horaInicio;
+    private int horaFinal;
     private int idCurso;
     private int idInfraestructura;
+    private int idPeriodo;
+    private boolean estadov;
     
     public Oferta(){
      this.id=0;
-     this.descripcion=" ";
-     this.estado=false;
-     this.fechaInicio=null;
-     this.fechaFinal=null;
-     this.horaInicio=null;
-     this.horaFinal=null;
-     this.codFunIngreso=" ";
-     this.fechaIngreso=null;
-     this.codFunEdito=" ";
-     this.fechaEdito=null;
+     this.descripcion="";
+     
+     this.fechaInicio="";
+     this.fechaFinal="";
+     this.horaInicio=0;
+     this.horaFinal=0;
      this.idCurso=0;
      this.idInfraestructura=0;
+     this.idPeriodo=0;
+  
     }
     
-    public Oferta(int idp,String descripcionp,boolean estadop,Date fechaIniciop,Date fechaFinalp,Date horaIniciop,Date horaFinalp,String codFunIngresop,Date fechaIngresop,String codFunEditop,Date fechaEditop,int idCursop,int idInfraestructurap){
+    public Oferta(int idp,String descripcionp,String estadop,String fechaIniciop,String fechaFinalp,int horaIniciop,int horaFinalp,int idCursop,int idInfraestructurap,int idPeriodop){
       this.id=idp;
       this.descripcion=descripcionp;
       this.estado=estadop;
@@ -50,13 +47,25 @@ public class Oferta {
       this.fechaFinal=fechaFinalp;
       this.horaInicio=horaIniciop;
       this.horaFinal=horaFinalp;
-      this.codFunIngreso=codFunIngresop;
-      this.fechaIngreso=fechaIngresop;
-      this.codFunEdito=codFunEditop;
-      this.fechaEdito=fechaEditop;
+      this.idPeriodo=idPeriodop;  
       this.idCurso=idCursop;
       this.idInfraestructura=idInfraestructurap;
     }
+    
+    public Oferta(int idp,String descripcionp,boolean estadop,String fechaIniciop,String fechaFinalp,int horaIniciop,int horaFinalp,int idCursop,int idInfraestructurap,int idPeriodop){
+      this.id=idp;
+      this.descripcion=descripcionp;
+      this.estadov=estadop;
+      this.fechaInicio=fechaIniciop;
+      this.fechaFinal=fechaFinalp;
+      this.horaInicio=horaIniciop;
+      this.horaFinal=horaFinalp;
+      this.idPeriodo=idPeriodop;  
+      this.idCurso=idCursop;
+      this.idInfraestructura=idInfraestructurap;
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -74,76 +83,44 @@ public class Oferta {
         this.descripcion = descripcion;
     }
 
-    public boolean isEstado() {
+    public String Estado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFinal() {
+    public String getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(Date fechaFinal) {
+    public void setFechaFinal(String fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 
-    public Date getHoraInicio() {
+    public int getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Date horaInicio) {
+    public void setHoraInicio(int horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public Date getHoraFinal() {
+    public int getHoraFinal() {
         return horaFinal;
     }
 
-    public void setHoraFinal(Date horaFinal) {
+    public void setHoraFinal(int horaFinal) {
         this.horaFinal = horaFinal;
-    }
-
-    public String getCodFunIngreso() {
-        return codFunIngreso;
-    }
-
-    public void setCodFunIngreso(String codFunIngreso) {
-        this.codFunIngreso = codFunIngreso;
-    }
-
-    public Date getFechaIngreso() {
-        return fechaIngreso;
-    }
-
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
-
-    public String getCodFunEdito() {
-        return codFunEdito;
-    }
-
-    public void setCodFunEdito(String codFunEdito) {
-        this.codFunEdito = codFunEdito;
-    }
-
-    public Date getFechaEdito() {
-        return fechaEdito;
-    }
-
-    public void setFechaEdito(Date fechaEdito) {
-        this.fechaEdito = fechaEdito;
     }
 
     public int getIdCurso() {
@@ -160,6 +137,22 @@ public class Oferta {
 
     public void setIdInfraestructura(int idInfraestructura) {
         this.idInfraestructura = idInfraestructura;
+    }
+
+    public int getIdPeriodo() {
+        return idPeriodo;
+    }
+
+    public void setIdPeriodo(int idPeriodo) {
+        this.idPeriodo = idPeriodo;
+    }
+
+    public boolean isEstadov() {
+        return estadov;
+    }
+
+    public void setEstadov(boolean estadov) {
+        this.estadov = estadov;
     }
     
     
