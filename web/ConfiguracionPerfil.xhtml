@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
         <ui:composition template="./resources/Main/mainTemplate.xhtml">
@@ -40,12 +41,98 @@
 
             <ui:define name="Content">
                 <h:form>
-                    <h:commandButton value="Cerrar Sesión" actionListener="#{beanConfiguracionPerfil.cerrarSesion()}"></h:commandButton>
+                    <p:panel class="alert alert-danger alert-dismissable" rendered="#{beanConfiguracionPerfil.mensajes != null}">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h2>#{beanConfiguracionPerfil.mensajes}</h2>
+                    </p:panel>
+                    <p:panel header="Configuración Perfil" style="margin-left: 15px;margin-top: 15px;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p:panel header="Información Personal" style="height: 100%">
+                                                <p:panelGrid columns="2">
+                                                    <h:outputLabel value="Identificación"></h:outputLabel>
+                                                    <h:outputLabel value="#{beanConfiguracionPerfil.fun.id}"></h:outputLabel>
+                                                    <h:outputLabel value="Nombre:"></h:outputLabel>
+                                                    <h:outputLabel value="#{beanConfiguracionPerfil.fun.nombre} #{beanConfiguracionPerfil.fun.apellido1} #{beanConfiguracionPerfil.fun.apellido2}"></h:outputLabel>
+                                                    <h:outputLabel value="Fecha Nacimiento"></h:outputLabel>
+                                                    <h:outputLabel value="#{beanConfiguracionPerfil.fun.fechaNacimiento.substring(0,10)}"></h:outputLabel>
+                                                    <h:outputLabel value="Edad"></h:outputLabel>
+                                                    <h:outputLabel value="#{beanConfiguracionPerfil.fun.edad}"></h:outputLabel>
+                                                </p:panelGrid>
+                                            </p:panel>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin-top: 10px">
+                                            <p:panel header="Dirección">
+                                                <p:panelGrid columns="2">
+                                                    <h:outputLabel value="Provincia"></h:outputLabel>
+                                                    <h:selectOneMenu disabled="true" id="cmbProvincias"  class="form-control" value="#{beanConfiguracionPerfil.dir.idProvincia}">
+                                                        <f:selectItems value="#{beanConfiguracionPerfil.provincias}"></f:selectItems>
+                                                        <f:ajax event="change" listener="#{beanConfiguracionPerfil.valueChangedProvincias}" execute="@this" render="cmbCantones cmbDistritos cmbBarrios"></f:ajax>
+                                                    </h:selectOneMenu>
+                                                    <h:outputLabel value="Canton"></h:outputLabel>
+                                                    <h:selectOneMenu disabled="true" id="cmbCantones"  class="form-control" value="#{beanConfiguracionPerfil.dir.idCanton}">
+                                                        <f:selectItems value="#{beanConfiguracionPerfil.cantones}"></f:selectItems>
+                                                        <f:ajax event="change" listener="#{beanConfiguracionPerfil.valueChangedCanton}" execute="@this" render="cmbDistritos cmbBarrios"></f:ajax>
+                                                    </h:selectOneMenu>
+                                                    <h:outputLabel value="Distrito"></h:outputLabel>
+                                                    <h:selectOneMenu disabled="true" id="cmbDistritos" class="form-control" value="#{beanConfiguracionPerfil.dir.idDistrito}">
+                                                        <f:selectItems value="#{beanConfiguracionPerfil.distritos}"></f:selectItems>
+                                                        <f:ajax event="change" listener="#{beanConfiguracionPerfil.valueChangedDistrito}" execute="@this" render="cmbBarrios"></f:ajax>
+                                                    </h:selectOneMenu>
+                                                    <h:outputLabel value="Barrio"></h:outputLabel>
+                                                    <h:selectOneMenu disabled="true" rendered="#{beanConfiguracionPerfil.barrios.size() > 0}" id="cmbBarrios" class="form-control" value="#{beanConfiguracionPerfil.dir.idBarrio}">
+                                                        <f:selectItems value="#{beanConfiguracionPerfil.barrios}"></f:selectItems>
+                                                    </h:selectOneMenu>
+                                                    <h:outputLabel value="Otras Señas"></h:outputLabel>
+                                                    <h:inputText disabled="true" value="#{beanConfiguracionPerfil.dir.otrasSenias}" class="form-control"></h:inputText>
+                                                </p:panelGrid>
+                                            </p:panel>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <p:panel header="Contacto">
+                                        <p:panelGrid columns="2">
+                                            <h:outputLabel value="Email"></h:outputLabel>
+                                            <h:outputLabel value="#{beanConfiguracionPerfil.fun.email}"></h:outputLabel>
+                                            <h:outputLabel value="Telefonos"></h:outputLabel>
+                                            <p:dataTable value="#{beanConfiguracionPerfil.telefonos}" var="tel" emptyMessage="No existen teléfonos">
+                                                <p:column headerText="Tipo Teléfono">
+                                                    <h:outputText value="#{tel.tipoTelefono == 1?'Celular':'Fijo'}"></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Número">
+                                                    <h:outputText value="#{tel.numero}"></h:outputText>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </p:panelGrid>
+                                        <h:panelGrid columns="1">
+                                            <h3 style="margin-top: 5px ">Insertar Nuevo Número</h3>
+                                            <p:panelGrid columns="2">
+                                                <h:outputLabel value="Tipo Teléfono" ></h:outputLabel>
+                                                <h:selectOneMenu class="form-control" value="#{beanConfiguracionPerfil.tipoTelefono}">
+                                                    <f:selectItem itemLabel="Celular" itemValue="1"></f:selectItem>
+                                                    <f:selectItem itemLabel="Teléfono Fijo" itemValue="2"></f:selectItem>
+                                                </h:selectOneMenu>
+                                                <h:outputLabel value="Número Teléfono"></h:outputLabel>
+                                                <h:inputText value="#{beanConfiguracionPerfil.numero}"></h:inputText>
+                                            </p:panelGrid>
+                                            <h:commandButton value="Añadir" class="btn btn-outline-dark" actionListener="#{beanConfiguracionPerfil.guardarNumero()}" style="margin-top: 5px;"></h:commandButton>
+                                        </h:panelGrid>
+                                    </p:panel>
+                                    <h:commandButton class="btn btn-outline-danger" value="Cerrar Sesión" style="margin-top: 5px;float: right" actionListener="#{beanConfiguracionPerfil.cerrarSesion()}"></h:commandButton>
+                                </div>
+                            </div>
+                        </div>
+                    </p:panel>
                 </h:form>
             </ui:define>
 
             <ui:define name="FooterLinks">
-
             </ui:define>
 
         </ui:composition>
