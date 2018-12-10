@@ -70,7 +70,7 @@ public class beanMantInfraestructura implements Serializable {
         this.setMensajeUbicacion(" ");
         this.setMensajeidPrograma(" ");
         this.setIdNombre(" ");
-        
+        this.setMensajeAlerta(" ");
         this.setListaTablaInfraestructura(listaTablaInfraestructura);
     }
 
@@ -134,8 +134,9 @@ public class beanMantInfraestructura implements Serializable {
         cur.setNombre(this.getNombre());
         cur.setUbicacion(this.getUbicacion());
         cur.setIdPrograma(this.getIdPrograma());
-
         cDB.actualizarInfraestructura(cur);
+        cancelar();
+        mensajeAlerta = "Editado con exito";
 
     }
     
@@ -211,6 +212,7 @@ public class beanMantInfraestructura implements Serializable {
                                     depUTN.setUbicacion(ubicacion);
 
                                     dDB.mvRegitroInfraestructura(depUTN);
+                                    cancelar();
                                     mensajeAlerta = "Realizado con exito";
                                 }
                             }
@@ -261,7 +263,7 @@ public class beanMantInfraestructura implements Serializable {
         TipoInfraestructuraDB cDB = new TipoInfraestructuraDB();
         lista = cDB.moTodo();
         LinkedList resultList = new LinkedList();
-        resultList.add(new SelectItem(0, "Seleccione TipoInfraestructura"));
+        resultList.add(new SelectItem(0, "--Seleccione--"));
         for (Iterator iter = lista.iterator();
                 iter.hasNext();) {
 

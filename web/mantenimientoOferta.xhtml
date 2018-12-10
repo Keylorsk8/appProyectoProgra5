@@ -59,7 +59,7 @@
             </ui:define>
             <ui:define name="Content">
                 <h:form>
-                    <p:panel header="Mantenimiento de Oferta" style="margin-left: 15px;margin-top: 15px;height: 100%;border: 2px solid black">
+                    <p:panel header="Mantenimiento de Oferta" style="border: 2px solid black;margin-left: 15px;margin-top: 15px;height: 100%;border: 2px solid black">
                         <div class="row">
                             <div class="col-md-4">
                                 <tr>
@@ -180,8 +180,8 @@
                                             </tr>    
                                             <tr style="text-align: center">
                                                 <td colspan="2">
-                                                    <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px"  value="Añadir" actionListener="#{beanMantOferta.ingresarRegistro()}" ></h:commandButton>
-                                                    <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px" value="Limpiar" actionListener="#{beanMantOferta.cancelar()}" ></h:commandButton>
+                                                    <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px"  value="Guardar" actionListener="#{beanMantOferta.ingresarRegistro()}" ></h:commandButton>
+                                                    <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px" value="Nuevo" actionListener="#{beanMantOferta.cancelar()}" ></h:commandButton>
                                                     <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px" value="Editar" actionListener="#{beanMantOferta.actualizaDatos()}" ></h:commandButton>
                                                 </td>
                                             </tr>

@@ -30,7 +30,7 @@ public class beanMantPeriodo implements Serializable {
      * Creates a new instance of beanMantPeriodo
      */
     public beanMantPeriodo() {
-         Date hoy = new Date();
+        Date hoy = new Date();
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         this.setFechaInicio(sd.format(hoy));
         this.setFechaFinal(sd.format(hoy));
@@ -83,11 +83,13 @@ public class beanMantPeriodo implements Serializable {
         PeriodoDB cDB = new PeriodoDB();
         Periodo cur = new Periodo();
         cur.setNombre(this.getNombre());
-        cur.setFechaInicio(this.getFechaInicio());
-        cur.setFechaFinal(this.getFechaFinal());
+        cur.setFechaInicio(fechaInicio);
+        cur.setFechaFinal(fechaFinal);
         cur.setAnio(this.getAnio());
         cur.setId(this.getId());
         cDB.actualizarPeriodo(cur);
+        cancelar();
+        mensajeAlerta = "Editado con éxito";
     }
 
     public void ingresarRegistro() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
@@ -112,60 +114,60 @@ public class beanMantPeriodo implements Serializable {
             if (!this.fechaInicio.equals("")) {
                 this.mensajefechaInicio = " ";
             }
-             if(!validar()){
-                    this.mensajefechaFinal=" ";
-                    this.mensajefechaInicio=" ";
-                }
+            if (!validar()) {
+                this.mensajefechaFinal = " ";
+                this.mensajefechaInicio = " ";
+            }
             if (!this.fechaFinal.equals("")) {
-                if(!this.fechaInicio.equals("")){
+                if (!this.fechaInicio.equals("")) {
                     if (!this.nombre.equals(" ")) {
-            this.mensajefechaFinal = " ";
-            int annoS = Integer.parseInt(this.fechaInicio.substring(0, 4));
-            int diaS = Integer.parseInt(this.fechaInicio.substring(8, 10));
-            int mesS = Integer.parseInt(this.fechaInicio.substring(5, 7));
-            this.fechaInicio = annoS + "/" + diaS + "/" + mesS;
-
-            int anno = Integer.parseInt(this.fechaFinal.substring(0, 4));
-            int dia = Integer.parseInt(this.fechaFinal.substring(8, 10));
-            int mes = Integer.parseInt(this.fechaFinal.substring(5, 7));
-            this.fechaFinal = anno + "/" + dia + "/" + mes;
-
-            depUTN.setNombre(nombre);
-            depUTN.setFechaInicio(fechaInicio);
-            depUTN.setFechaFinal(fechaFinal);
-            depUTN.setAnio(anio);
-            dDB.mvRegitroPeriodo(depUTN);
-            mensajeAlerta = "Realizado con exito";
+                        this.mensajefechaFinal = " ";
+                        depUTN.setNombre(nombre);
+                        depUTN.setFechaInicio(fechaInicio);
+                        depUTN.setFechaFinal(fechaFinal);
+                        depUTN.setAnio(anio);
+                        dDB.mvRegitroPeriodo(depUTN);
+                        cancelar();
+                        mensajeAlerta = "Realizado con exito";
                     }
-                }              
-            }else{
+                }
+            } else {
                 mensajeAlerta = "Porfavor llenar los datos";
             }
-
-            
 
         } catch (SNMPExceptions | SQLException e) {
             System.out.println("Error :" + e);
             System.out.println("Mensaje :" + e.getMessage());
         }
     }
-    
+
+    public String transformarFechas(String fecha) {
+        String fcha = fecha;
+
+        String anio = fcha.substring(0, 4);
+        String mes = fcha.substring(5, 7);
+        String dia = fcha.substring(8, 10);
+        fcha = anio + "-" + mes + "-" + anio;
+
+        return fcha;
+    }
+
     public boolean validar() {
         boolean errores = false;
-      
+
         if (!comparFechasInicio()) {
             mensajefechaInicio = "Digite una fecha de entrega posterior a la fecha actual";
             errores = true;
         }
-           if (!comparFechasFinal()) {
+        if (!comparFechasFinal()) {
             mensajefechaFinal = "Digite una fecha de entrega posterior a la fecha actual";
             errores = true;
         }
-       
+
         return errores;
     }
-    
-     public boolean comparFechasInicio() {
+
+    public boolean comparFechasInicio() {
         String sFecha = this.fechaInicio;
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println(sFecha);
@@ -188,7 +190,8 @@ public class beanMantPeriodo implements Serializable {
             return true;
         }
     }
-     public boolean comparFechasFinal() {
+
+    public boolean comparFechasFinal() {
         String sFecha = this.fechaFinal;
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println(sFecha);

@@ -41,20 +41,20 @@ public class beanMantOferta implements Serializable {
      * Creates a new instance of beanMantOferta
      */
     public beanMantOferta() {
-        if(this.estado==false){
-            estadoValidador="Inactivo";
-        }else{
-            if(this.estado==true){
-                estadoValidador="Activo";
+        if (this.estado == false) {
+            estadoValidador = "Inactivo";
+        } else {
+            if (this.estado == true) {
+                estadoValidador = "Activo";
             }
-            
+
         }
-        
+
         Date hoy = new Date();
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         this.setFechaInicio(sd.format(hoy));
         this.setFechaFinal(sd.format(hoy));
-        
+
     }
     Funcionario fun;
     int idNumero = 0;
@@ -93,20 +93,20 @@ public class beanMantOferta implements Serializable {
         }
         return listaTabla;
     }
-    
-    public String nombreCurso(int idCurso) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+
+    public String nombreCurso(int idCurso) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         LinkedList<Curso> curso = new CursoDB().buscarCurso(String.valueOf(idCurso));
         Curso cu = curso.get(0);
         return cu.getDescripcion();
     }
-    
-    public String nombreInfraestructura(int idInfraestructura) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+
+    public String nombreInfraestructura(int idInfraestructura) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         LinkedList<Infraestructura> infraestructura = new InfraestructuraDB().buscarInfraestructura(String.valueOf(idInfraestructura));
         Infraestructura cu = infraestructura.get(0);
         return cu.getNombre();
     }
-    
-    public String nombrePeriodo(int idPeriodo) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+
+    public String nombrePeriodo(int idPeriodo) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         LinkedList<Periodo> periodo = new PeriodoDB().buscarPeriodo(String.valueOf(idPeriodo));
         Periodo cu = periodo.get(0);
         return cu.getNombre();
@@ -176,9 +176,9 @@ public class beanMantOferta implements Serializable {
                 } else {
                     this.estado = true;
                 }
-                if(!validar()){
-                    this.mensajefechaFinal=" ";
-                    this.mensajefechaIncio=" ";
+                if (!validar()) {
+                    this.mensajefechaFinal = " ";
+                    this.mensajefechaIncio = " ";
                 }
 
                 if (this.idPeriodo > 0) {
@@ -194,8 +194,8 @@ public class beanMantOferta implements Serializable {
 
                                             depUTN.setDescripcion(descripcion);
                                             depUTN.setEstadov(estado);
-                                            depUTN.setFechaFinal(fechaFinal.substring(0, 10));
-                                            depUTN.setFechaInicio(fechaInicio.substring(0, 10));
+                                            depUTN.setFechaFinal(transformarFechas(fechaFinal.substring(0, 10)));
+                                            depUTN.setFechaInicio(transformarFechas(fechaInicio.substring(0, 10)));
                                             depUTN.setHoraFinal(horaFinal);
                                             depUTN.setHoraInicio(horaInicio);
                                             depUTN.setIdCurso(idCurso);
@@ -204,6 +204,7 @@ public class beanMantOferta implements Serializable {
 
                                             dDB.mvRegitroOferta(depUTN, fun);
                                             mensajeAlerta = "Realizado con exito";
+                                            cancelar();
                                         }
                                     }
                                 }
@@ -219,23 +220,23 @@ public class beanMantOferta implements Serializable {
             System.out.println("Mensaje :" + e.getMessage());
         }
     }
-    
+
     public boolean validar() {
         boolean errores = false;
-      
+
         if (!comparFechasInicio()) {
-            mensajefechaIncio = "Digite una fecha de entrega posterior a la fecha actual";
+            mensajefechaIncio = "Digite una fecha posterior a la fecha actual";
             errores = true;
         }
-           if (!comparFechasFinal()) {
-            mensajefechaFinal = "Digite una fecha de entrega posterior a la fecha actual";
+        if (!comparFechasFinal()) {
+            mensajefechaFinal = "Digite una fecha posterior a la fecha actual";
             errores = true;
         }
-       
+
         return errores;
     }
-    
-     public boolean comparFechasInicio() {
+
+    public boolean comparFechasInicio() {
         String sFecha = this.fechaInicio;
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println(sFecha);
@@ -258,7 +259,8 @@ public class beanMantOferta implements Serializable {
             return true;
         }
     }
-     public boolean comparFechasFinal() {
+
+    public boolean comparFechasFinal() {
         String sFecha = this.fechaFinal;
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println(sFecha);
@@ -314,7 +316,7 @@ public class beanMantOferta implements Serializable {
         PeriodoDB cDB = new PeriodoDB();
         lista = cDB.moTodo();
         LinkedList resultList = new LinkedList();
-        resultList.add(new SelectItem(0, "Seleccione Periodo"));
+        resultList.add(new SelectItem(0, "--Seleccione--"));
         for (Iterator iter = lista.iterator();
                 iter.hasNext();) {
 
@@ -325,6 +327,17 @@ public class beanMantOferta implements Serializable {
 
         }
         return resultList;
+    }
+
+    public String transformarFechas(String fecha) {
+        String fcha = fecha;
+
+        String anio = fcha.substring(0, 4);
+        String mes = fcha.substring(5, 7);
+        String dia = fcha.substring(8, 10);
+        fcha = anio + "-" + dia + "-" + mes;
+
+        return fcha;
     }
 
     public void setListaPeriodo(LinkedList<SelectItem> listaPeriodo) {
@@ -349,7 +362,7 @@ public class beanMantOferta implements Serializable {
         CursoDB cDB = new CursoDB();
         lista = cDB.moTodo();
         LinkedList resultList = new LinkedList();
-        resultList.add(new SelectItem(0, "Seleccione Curso"));
+        resultList.add(new SelectItem(0, "--Seleccione--"));
         for (Iterator iter = lista.iterator();
                 iter.hasNext();) {
 
@@ -384,7 +397,7 @@ public class beanMantOferta implements Serializable {
         InfraestructuraDB cDB = new InfraestructuraDB();
         lista = cDB.moTodo();
         LinkedList resultList = new LinkedList();
-        resultList.add(new SelectItem(0, "Seleccione Infraestructura"));
+        resultList.add(new SelectItem(0, "--Seleccione--"));
         for (Iterator iter = lista.iterator();
                 iter.hasNext();) {
 
@@ -434,15 +447,15 @@ public class beanMantOferta implements Serializable {
         Oferta cur = new Oferta();
 
         cur.setId(id);
-        cur.setDescripcion(descripcion); 
-        if(this.estadoValidador.equals("Activo")){
-            this.estado=true;
-        }else{
-            this.estado=false;
+        cur.setDescripcion(descripcion);
+        if (this.estadoValidador.equals("Activo")) {
+            this.estado = true;
+        } else {
+            this.estado = false;
         }
         cur.setEstadov(this.isEstado());
-        cur.setFechaFinal(fechaFinal.substring(0, 10));
-        cur.setFechaInicio(fechaInicio.substring(0, 10));
+        cur.setFechaFinal(transformarFechas(fechaFinal.substring(0, 10)));
+        cur.setFechaInicio(transformarFechas(fechaInicio.substring(0, 10)));
         cur.setHoraFinal(horaFinal);
         cur.setHoraInicio(horaInicio);
         cur.setIdCurso(idCurso);
@@ -452,7 +465,8 @@ public class beanMantOferta implements Serializable {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         fun = (Funcionario) session.getAttribute("user");
         cDB.actualizarOferta(cur, fun);
-
+        cancelar();
+        mensajeAlerta = "Editado con éxito";
     }
 
     public String getMensajeInfra() {

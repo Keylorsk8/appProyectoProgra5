@@ -57,7 +57,7 @@
                 Mantenimiento de Infraestructura
             </ui:define>
             <ui:define name="Content">
-                <p:panel header="Mantenimiento de Infraestructura" style="margin-left: 15px;margin-top: 15px;height: 100%;border: 2px solid black">
+                <p:panel header="Mantenimiento de Infraestructura" style="border: 2px solid black;margin-left: 15px;margin-top: 15px;height: 100%;border: 2px solid black">
                     <div class="row">
                         <div class="col-md-4">
                              <tr>
@@ -70,7 +70,7 @@
                                     <tBody>
                                         <tr>
                                             <td>
-                                                <h:outputText value="Id: "></h:outputText>
+                                                <h:outputText value="Código: "></h:outputText>
                                             </td>
                                             <td>
                                                 <p:inputText type="number"  value="#{beanMantInfraestructura.id}"></p:inputText>
@@ -117,7 +117,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <h:outputText value="Ubicacion: "></h:outputText>
+                                                <h:outputText value="Ubicación: "></h:outputText>
                                             </td>
                                             <td>
                                                 <h:inputText class="form-control" value="#{beanMantInfraestructura.ubicacion}"></h:inputText>
@@ -128,7 +128,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <h:outputText value="IdPrograma: "></h:outputText>
+                                                <h:outputText value="Programa: "></h:outputText>
                                             </td>
                                             <td>
                                                 <h:selectOneMenu class="form-control" value="#{beanMantInfraestructura.idPrograma}">
@@ -164,22 +164,22 @@
                                 </td>
                             </tr> 
                             <p:dataTable value="#{beanMantInfraestructura.listaTablaInfraestructura}" var="dep">
-                                <p:column headerText="Id">
+                                <p:column headerText="Código">
                                     <h:outputText value="#{dep.id}"></h:outputText>
                                 </p:column>
                                 <p:column headerText="Capacidad">
                                     <h:outputText value="#{dep.capacidad}"></h:outputText>
                                 </p:column>
-                                <p:column headerText="Tipo de Infraestructura">
+                                <p:column headerText="Tipo Infraestructura">
                                     <h:outputText value="#{beanMantInfraestructura.nombreTipoInfraestructura(dep.idTipoInfraestructura)}"></h:outputText>
                                 </p:column>    
                                 <p:column headerText="Nombre">
                                     <h:outputText value="#{dep.nombre}"></h:outputText>
                                 </p:column>
-                                <p:column headerText="Ubicacion">
+                                <p:column headerText="Ubicación">
                                     <h:outputText value="#{dep.ubicacion}"></h:outputText>
                                 </p:column>
-                                <p:column headerText="IdPrograma">
+                                <p:column headerText="Programa">
                                     <h:outputText value="#{beanMantInfraestructura.nombrePrograma(dep.idPrograma)}"></h:outputText>
                                 </p:column>
                                 <p:column>

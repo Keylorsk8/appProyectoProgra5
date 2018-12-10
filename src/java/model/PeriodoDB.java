@@ -217,16 +217,6 @@ public class PeriodoDB {
         String fechaInicio = c.getFechaInicio();
         String fechaFinal = c.getFechaFinal();
         int anio= c.getAnio();
-        
-        int annoS = Integer.parseInt(fechaInicio.substring(0, 4));
-        int diaS = Integer.parseInt(fechaInicio.substring(8, 10));
-        int mesS = Integer.parseInt(fechaInicio.substring(5, 7));
-        fechaInicio=annoS + "/"+diaS+"/"+mesS;
-            
-        int anno = Integer.parseInt(fechaFinal.substring(0, 4));       
-        int dia = Integer.parseInt(fechaFinal.substring(8, 10));
-        int mes = Integer.parseInt(fechaFinal.substring(5, 7));
-        fechaFinal= anno+"/"+dia+"/"+mes;
         //Se crea la sentencia de actualización
         String update
                 = "UPDATE Periodo SET Nombre = '" + nombre + 

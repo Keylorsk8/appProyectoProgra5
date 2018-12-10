@@ -55,35 +55,26 @@
 
             <ui:define name="Content">
                 <h:form>  
-                    <p:growl></p:growl>
                     <center>                 
                         <div class="container">
-                            <h1>Aceptacion de Solicitudes</h1>
-                            <div class="datagrid">
-                                <h:dataTable class="table table-striped table-hover table-dark" value="Lista del Bean" var="dep">
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Usuario"></h:outputText>
-                                        </f:facet>
-                                    </h:column>           
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Nombre de Usuario"></h:outputText>
-                                        </f:facet>
-                                    </h:column>                                     
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Aceptado"></h:outputText>
-                                        </f:facet>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Cancelado"></h:outputText>
-                                        </f:facet>
-                                    </h:column>
-                                </h:dataTable>
-                            </div>
-                            <h:outputText value="No hay Usuarios Disponibles!"></h:outputText>
+                            <p:panel header="Solicitudes de Eventos" style="border: 2px solid black;">
+                                <div>
+                                    <p:dataTable  value="" var="dep" emptyMessage="No existen Solicitudes!" style="min-height: 400px">
+                                        <p:column headerText="Identificación">
+
+                                        </p:column>           
+                                        <p:column headerText="Nombre Usuario">
+
+                                        </p:column>                                     
+                                        <p:column headerText="Infraestructura">
+
+                                        </p:column>
+                                        <p:column>
+
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </p:panel>
                         </div>
                     </center>
                 </h:form>

@@ -58,9 +58,9 @@
             </ui:define>
 
             <ui:define name="Content">
-                <p:panel header="Mantenimiento de Periodos" style="margin-left: 15px;margin-top: 15px;height: 100%;border: 2px solid black">
+                <p:panel header="Mantenimiento de Periodos" style="border: 2px solid black;margin-left: 15px;margin-top: 15px;height: 100%;border: 2px solid black">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <tr>
                                 <td>
                                     <h:outputText style=" color:red;" value="#{beanMantPeriodo.mensajeAlerta}"></h:outputText>
@@ -74,7 +74,7 @@
                                                 <h:outputText value="Nombre: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantPeriodo.nombre}"></h:inputText>
+                                                <h:inputText class="form-control" value="#{beanMantPeriodo.nombre}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantPeriodo.mensajeNombre}"></h:outputText>
@@ -105,7 +105,7 @@
                                         <tr style="text-align: center">
                                             <td colspan="2">
                                                 <h:commandButton  value="Guardar" class="btn btn-outline-dark" style="margin:2px;width: 25%" actionListener="#{beanMantPeriodo.ingresarRegistro()}" ></h:commandButton>
-                                                <h:commandButton  value="Limpiar" class="btn btn-outline-dark" style="margin:2px;width: 25%" actionListener="#{beanMantPeriodo.cancelar()}"></h:commandButton>
+                                                <h:commandButton  value="Nuevo" class="btn btn-outline-dark" style="margin:2px;width: 25%" actionListener="#{beanMantPeriodo.cancelar()}"></h:commandButton>
                                                 <h:commandButton  value="Editar" class="btn btn-outline-dark" style="margin:2px;width: 25%" actionListener="#{beanMantPeriodo.actualizaDatos()}" ></h:commandButton>
 
                                             </td>
@@ -115,7 +115,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <tr>
                                 <td>
                                     <h:outputText value="Id o Nombre: "></h:outputText>

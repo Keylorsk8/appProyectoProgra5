@@ -76,6 +76,8 @@ public class beanMantCurso implements Serializable {
             cur.setEstado(this.estadoValidador.equals("Activo"));
             cur.setIdPrograma(this.getIdPrograma());
             cDB.actualizarCurso(cur, fun);
+            cancelar();
+            mensajeAlerta = "Editado correctamente";
         }
     }
 
@@ -94,7 +96,9 @@ public class beanMantCurso implements Serializable {
             depUTN.setEstado(estado);
             depUTN.setIdPrograma(idPrograma);
             dDB.mvRegitroCurso(depUTN, fun);
+            cancelar();
             mensajeAlerta = "Realizado con exito";
+            
         }
     }
 
@@ -126,6 +130,7 @@ public class beanMantCurso implements Serializable {
     }
 
     public void asignaDatos(Curso dep) {
+        cancelar();
         this.setId(dep.getId());
         setDescripcion(dep.getDescripcion());
         setEstado(dep.isEstado());

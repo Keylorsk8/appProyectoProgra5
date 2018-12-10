@@ -21,7 +21,6 @@ import javax.naming.NamingException;
 public class CursoDB {
 
     private AccesoDatos accesoDatos = new AccesoDatos();
-    private Connection conn;
 
     public CursoDB(Connection conn) {
         accesoDatos = new AccesoDatos();
@@ -29,46 +28,31 @@ public class CursoDB {
     }
 
     public CursoDB() {
-        super();
     }
 
     public LinkedList<Curso> consultarCurso() throws SNMPExceptions, SQLException {
         String select;
         String estadop="";
         LinkedList<Curso> listaCurso = new LinkedList<>();
-
         try {
             //open();
             //Se instancia la clase de acceso a datos
             accesoDatos = new AccesoDatos();
-
             //Se crea la sentencia de búsqueda
-            select
-                    = "SELECT Id,Descripcion,Estado,IdPrograma from Curso";
-
+            select = "SELECT Id,Descripcion,Estado,IdPrograma from Curso";
             //Se llena el arryaList con los catálogos
             try ( //Se ejecuta la sentencia SQL
                     ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select)) {
                 //Se llena el arryaList con los catálogos
                 while (rsPA.next()) {
-                    
                     int id = rsPA.getInt("Id");
                     String descripcion = rsPA.getString("Descripcion");
                     boolean estado = rsPA.getBoolean("Estado");
                     int idPrograma = rsPA.getInt("IdPrograma");
-                    
-                    if(estado==false){
-                        estadop="Inactivo";
-                    }else{
-                        estadop="Activo";
-                    }
-                    
-                    
-                    Curso dep = new Curso(id, descripcion, estadop, idPrograma);
+                    Curso dep = new Curso(id, descripcion, estado, idPrograma);
                     listaCurso.add(dep);
                 }
             }
-
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage(), e.getErrorCode());
@@ -76,7 +60,6 @@ public class CursoDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
-
         }
         return listaCurso;
     }
@@ -84,17 +67,13 @@ public class CursoDB {
     public LinkedList<Curso> buscarCurso(String idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String select = "";
         String estadop=" ";
-        LinkedList<Curso> listaCurso = new LinkedList<Curso>();
-
+        LinkedList<Curso> listaCurso = new LinkedList<>();
         try {
             //open();
             //Se instancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();
-
             //Se crea la sentencia de búsqueda
-            select
-                    = "SELECT Id,Descripcion,Estado,IdPrograma from Curso where Id ="+"Convert(int,'"+idp+"')";
-
+            select = "SELECT Id,Descripcion,Estado,IdPrograma from Curso where Id ="+"Convert(int,'"+idp+"')";
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los catálogos   
@@ -131,7 +110,7 @@ public class CursoDB {
             throws SNMPExceptions, SQLException {
         String strSQL;
         try {
-//Se obtienen los valores del objeto 
+        //Se obtienen los valores del objeto 
             Curso cur = pvoCurso;
             strSQL = "INSERT  INTO Curso(Id,Descripcion,Estado,CodFunIngreso,FechaIngreso,CodFunEdito,FechaEdito,IdPrograma) VALUES("
                     + cur.getId() + ",'"
@@ -142,7 +121,7 @@ public class CursoDB {
                     + 1 + "',"
                     + "getDate()" + ","
                     + cur.getIdPrograma() + ")";
-//Se ejecuta la sentencia SQL
+        //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL/*, sqlBitacora*/);
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
@@ -177,37 +156,27 @@ public class CursoDB {
     
     public LinkedList<Curso> moTodo() throws SNMPExceptions, SQLException{
         String select= " ";
-        LinkedList<Curso> listaCand= new LinkedList<Curso>();
-        
+        LinkedList<Curso> listaCand= new LinkedList<>();
         try{
             //Se intancia la clase de acceso a datos
             AccesoDatos accesoDatos= new AccesoDatos();
-            
             //Se crea la sentencia de Busqueda
-            select=
-                    "Select Id,Descripcion,Estado,IdPrograma from Curso";
+            select = "Select Id,Descripcion,Estado,IdPrograma from Curso";
             //se ejecuta la sentencia sql
             ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
             //se llama el array con los proyectos
             while(rsPA.next()){
-                
                 int id= rsPA.getInt("Id");
                 String nombre = rsPA.getString("Descripcion");
                 boolean estado = rsPA.getBoolean("Estado");
-                int idPrograma=rsPA.getInt("IdPrograma");
-
-               
-                
+                int idPrograma=rsPA.getInt("IdPrograma");        
                 //se construye el objeto.
-                Curso perCandidato= new Curso(id,nombre,estado,idPrograma);
-                
+                Curso perCandidato= new Curso(id,nombre,estado,idPrograma);        
                 listaCand.add(perCandidato);
             }
-            rsPA.close();//se cierra el ResultSeat.
-            
+            rsPA.close();//se cierra el ResultSeat.    
         }catch(SQLException e){
-            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION,
-                                     e.getMessage(),e.getErrorCode());
+            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION, e.getMessage(),e.getErrorCode());
         }catch(SNMPExceptions | ClassNotFoundException | NamingException e){
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,e.getMessage());
         }finally{
