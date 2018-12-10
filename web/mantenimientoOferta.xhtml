@@ -64,7 +64,7 @@
                             <div class="col-md-4">
                                 <tr>
                                     <td>
-                                        <h:outputText value="#{beanMantOferta.mensajeAlerta}"></h:outputText>
+                                        <h:outputText style="color: red" value="#{beanMantOferta.mensajeAlerta}"></h:outputText>
                                     </td>
                                 </tr>
                                 <div style="width: auto;height: auto;padding: 2%">
@@ -180,9 +180,10 @@
                                             </tr>    
                                             <tr style="text-align: center">
                                                 <td colspan="2">
-                                                    <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px"  value="Añadir" actionListener="#{beanMantOferta.ingresarRegistro()}" ></h:commandButton>
-                                                    <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px" value="Limpiar" actionListener="#{beanMantOferta.cancelar()}" ></h:commandButton>
+                                                    <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px"  value="Guardar" actionListener="#{beanMantOferta.ingresarRegistro()}" ></h:commandButton>
+                                                    <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px" value="Nuevo" actionListener="#{beanMantOferta.cancelar()}" ></h:commandButton>
                                                     <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin: 5px" value="Editar" actionListener="#{beanMantOferta.actualizaDatos()}" ></h:commandButton>
+                                                    <a class="btn btn-outline-dark" style="width: 25%;margin: 5px" href="resources/ayuda/MantenimientoInfraestructura.htm">Ayuda</a>
                                                 </td>
                                             </tr>
                                         </tBody>               
