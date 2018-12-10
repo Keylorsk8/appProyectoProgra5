@@ -59,7 +59,7 @@
             <ui:define name="Content">
                 <p:panel header="Mantenimiento de Infraestructura" style="margin-left: 15px;margin-top: 15px;height: 100%;border: 2px solid black">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                              <tr>
                                 <td>
                                     <h:outputText style=" color:red;" value="#{beanMantInfraestructura.mensajeAlerta}"></h:outputText>
@@ -85,7 +85,7 @@
                                                 <h:outputText value="Capacidad: "></h:outputText>
                                             </td>
                                             <td>
-                                                <p:inputText type="number"  value="#{beanMantInfraestructura.capacidad}"></p:inputText>
+                                                <p:inputText class="form-control" type="number"  value="#{beanMantInfraestructura.capacidad}"></p:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeCapacidad}"></h:outputText>
@@ -93,7 +93,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <h:outputText value="Id Tipo de Infraestructura: "></h:outputText>
+                                                <h:outputText value="Tipo de Infraestructura: "></h:outputText>
                                             </td>
                                             <td>
                                                 <h:selectOneMenu class="form-control" value="#{beanMantInfraestructura.idTipoInfraestructura}">
@@ -109,7 +109,7 @@
                                                 <h:outputText value="Nombre: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText value="#{beanMantInfraestructura.nombre}"></h:inputText>
+                                                <h:inputText class="form-control" value="#{beanMantInfraestructura.nombre}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeNombre}"></h:outputText>
@@ -120,7 +120,7 @@
                                                 <h:outputText value="Ubicacion: "></h:outputText>
                                             </td>
                                             <td>
-                                                <h:inputText  value="#{beanMantInfraestructura.ubicacion}"></h:inputText>
+                                                <h:inputText class="form-control" value="#{beanMantInfraestructura.ubicacion}"></h:inputText>
                                             </td>
                                             <td>
                                                 <h:outputText style="color: red" value="#{beanMantInfraestructura.mensajeUbicacion}"></h:outputText>
@@ -141,26 +141,26 @@
                                         </tr>
                                         <tr style="text-align: center">
                                             <td colspan="3">
-                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Añadir" actionListener="#{beanMantInfraestructura.ingresarRegistro()}" ></h:commandButton>
-                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Limpiar" actionListener="#{beanMantInfraestructura.cancelar()}" ></h:commandButton>
-                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Editar" actionListener="#{beanMantInfraestructura.actualizaDatos()}" ></h:commandButton>
-
+                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 22%" value="Guardar" actionListener="#{beanMantInfraestructura.ingresarRegistro()}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 22%" value="Nuevo" actionListener="#{beanMantInfraestructura.cancelar()}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 22%" value="Editar" actionListener="#{beanMantInfraestructura.actualizaDatos()}" ></h:commandButton>
+                                                <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 22%" value="Ayuda"></h:commandButton>
                                             </td>
                                         </tr>
                                     </tBody>               
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <tr>
                                 <td>
-                                    <h:outputText value="Id o Nombre: "></h:outputText>
+                                    <h:outputText value="Busqueda: "></h:outputText>
                                 </td>
                                 <td>
                                     <h:inputText  value="#{beanMantInfraestructura.idNombre}"></h:inputText>
                                 </td>
                                 <td>
-                                    <h:commandButton class="btn btn-outline-dark" style="margin:2px;width: 25%" value="Buscar" actionListener="#{beanMantInfraestructura.buscarInfraestructuraBean()}" ></h:commandButton>
+                                    <h:commandButton class="btn btn-outline-dark" style="margin-left:2px;margin-bottom: 5px;" value="Buscar" actionListener="#{beanMantInfraestructura.buscarInfraestructuraBean()}" ></h:commandButton>
                                 </td>
                             </tr> 
                             <p:dataTable value="#{beanMantInfraestructura.listaTablaInfraestructura}" var="dep">

@@ -165,7 +165,12 @@ public class CursoDB {
         int idPrograma = c.getIdPrograma();
 
         //Se crea la sentencia de actualización
-        String update = "UPDATE Curso SET Descripcion = '"+ descripcion+ "', Estado="+ (estado?1:0) +  ",CodFunEdito='" + f.getId() + "',FechaEdito="  + "getDate()" + ",IdPrograma=" + idPrograma  + "where Id = " + id + ";";
+        String update = "UPDATE Curso SET Descripcion = '" + descripcion
+                + "', Estado=" + (estado?1:0) 
+                + ",CodFunEdito='" + f.getId() 
+                + "',FechaEdito="  + "getDate()" 
+                + ",IdPrograma="   + idPrograma  
+                + "where Id = "    + id + ";";
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }

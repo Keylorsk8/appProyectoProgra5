@@ -49,177 +49,80 @@ public class beanMantCurso implements Serializable {
     String mensajeId = " ";
     String mensajeDescripcion = " ";
     String mensajeEstado = " ";
-    String mensajeCodFunEdito = " ";
-    String mensajeCodFunIngreso = " ";
-    String mensajeFechaIngreso = " ";
-    String mensajeFechaEdito = " ";
     String mensajeIdPrograma = " ";
     String mensajeId2 = " ";
     String mensajesetMensajeAct = " ";
     String mensajeAlerta = " ";
+    LinkedList<SelectItem> listaCandCmb = new LinkedList();
+    LinkedList<Curso> listaTablaCurso = new LinkedList<>();
 
-    private LinkedList<SelectItem> listaCandCmb = new LinkedList();
-
-    public LinkedList<SelectItem> getListaCandCmb()
-            throws SNMPExceptions, SQLException {
-        return listaCandCmb;
-    }
-
-    public void setListaCandCmb(LinkedList<SelectItem> listaCandCmb) {
-        this.listaCandCmb = listaCandCmb;
-    }
-
-    LinkedList<Curso> listaTablaCurso = new LinkedList<Curso>();
-
-    public LinkedList<Curso> getListaTablaCurso() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
-        CursoDB dDB = new CursoDB();
-        LinkedList<Curso> listaTabla = new LinkedList<>();
-
-        if (!this.idNombre.equals("")) {
-            listaTabla = this.buscarCursoBean();
-        } else {
-            listaTabla = dDB.consultarCurso();
-        }
-
-        return listaTabla;
-
-    }
-
-    public void setListaTablaCurso(LinkedList<Curso> listaTablaCurso) {
-        this.listaTablaCurso = listaTablaCurso;
+    public beanMantCurso() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        fun = (Funcionario) session.getAttribute("user");
     }
 
     public LinkedList<Curso> buscarCursoBean() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         CursoDB dDB = new CursoDB();
         LinkedList<Curso> curso = new LinkedList<>();
         return curso = dDB.buscarCurso(idNombre);
-
-    }
-
-    public beanMantCurso() {
-
     }
 
     public void actualizaDatos() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         CursoDB cDB = new CursoDB();
         Curso cur = new Curso();
-
-        cur.setId(this.getId());
-        cur.setDescripcion(this.getDescripcion());
-        cur.setEstado(this.isEstado());
-        cur.setIdPrograma(this.getIdPrograma());
-
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        fun = (Funcionario) session.getAttribute("user");
-        cDB.actualizarCurso(cur, fun);
-
+        if (!validar()) {
+            cur.setId(this.getId());
+            cur.setDescripcion(this.getDescripcion());
+            cur.setEstado(this.estadoValidador.equals("Activo"));
+            cur.setIdPrograma(this.getIdPrograma());
+            cDB.actualizarCurso(cur, fun);
+        }
     }
-    
-    public String nombrePrograma(int idPrograma) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+
+    public String nombrePrograma(int idPrograma) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         LinkedList<Programa> periodo = new ProgramaDB().buscarPrograma(String.valueOf(idPrograma));
         Programa cu = periodo.get(0);
         return cu.getNombre();
     }
 
-    public void ingresarRegistro() throws
-        SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+    public void ingresarRegistro() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         CursoDB dDB = new CursoDB();
         Curso depUTN = new Curso();
-
-        try {
-            if (this.id == 0) {
-                this.mensajeId = "Id es Requerido";
-            }
-            if (this.descripcion.equals(" ")) {
-                this.mensajeDescripcion = "Descripcion es Requerido";
-            }
-            if (this.estado == false) {
-                this.mensajeEstado = "Estado es Requerido";
-            }
-            if (this.codFunIngreso.equals(" ")) {
-                this.mensajeCodFunIngreso = "CodFunIngreso es Requerido";
-            }
-            if (this.fechaIngreso == null) {
-                this.mensajeFechaIngreso = "FechaIngreso es Requerido";
-            }
-            if (this.codFunEdito.equals(" ")) {
-                this.mensajeCodFunEdito = "CodFunEdito es Requerido";
-            }
-            if (this.fechaEdito == null) {
-                this.mensajeFechaEdito = "FechaEdito es Requerido";
-            }
-            if (this.idPrograma == 0) {
-                this.mensajeIdPrograma = "IdPrograma es Requerido";
-            }
-
-            if (this.id > 1) {
-                this.mensajeId = " ";
-            }
-            if (!this.descripcion.equals(" ")) {
-                this.mensajeDescripcion = " ";
-            }
-            if (this.estado != false) {
-                this.mensajeEstado = " ";
-            }
-            if (!this.codFunIngreso.equals(" ")) {
-                this.mensajeCodFunIngreso = " ";
-            }
-            if (this.fechaIngreso != null) {
-                this.mensajeFechaIngreso = " ";
-            }
-            if (!this.codFunEdito.equals(" ")) {
-                this.mensajeCodFunEdito = " ";
-            }
-            if (this.fechaEdito != null) {
-                this.mensajeFechaEdito = " ";
-            }
-            if (this.idPrograma != 0) {
-                this.mensajeIdPrograma = " ";
-            }
-
-            if (!this.estadoValidador.equals("--Seleccione--")) {
-                this.mensajeEstado = " ";
-                if (this.estadoValidador.equals("Inactivo")) {
-                    this.estado = false;
-                } else {
-                    this.estado = true;
-                }
-
-                if (this.id > 1) {
-                    if (!this.descripcion.equals(" ")) {
-                        if (this.estado != false) {
-                            if (!this.codFunIngreso.equals(" ")) {
-                                if (this.fechaIngreso != null) {
-                                    if (!this.codFunEdito.equals(" ")) {
-                                        if (this.fechaEdito != null) {
-                                            if (this.idPrograma != 0) {
-                                                HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                                                fun = (Funcionario) session.getAttribute("user");
-
-                                                depUTN.setId(id);
-                                                depUTN.setDescripcion(descripcion);
-                                                depUTN.setEstado(estado);
-                                                depUTN.setIdPrograma(idPrograma);
-
-                                                dDB.mvRegitroCurso(depUTN, fun);
-                                                mensajeAlerta = "Realizado con exito";
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-            } else {
-                mensajeAlerta = "Porfavor llenar los datos";
-            }
-        } catch (SNMPExceptions | SQLException e) {
-            System.out.println("Error :" + e);
-            System.out.println("Mensaje :" + e.getMessage());
+        if (!validar()) {
+            depUTN.setId(id);
+            depUTN.setDescripcion(descripcion);
+            depUTN.setEstado(estado);
+            depUTN.setIdPrograma(idPrograma);
+            dDB.mvRegitroCurso(depUTN, fun);
+            mensajeAlerta = "Realizado con exito";
         }
+    }
 
+    public boolean validar() {
+        boolean errores = false;
+        if (this.id == 0) {
+            this.mensajeId = "Id es Requerido";
+            errores = true;
+        }
+        if (this.descripcion.equals(" ")) {
+            this.mensajeDescripcion = "Descripción es Requerido";
+            errores = true;
+        }
+        if (this.estadoValidador.equals("--Seleccione--")) {
+            this.mensajeEstado = "Estado es Requerido";
+            errores = true;
+        }
+        if (this.idPrograma == 0) {
+            this.mensajeIdPrograma = "Programa es Requerido";
+            errores = true;
+        }
+        if (!this.estadoValidador.equals("--Seleccione--")) {
+            this.estado = this.estadoValidador.equals("Activo");
+        } else {
+            mensajeAlerta = "Estado es Requerido";
+            errores = true;
+        }
+        return errores;
     }
 
     public void asignaDatos(Curso dep) {
@@ -232,7 +135,7 @@ public class beanMantCurso implements Serializable {
         setFechaEdito(dep.getFechaEdito());
         setIdPrograma(dep.getIdPrograma());
 
-        if (this.isEstado() == true) {
+        if (dep.isEstado()) {
             this.estadoValidador = "Activo";
         } else {
             this.estadoValidador = "Inactivo";
@@ -242,7 +145,7 @@ public class beanMantCurso implements Serializable {
     public LinkedList<SelectItem> getListaPrograma() throws SNMPExceptions, SQLException {
         String nomCandidato = "";
         int numCandidato = 0;
-        LinkedList<Programa> lista = new LinkedList<Programa>();
+        LinkedList<Programa> lista = new LinkedList<>();
         ProgramaDB cDB = new ProgramaDB();
         lista = cDB.moTodo();
         LinkedList resultList = new LinkedList();
@@ -279,6 +182,21 @@ public class beanMantCurso implements Serializable {
         this.mensajesetMensajeAct = mensajesetMensajeAct;
     }
 
+    public LinkedList<Curso> getListaTablaCurso() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        CursoDB dDB = new CursoDB();
+        LinkedList<Curso> listaTabla = new LinkedList<>();
+        if (!this.idNombre.equals("")) {
+            listaTabla = this.buscarCursoBean();
+        } else {
+            listaTabla = dDB.consultarCurso();
+        }
+        return listaTabla;
+    }
+
+    public void setListaTablaCurso(LinkedList<Curso> listaTablaCurso) {
+        this.listaTablaCurso = listaTablaCurso;
+    }
+
     public String getMensajeAlerta() {
         return mensajeAlerta;
     }
@@ -288,26 +206,19 @@ public class beanMantCurso implements Serializable {
     }
 
     public void cancelar() {
-        this.setCodFunEdito(" ");
-        this.setCodFunIngreso(" ");
         this.setDescripcion(" ");
         this.setEstado(false);
-        this.setFechaEdito(null);
-        this.setFechaIngreso(null);
         this.setId(0);
         this.setIdPrograma(0);
         this.setMensajeAlerta(" ");
-        this.setMensajeCodFunEdito(" ");
-        this.setMensajeCodFunIngreso(" ");
         this.setMensajeDescripcion(" ");
         this.setMensajeEstado(" ");
-        this.setMensajeFechaEdito(" ");
-        this.setMensajeFechaIngreso(" ");
         this.setMensajeId(" ");
         this.setMensajeIdPrograma(" ");
         this.setMensajesetMensajeAct(" ");
         this.setIdNombre("");
         this.setListaTablaCurso(listaTablaCurso);
+        this.setEstadoValidador("");
     }
 
     public int getId() {
@@ -398,38 +309,6 @@ public class beanMantCurso implements Serializable {
         this.mensajeEstado = mensajeEstado;
     }
 
-    public String getMensajeCodFunEdito() {
-        return mensajeCodFunEdito;
-    }
-
-    public void setMensajeCodFunEdito(String mensajeCodFunEdito) {
-        this.mensajeCodFunEdito = mensajeCodFunEdito;
-    }
-
-    public String getMensajeCodFunIngreso() {
-        return mensajeCodFunIngreso;
-    }
-
-    public void setMensajeCodFunIngreso(String mensajeCodFunIngreso) {
-        this.mensajeCodFunIngreso = mensajeCodFunIngreso;
-    }
-
-    public String getMensajeFechaIngreso() {
-        return mensajeFechaIngreso;
-    }
-
-    public void setMensajeFechaIngreso(String mensajeFechaIngreso) {
-        this.mensajeFechaIngreso = mensajeFechaIngreso;
-    }
-
-    public String getMensajeFechaEdito() {
-        return mensajeFechaEdito;
-    }
-
-    public void setMensajeFechaEdito(String mensajeFechaEdito) {
-        this.mensajeFechaEdito = mensajeFechaEdito;
-    }
-
     public String getMensajeIdPrograma() {
         return mensajeIdPrograma;
     }
@@ -462,4 +341,11 @@ public class beanMantCurso implements Serializable {
         this.mensajeId2 = mensajeId2;
     }
 
+    public LinkedList<SelectItem> getListaCandCmb() throws SNMPExceptions, SQLException {
+        return listaCandCmb;
+    }
+
+    public void setListaCandCmb(LinkedList<SelectItem> listaCandCmb) {
+        this.listaCandCmb = listaCandCmb;
+    }
 }

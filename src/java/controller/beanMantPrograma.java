@@ -101,6 +101,8 @@ public class beanMantPrograma implements Serializable {
         fun = (Funcionario) session.getAttribute("user");
 
         cDB.actualizarPrograma(cur, fun);
+        this.cancelar();
+        mensajeAlerta = "Editado con Exito";
     }
 
     public void ingresarRegistro() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
@@ -142,6 +144,7 @@ public class beanMantPrograma implements Serializable {
                         depUTN.setEstado(estado);
                         depUTN.setNombre(nombre);
                         dDB.mvRegitroPrograma(depUTN, fun);
+                        this.cancelar();
                         mensajeAlerta = "Realizado con exito";
                     }
                 }

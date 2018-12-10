@@ -72,10 +72,10 @@
                                         <tBody>
                                             <tr>
                                                 <td>
-                                                    <h:outputText value="Descripcion: "></h:outputText>
+                                                    <h:outputText value="Descripción: "></h:outputText>
                                                 </td>
                                                 <td>
-                                                    <h:inputText value="#{beanMantOferta.descripcion}"></h:inputText>
+                                                    <h:inputText value="#{beanMantOferta.descripcion}" class="form-control"></h:inputText>
                                                 </td>
                                                 <td>
                                                     <h:outputText style="color: red" value="#{beanMantOferta.mensajeDescripcion}"></h:outputText>
@@ -101,7 +101,7 @@
                                                     <h:outputText value="Fecha de Inicio: "></h:outputText>
                                                 </td>
                                                 <td>
-                                                    <p:inputText type="date" value="#{beanMantOferta.fechaInicio}"></p:inputText>
+                                                    <p:inputText type="date"  class="form-control" value="#{beanMantOferta.fechaInicio}"></p:inputText>
                                                 </td>
                                                 <td>
                                                     <h:outputText style="color: red" value="#{beanMantOferta.mensajefechaIncio}"></h:outputText>
@@ -112,7 +112,7 @@
                                                     <h:outputText value="Fecha final: "></h:outputText>
                                                 </td>
                                                 <td>
-                                                    <p:inputText type="date" value="#{beanMantOferta.fechaFinal}"></p:inputText>
+                                                    <p:inputText type="date"  class="form-control" value="#{beanMantOferta.fechaFinal}"></p:inputText>
                                                 </td>
                                                 <td>
                                                     <h:outputText style="color: red" value="#{beanMantOferta.mensajefechaFinal}"></h:outputText>
@@ -123,7 +123,7 @@
                                                     <h:outputText value="Hora inicio: "></h:outputText>
                                                 </td>
                                                 <td>
-                                                    <p:inputText type="number" value="#{beanMantOferta.horaInicio}"></p:inputText>
+                                                    <p:inputText type="number"  class="form-control" value="#{beanMantOferta.horaInicio}"></p:inputText>
                                                 </td>
                                                 <td>
                                                     <h:outputText style="color: red" value="#{beanMantOferta.mensajehoraInicio}"></h:outputText>
@@ -134,7 +134,7 @@
                                                     <h:outputText value="Hora Final: "></h:outputText>
                                                 </td>
                                                 <td>
-                                                    <p:inputText type="number" value="#{beanMantOferta.horaFinal}"></p:inputText>
+                                                    <p:inputText type="number"  class="form-control" value="#{beanMantOferta.horaFinal}"></p:inputText>
                                                 </td>
                                                 <td>
                                                     <h:outputText style="color: red" value="#{beanMantOferta.mensajehoraFinal}"></h:outputText>
@@ -142,10 +142,10 @@
                                             </tr>  
                                             <tr>
                                                 <td>
-                                                    <h:outputText value="IdCurso: "></h:outputText>
+                                                    <h:outputText value="Curso: "></h:outputText>
                                                 </td>
                                                 <td>
-                                                    <h:selectOneMenu value="#{beanMantOferta.idCurso}">                                          
+                                                    <h:selectOneMenu  class="form-control" value="#{beanMantOferta.idCurso}">                                          
                                                         <f:selectItems value="#{beanMantOferta.listaCurso}"></f:selectItems>
                                                     </h:selectOneMenu>
                                                 </td>
@@ -155,10 +155,10 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <h:outputText value="IdInfraestructura: "></h:outputText>
+                                                    <h:outputText value="Infraestructura: "></h:outputText>
                                                 </td>
                                                 <td>
-                                                    <h:selectOneMenu value="#{beanMantOferta.idInfraestructura}">                                          
+                                                    <h:selectOneMenu  class="form-control" value="#{beanMantOferta.idInfraestructura}">                                          
                                                         <f:selectItems value="#{beanMantOferta.listaInfraestructura}"></f:selectItems>
                                                     </h:selectOneMenu>
                                                 </td>
@@ -168,10 +168,10 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <h:outputText value="IdPeriodo: "></h:outputText>
+                                                    <h:outputText value="Periodo: "></h:outputText>
                                                 </td>
                                                 <td>
-                                                    <h:selectOneMenu value="#{beanMantOferta.idPeriodo}">                                          
+                                                    <h:selectOneMenu  class="form-control" value="#{beanMantOferta.idPeriodo}">                                          
                                                         <f:selectItems value="#{beanMantOferta.listaPeriodo}"></f:selectItems>
                                                     </h:selectOneMenu>
                                                 </td>
@@ -193,20 +193,20 @@
                             <div class="col-md-8">
                                 <tr>
                                     <td>
-                                        <h:outputText value="Id: "></h:outputText>
+                                        <h:outputText value="Busqueda por código: "></h:outputText>
                                     </td>
                                     <td>
                                         <p:inputText type="number" value="#{beanMantOferta.idNumero}"></p:inputText>
                                     </td>                           
                                     <td>
-                                        <h:commandButton class="btn btn-outline-dark" style="width: 25%;margin:5px" value="Buscar" actionListener="#{beanMantOferta.buscarOfertaBean()}" ></h:commandButton>
+                                        <h:commandButton class="btn btn-outline-dark" style="margin-left: 5px;margin-bottom: 5px;" value="Buscar" actionListener="#{beanMantOferta.buscarOfertaBean()}" ></h:commandButton>
                                     </td>
                                 </tr> 
-                                <p:dataTable value="#{beanMantOferta.listaTablaOferta}" var="dep">
+                                <p:dataTable value="#{beanMantOferta.listaTablaOferta}" var="dep" style="font-size: 10px;color: black">
                                     <p:column headerText="Id">
                                         <h:outputText value="#{dep.id}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="Descripcion">
+                                    <p:column headerText="Descripción">
                                         <h:outputText value="#{dep.descripcion}"></h:outputText>
                                     </p:column>            
                                     <p:column headerText="Estado">
@@ -227,10 +227,10 @@
                                     <p:column headerText="Curso">
                                         <h:outputText value="#{beanMantOferta.nombreCurso(dep.idCurso)}"></h:outputText>
                                     </p:column> 
-                                    <p:column headerText="IdInfraestructura">
+                                    <p:column headerText="Infraestructura">
                                         <h:outputText value="#{beanMantOferta.nombreInfraestructura((dep.idInfraestructura))}"></h:outputText>
                                     </p:column>
-                                    <p:column headerText="IdPeriodo">
+                                    <p:column headerText="Periodo">
                                         <h:outputText value="#{beanMantOferta.nombrePeriodo((dep.idPeriodo))}"></h:outputText>
                                     </p:column> 
                                     <p:column>

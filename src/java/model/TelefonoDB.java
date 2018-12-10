@@ -35,7 +35,7 @@ public class TelefonoDB {
                 Telefono te = new Telefono(tipoTelefono, numero);
                 telefonos.add(te);
             }
-        } catch (Exception e) {
+        } catch (SNMPExceptions | ClassNotFoundException | SQLException | NamingException e) {
         }
         return telefonos;
     }
