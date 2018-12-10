@@ -80,6 +80,7 @@ public class beanPrimeraVez implements Serializable {
         }
         if (contra.length() > 12) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La contraseña debe tener 8 digitas minino y 12 máximo"));
+            errores = true;
         }
         for (int i = 0; i < contra.length(); i++) {
             try {
