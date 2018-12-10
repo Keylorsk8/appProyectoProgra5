@@ -29,4 +29,5 @@ and open the template in the editor.
 
 .ui-growl-item-container {
     background-color: lightseagreen;
+    z-index: 100000;
 }

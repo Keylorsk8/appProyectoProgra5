@@ -293,4 +293,15 @@ public class FuncionarioDB {
         } finally {
         }
     }
+
+    public void primeraVez(Funcionario fun) {
+        String update;
+        try {
+            update = "Update Funcionario set Contrasenia = '" + fun.getContraseña()
+                    + "',PrimeraVez = 0 where Id = " + fun.getId();
+            accesoDatos.ejecutaSQL(update);
+        } catch (SNMPExceptions | ClassNotFoundException | SQLException | NamingException e) {
+        }finally{
+        }
+    }
 }

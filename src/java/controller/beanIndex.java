@@ -72,6 +72,9 @@ public class beanIndex implements Serializable {
             HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 session.setAttribute("user", fun);
                 session.setAttribute("TipoUsuario",1);
+                if(fun.isPrimeraVez()){
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("PrimeraVez.xhtml");
+                }
             FacesContext.getCurrentInstance().getExternalContext().redirect("MenuPrincipal.xhtml");
         }
         if(fun.getIdTipoUsuario() == 2){
@@ -79,11 +82,17 @@ public class beanIndex implements Serializable {
                 HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 session.setAttribute("user", fun);
                 session.setAttribute("TipoUsuario",1);
+                if(fun.isPrimeraVez()){
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("PrimeraVez.xhtml");
+                }
                 FacesContext.getCurrentInstance().getExternalContext().redirect("MenuPrincipal.xhtml");
             }else{
                 HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 session.setAttribute("user", fun);
                 session.setAttribute("TipoUsuario",2);
+                if(fun.isPrimeraVez()){
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("PrimeraVez.xhtml");
+                }
                 FacesContext.getCurrentInstance().getExternalContext().redirect("MenuPrincipalCoordinador.xhtml");
             }
         }
