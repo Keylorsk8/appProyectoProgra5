@@ -11,6 +11,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.RespectBindingFeature;
 import model.Funcionario;
 
 /**
@@ -26,7 +27,6 @@ public class beanMenuPrincipal implements Serializable {
 
     /**
      * Creates a new instance of beanMenuPrincipal
-     * @throws java.io.IOException
      */
     public beanMenuPrincipal() throws IOException {
         try {

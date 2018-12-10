@@ -146,13 +146,7 @@ public class beanVerSolicitud implements Serializable {
     }
 
     public int generarCodigo() {
-        int num1 = (int) (10000 * Math.random());
-        String num = "" + num1;
-        if(num.length() < 4){
-            return Integer.parseInt(num) + 1000;
-        }else{
-            return Integer.parseInt(num);
-        }
+        return (int) (10000 * Math.random());
     }
 
     public LinkedList<SelectItem> getListaProgramas() throws SNMPExceptions {

@@ -2,9 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
@@ -54,96 +52,7 @@
             </ui:define>
 
             <ui:define name="Content">
-                <h:form>
-                    <p:panel class="alert alert-danger alert-dismissable" rendered="#{beanConfiguracionPerfilCoordinador.mensajes != null}">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <h2>#{beanConfiguracionPerfilCoordinador.mensajes}</h2>
-                    </p:panel>
-                    <p:panel header="Configuración Perfil" style="margin-left: 15px;margin-top: 15px;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <p:panel header="Información Personal" style="height: 100%">
-                                                <p:panelGrid columns="2">
-                                                    <h:outputLabel value="Identificación"></h:outputLabel>
-                                                    <h:outputLabel value="#{beanConfiguracionPerfilCoordinador.fun.id}"></h:outputLabel>
-                                                    <h:outputLabel value="Nombre:"></h:outputLabel>
-                                                    <h:outputLabel value="#{beanConfiguracionPerfilCoordinador.fun.nombre} #{beanConfiguracionPerfilCoordinador.fun.apellido1} #{beanConfiguracionPerfilCoordinador.fun.apellido2}"></h:outputLabel>
-                                                    <h:outputLabel value="Fecha Nacimiento"></h:outputLabel>
-                                                    <h:outputLabel value="#{beanConfiguracionPerfilCoordinador.fun.fechaNacimiento.substring(0,10)}"></h:outputLabel>
-                                                    <h:outputLabel value="Edad"></h:outputLabel>
-                                                    <h:outputLabel value="#{beanConfiguracionPerfilCoordinador.fun.edad}"></h:outputLabel>
-                                                </p:panelGrid>
-                                            </p:panel>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12" style="margin-top: 10px">
-                                            <p:panel header="Dirección">
-                                                <p:panelGrid columns="2">
-                                                    <h:outputLabel value="Provincia"></h:outputLabel>
-                                                    <h:selectOneMenu disabled="true" id="cmbProvincias"  class="form-control" value="#{beanConfiguracionPerfilCoordinador.dir.idProvincia}">
-                                                        <f:selectItems value="#{beanConfiguracionPerfilCoordinador.provincias}"></f:selectItems>
-                                                        <f:ajax event="change" listener="#{beanConfiguracionPerfilCoordinador.valueChangedProvincias}" execute="@this" render="cmbCantones cmbDistritos cmbBarrios"></f:ajax>
-                                                    </h:selectOneMenu>
-                                                    <h:outputLabel value="Canton"></h:outputLabel>
-                                                    <h:selectOneMenu disabled="true" id="cmbCantones"  class="form-control" value="#{beanConfiguracionPerfilCoordinador.dir.idCanton}">
-                                                        <f:selectItems value="#{beanConfiguracionPerfilCoordinador.cantones}"></f:selectItems>
-                                                        <f:ajax event="change" listener="#{beanConfiguracionPerfilCoordinador.valueChangedCanton}" execute="@this" render="cmbDistritos cmbBarrios"></f:ajax>
-                                                    </h:selectOneMenu>
-                                                    <h:outputLabel value="Distrito"></h:outputLabel>
-                                                    <h:selectOneMenu disabled="true" id="cmbDistritos" class="form-control" value="#{beanConfiguracionPerfilCoordinador.dir.idDistrito}">
-                                                        <f:selectItems value="#{beanConfiguracionPerfilCoordinador.distritos}"></f:selectItems>
-                                                        <f:ajax event="change" listener="#{beanConfiguracionPerfilCoordinador.valueChangedDistrito}" execute="@this" render="cmbBarrios"></f:ajax>
-                                                    </h:selectOneMenu>
-                                                    <h:outputLabel value="Barrio"></h:outputLabel>
-                                                    <h:selectOneMenu disabled="true" rendered="#{beanConfiguracionPerfilCoordinador.barrios.size() > 0}" id="cmbBarrios" class="form-control" value="#{beanConfiguracionPerfilCoordinador.dir.idBarrio}">
-                                                        <f:selectItems value="#{beanConfiguracionPerfilCoordinador.barrios}"></f:selectItems>
-                                                    </h:selectOneMenu>
-                                                    <h:outputLabel value="Otras Señas"></h:outputLabel>
-                                                    <h:inputText disabled="true" value="#{beanConfiguracionPerfilCoordinador.dir.otrasSenias}" class="form-control"></h:inputText>
-                                                </p:panelGrid>
-                                            </p:panel>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <p:panel header="Contacto">
-                                        <p:panelGrid columns="2">
-                                            <h:outputLabel value="Email"></h:outputLabel>
-                                            <h:outputLabel value="#{beanConfiguracionPerfilCoordinador.fun.email}"></h:outputLabel>
-                                            <h:outputLabel value="Telefonos"></h:outputLabel>
-                                            <p:dataTable value="#{beanConfiguracionPerfilCoordinador.telefonos}" var="tel" emptyMessage="No existen teléfonos">
-                                                <p:column headerText="Tipo Teléfono">
-                                                    <h:outputText value="#{tel.tipoTelefono == 1?'Celular':'Fijo'}"></h:outputText>
-                                                </p:column>
-                                                <p:column headerText="Número">
-                                                    <h:outputText value="#{tel.numero}"></h:outputText>
-                                                </p:column>
-                                            </p:dataTable>
-                                        </p:panelGrid>
-                                        <h:panelGrid columns="1">
-                                            <h3 style="margin-top: 5px ">Insertar Nuevo Número</h3>
-                                            <p:panelGrid columns="2">
-                                                <h:outputLabel value="Tipo Teléfono" ></h:outputLabel>
-                                                <h:selectOneMenu class="form-control" value="#{beanConfiguracionPerfilCoordinador.tipoTelefono}">
-                                                    <f:selectItem itemLabel="Celular" itemValue="1"></f:selectItem>
-                                                    <f:selectItem itemLabel="Teléfono Fijo" itemValue="2"></f:selectItem>
-                                                </h:selectOneMenu>
-                                                <h:outputLabel value="Número Teléfono"></h:outputLabel>
-                                                <h:inputText value="#{beanConfiguracionPerfilCoordinador.numero}"></h:inputText>
-                                            </p:panelGrid>
-                                            <h:commandButton value="Añadir" class="btn btn-outline-dark" actionListener="#{beanConfiguracionPerfilCoordinador.guardarNumero()}" style="margin-top: 5px;"></h:commandButton>
-                                        </h:panelGrid>
-                                    </p:panel>
-                                    <h:commandButton class="btn btn-outline-danger" value="Cerrar Sesión" style="margin-top: 5px;float: right" actionListener="#{beanConfiguracionPerfilCoordinador.cerrarSesion()}"></h:commandButton>
-                                </div>
-                            </div>
-                        </div>
-                    </p:panel>
-                </h:form>
+                <h:commandButton value="Cerrar Sesión" actionListener="#{beanConfiguracionPerfilCoordinador.cerrarSesion()}"></h:commandButton>
             </ui:define>
 
             <ui:define name="FooterLinks">
